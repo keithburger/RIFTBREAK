@@ -1,0 +1,30 @@
+{
+  "name": "riftbreak",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:fast": "vitest run --exclude tests/sim.fullrun.test.ts",
+    "validate": "tsx scripts/validate-content.ts",
+    "manifest": "tsx scripts/build-manifest.ts",
+    "balance": "tsx scripts/balance.ts",
+    "bench": "tsx scripts/bench.ts",
+    "e2e": "node scripts/e2e.cjs",
+    "verify": "npm run typecheck && npm run validate && npm run test && npm run manifest && npm run build"
+  },
+  "dependencies": {
+    "pixi.js": "^8.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vite": "^6.0.0",
+    "vitest": "^3.0.0"
+  }
+}
