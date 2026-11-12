@@ -8,7 +8,7 @@ import type { BiomeDef, ContentDB } from '../sim/types';
 import { BODIES, BOSS_BODIES, PLAYER_SHIPS, drawEmblem, type Kit, makeKit } from './shapes';
 
 export const ATLAS_SCALE = 2;
-const PAGE = 2048;
+const PAGE = 4096;
 type Ctx = CanvasRenderingContext2D;
 
 export interface Frame { x: number; y: number; w: number; h: number }
@@ -230,11 +230,6 @@ function backgrounds(a: Atlas, biomes: BiomeDef[]): void {
       c.strokeStyle = css(b.pal.accent, 0.1); c.lineWidth = 6;
       for (let i = 0; i < 4; i++) { const y = 64 + i * 128; c.beginPath(); c.moveTo(0, y); c.lineTo(S, y); c.stroke(); }
     } else if (b.idx === 2) { // archive: hex tiles + rune dots
-      const h = 64;
-      for (let row = 0; row < 9; row++) for (let col = 0; col < 6; col++) {
-        const x = col * h * 1.5 * (S / (h * 1.5 * 5.333)) , y = row * h * 0.866 * (S / (h * 0.866 * 9.24)) ;
-        void x; void y;
-      }
       for (let y = 0; y <= S; y += 64) for (let x = (y / 64) % 2 ? 32 : 0; x <= S; x += 64) { c.beginPath(); for (let k = 0; k < 6; k++) { const an = k * 1.047 + 0.5236; c.lineTo(x + Math.cos(an) * 36, y + Math.sin(an) * 36); } c.closePath(); c.stroke(); }
       c.fillStyle = css(b.pal.accent, 0.22);
       for (let i = 0; i < 40; i++) { c.beginPath(); c.arc(rnd() * S, rnd() * S, 1.6, 0, 7); c.fill(); }
