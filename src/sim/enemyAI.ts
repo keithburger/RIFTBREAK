@@ -51,7 +51,7 @@ MOVES.charge = (w, e, dt, sp, a) => {
   if (e.ai === 0) {
     go(e, toPlayer(w, e), sp, dt);
     if (distP(w, e) < 300 && e.t > 1.2) {
-      e.ai = 1; e.t = 0; e.ax = toPlayer(w, e); e.dir = e.ax;
+      e.ai = 1; e.t = 0; e.ax = toPlayer(w, e); e.dir = e.ax; e.vx = e.vy = 0;
       spawnBeam(w, e.x, e.y, e.ax, sp * N(a[2], 4) * N(a[3], 0.6) + 40, e.r * 2, 0.05, 0, 'fire', 1, null, { delay: N(a[1], 0.7), color: TELE });
     }
   } else if (e.ai === 1) {
@@ -408,7 +408,7 @@ export function updateEnemies(w: World, dt: number): void {
       if (dd > w.arena.r - e.r) { e.x = w.arena.x + (dx / dd) * (w.arena.r - e.r); e.y = w.arena.y + (dy / dd) * (w.arena.r - e.r); }
     }
     // contact damage
-    if (e.touchT <= 0 && !e.hidden && e.dmg > 0 && e.freezeT <= 0 && e.age > 0.5) {
+    if (e.touchT <= 0 && !e.hidden && !e.invuln && e.dmg > 0 && e.freezeT <= 0 && e.age > 0.5) {
       const dx = p.x - e.x, dy = p.y - e.y, rr = e.r + p.r * 0.7;
       if (dx * dx + dy * dy < rr * rr && (!e.boss || e.boss.dying <= 0)) {
         e.touchT = 0.5;

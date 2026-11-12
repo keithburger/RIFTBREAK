@@ -913,6 +913,7 @@ registerKind('curse', {
       if (n <= 0) break;
       if (e.curseT > 0) continue;
       applyCurse(w, e, wi);
+      hitEnemy(w, e, p.dmg, p, wi);
       w.fx.line(pl.x, pl.y, e.x, e.y, p.color, 1.5, 0.2);
       n--; any = true;
     }

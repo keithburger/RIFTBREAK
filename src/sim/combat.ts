@@ -224,7 +224,7 @@ export function tickStatus(w: World, e: Enemy, dt: number): void {
       if (tick) damageEnemy(w, e, cw.p.dmg * 0.5, cw.p.el, cw, F_DOT | F_NOCRIT);
       if ((e.curseT -= dt) <= 0 && e.alive && cw.p.x.expire) {
         w.fx.ring(e.x, e.y, 50, cw.p.color, 0.25);
-        hitCircle(w, e.x, e.y, 50, cw.p.dmg * cw.p.x.expire, cw.p.el, cw, F_NOREACT);
+        hitCircle(w, e.x, e.y, 50, cw.p.dmg * cw.p.x.expire, cw.p, cw);
       }
     }
   }
@@ -291,7 +291,7 @@ export function runReaction(w: World, e: Enemy, def: ReactionDef, basis: number,
         break;
       }
       case 'spread':
-        for (const o of w.grid.query(x, y, f.r)) if (o.alive && o.mark === null) { o.mark = trigger; o.markT = 6; }
+        for (const o of w.grid.query(x, y, f.r)) if (o !== e && o.alive && o.mark === null) { o.mark = trigger; o.markT = 6; }
         break;
       case 'shards': {
         const wp: WP = { kind: 'shot', el: trigger, dmg: basis * f.mult, cd: 1, count: 1, speed: 380, range: 260, area: 6, dur: 1, pierce: 1, spread: 0, tick: 0, kb: 0, x: { raw: 1 }, sprite: 'p_shard', color: def.col };

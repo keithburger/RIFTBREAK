@@ -66,11 +66,21 @@ const wall: BossAttack = {
   },
 };
 
+const encircle: BossAttack = {
+  name: 'constrict', dur: 5.5,
+  run(w, e, c, dt) {
+    // coil around the player: the body itself becomes a closing wall
+    const a = c.t * 1.1, R = 300 - Math.min(90, c.at * 22);
+    swim(e, c, w.player.x + Math.cos(a) * R, w.player.y + Math.sin(a) * R, 330, dt, 3.2);
+    if (c.at > 1 && every(c.at, dt, 0.55)) for (const i of [2, 6, 10]) { const s = c.segs[i]; spawnBullet(w, s.x, s.y, pAng(w, s), 135, e.dmg, 8, C2, 4); }
+  },
+};
+
 /** Segmented serpent: the whole body is a hazard; lunges, whirlpools and walls of water. */
 export const tidalLeviathan: BossDef = {
   id: 'tidal_leviathan', name: 'Tidal Leviathan', title: 'Coil of the Drowned Archive', desc: 'A colossal serpent whose coils fill the arena.',
   biome: 2, el: 'water', hp: 1900, r: 42, dmg: 16, spd: 210, col: C, col2: C2, phases: [0.66, 0.33],
-  attacks: [[barrage, lunge, whirlpool], [wall, lunge, barrage, whirlpool, lunge], [lunge, wall, lunge, whirlpool, barrage]],
+  attacks: [[barrage, lunge, whirlpool], [wall, lunge, barrage, whirlpool, lunge], [encircle, wall, lunge, whirlpool, barrage]],
   init(w, e, c) {
     c.d.h = Math.PI / 2;
     for (let i = 0; i < SEGS; i++) {
