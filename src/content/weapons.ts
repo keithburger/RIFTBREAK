@@ -139,7 +139,7 @@ export const WEAPON_DEFS: WeaponDef[] = [
     E('sonic_boom', 'Sonic Boom', 'blink', 'Dashing unleashes shockwaves at both ends.', ['x.boom=120', 'dmg*1.4', 'count+2'])),
   // ------------------------------------------------------------------ EARTH
   W('boulder_ring', 'Boulder Ring', 'earth', 'Orbiting boulders that smash foes and block shots.',
-    { kind: 'orbit', dmg: 16, count: 2, range: 60, area: 20, speed: 1.7, tick: 0.5, kb: 200, x: { block: 1 }, sprite: 'p_rock' },
+    { kind: 'orbit', dmg: 16, count: 2, range: 72, area: 22, speed: 1.7, tick: 0.5, kb: 200, x: { block: 1 }, sprite: 'p_rock' },
     [['dmg*1.35'], ['count+1'], ['area*1.25', 'range*1.15'], ['dmg*1.3']],
     E('asteroid_belt', 'Asteroid Belt', 'multicast', 'A second, counter-rotating outer ring.', ['x.ring2=1', 'dmg*1.3']),
     E('gravel_storm', 'Gravel Storm', 'impact', 'Impacts spray shrapnel in all directions.', ['x.shrap=1', 'dmg*1.5', 'speed*1.3'])),

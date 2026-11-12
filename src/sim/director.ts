@@ -13,10 +13,10 @@ export const TIER_UNLOCK = [0, 50, 125, 205];
 export function difficulty(w: World): void {
   const T = w.time / 60 + w.cycle * 4;
   const m = w.mode;
-  w.diff.hp = (1 + 0.2 * T + 0.06 * T * T) * (m.enemyHp ?? 1);
+  w.diff.hp = (1 + 0.2 * T + 0.07 * T * T) * (m.enemyHp ?? 1);
   w.diff.dmg = 1 + 0.045 * T;
   w.diff.spd = Math.min(1.3, 1 + 0.01 * T) * (m.enemySpd ?? 1);
-  w.diff.bossHp = (1 + 0.5 * T + 0.2 * T * T) * (m.enemyHp ?? 1);
+  w.diff.bossHp = (1 + 0.5 * T + 0.3 * T * T) * (m.enemyHp ?? 1);
   w.xpMul = m.xpMul ?? 1;
 }
 

@@ -23,7 +23,7 @@ export function gainXp(w: World, v: number): void {
     p.level++;
     p.xpNext = xpForLevel(p.level);
     w.pendingLevels++;
-    p.hp = Math.min(p.stats.maxHp, p.hp + 4);
+    p.hp = Math.min(p.stats.maxHp, p.hp + p.stats.maxHp * 0.05);
   }
 }
 

@@ -11,6 +11,7 @@ import { updateHazards } from './hazards';
 import { createPlayer, updatePickups, updatePlayer } from './player';
 import { recomputeStats } from './stats';
 import type { Beam, BiomeDef, Bullet, ContentDB, Encounter, Enemy, InputState, Minion, ModeDef, Pickup, Player, Proj, RunStats, Zone } from './types';
+import './weaponKinds';
 import { makeWeapon, updateBeams, updateMinions, updateProjectiles, updateWeapons, updateZones } from './weapons';
 
 export interface WorldOpts {
@@ -73,7 +74,7 @@ export class World {
   nextId = 1;
   god = false;
   spawningOff = false;
-  stats: RunStats = { kills: 0, dmgDealt: 0, dmgTaken: 0, reactions: 0, shards: 0, bosses: [], events: 0, elites: 0, maxEnemies: 0, reactionIds: {}, biomes: 0 };
+  stats: RunStats = { kills: 0, dmgDealt: 0, dmgTaken: 0, reactions: 0, shards: 0, bosses: [], events: 0, elites: 0, maxEnemies: 0, reactionIds: {}, biomes: 0, hurtBy: {} };
 
   constructor(o: WorldOpts) {
     this.content = o.content;

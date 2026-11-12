@@ -213,7 +213,7 @@ export interface OptionDef {
 
 export interface RunStats {
   kills: number; dmgDealt: number; dmgTaken: number; reactions: number; shards: number; bosses: string[];
-  events: number; elites: number; maxEnemies: number; reactionIds: Record<string, number>; biomes: number;
+  events: number; elites: number; maxEnemies: number; reactionIds: Record<string, number>; biomes: number; hurtBy: Record<string, number>;
 }
 
 export interface InputState { mx: number; my: number; dash: boolean }

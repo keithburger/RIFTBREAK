@@ -159,7 +159,7 @@ describe('bosses', () => {
     for (let i = 1; i < c.segs.length; i++) expect(Math.hypot(c.segs[i].x - c.segs[i - 1].x, c.segs[i].y - c.segs[i - 1].y)).toBeLessThan(40);
     const hp = e.hp;
     damageEnemy(w, c.segs[5], 300, 'fire', null, F_NOCRIT);
-    expect(e.hp).toBeCloseTo(hp - 300);
+    expect(e.hp).toBeCloseTo(hp - 300 * 0.35);
   });
 
   it('Rift Sovereign shrinks the arena in its final phase', () => {

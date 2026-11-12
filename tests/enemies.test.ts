@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { damageEnemy, killEnemy, nearestEnemy, F_NOCRIT } from '../src/sim/combat';
 import { TIER_UNLOCK, spawnGroup } from '../src/sim/director';
 import { spawnEnemy } from '../src/sim/entities';
-import { C, IDLE, mkWorld, orbiting, run } from './helpers';
+import { C, IDLE, mkWorld, orbiting, run, strongBuild } from './helpers';
 
 const SUPPORT = new Set(['shield_generator', 'repair_drone', 'overclocker', 'entropy_weaver']);
 
@@ -156,7 +156,7 @@ describe('spawning', () => {
     const w = mkWorld({ seed: 11 });
     w.spawningOff = false;
     w.god = true;
-    w.player.weapons = [];
+    strongBuild(w); // keep the field churning so later tiers get room to spawn
     const seenTier = new Map<number, number>();
     const known = new Set<number>();
     for (let i = 0; i < 60 * 240; i++) {
@@ -175,6 +175,6 @@ describe('spawning', () => {
     }
     for (const [tier, t] of seenTier) expect(t, `tier ${tier} unlock`).toBeGreaterThanOrEqual(TIER_UNLOCK[tier] - 0.1);
     expect(seenTier.size).toBe(4);
-    expect(w.enemies.length).toBeGreaterThan(100);
+    expect(known.size).toBeGreaterThan(400);
   });
 });

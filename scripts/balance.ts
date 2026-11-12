@@ -33,6 +33,7 @@ for (let i = 0; i < runs; i++) {
   for (const wi of w.player.weapons) weaponDmg.set(wi.evo?.name ?? wi.def.name, (weaponDmg.get(wi.evo?.name ?? wi.def.name) ?? 0) + wi.dmgDone);
   console.log(`#${i} ${cls}/${bot.policy} ${w.state.toUpperCase()} t=${(w.time / 60).toFixed(1)}m L${w.player.level} kills=${w.stats.kills} bosses=[${w.stats.bosses.length}] bossDur=[${bossDur.join(',')}] react=${w.stats.reactions} dmgTaken=${Math.round(w.stats.dmgTaken)} maxEn=${w.stats.maxEnemies} biome=${w.biomeIdx}${w.boss ? ' @boss:' + w.boss.def.id + ' ' + Math.round((w.boss.hp / w.boss.maxHp) * 100) + '%' : ''}`);
   console.log('   ' + marks.join(' | '));
+  console.log('   hurtBy: ' + Object.entries(w.stats.hurtBy).sort((a, b) => b[1] - a[1]).slice(0, 7).map(([k, v]) => `${k} ${Math.round(v)}`).join(', '));
   console.log('   build: ' + w.player.weapons.map((x) => `${x.evo?.name ?? x.def.name}[${x.rank}] ${(x.dmgDone / 1000).toFixed(0)}k`).join(', '));
 }
 console.log(`\nwin ${agg.won}/${agg.n}  avgTime ${(agg.time / agg.n / 60).toFixed(1)}m  avgLevel ${(agg.level / agg.n).toFixed(1)}  wall ${((Date.now() - t0) / 1000).toFixed(1)}s`);

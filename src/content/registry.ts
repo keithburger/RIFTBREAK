@@ -2,6 +2,7 @@
  * Content registry: assembles every definition into the ContentDB the simulation consumes and
  * validates cross-references. Adding content = add a def to the relevant file; nothing else.
  */
+import '../sim/weaponKinds';
 import { MINIONS, KINDS } from '../sim/weapons';
 import { ATTACKS, MOVES } from '../sim/enemyAI';
 import { HAZARDS } from '../sim/hazards';

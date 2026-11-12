@@ -20,7 +20,7 @@ export class Bot {
       if (!e.alive || e.hidden) continue;
       const dx = p.x - e.x, dy = p.y - e.y;
       const d = Math.hypot(dx, dy) - e.r;
-      const reach = e.boss ? 300 : e.def.move[0] === 'charge' || e.elite ? 170 : 105;
+      const reach = e.boss ? 300 : e.def.move[0] === 'charge' || e.elite ? 170 : 92;
       if (e.boss && d > 280) { fx -= (dx / (d + e.r)) * 0.3; fy -= (dy / (d + e.r)) * 0.3; continue; }
       if (d > reach) continue;
       const k = (reach - d) / reach / Math.max(12, d);
@@ -47,7 +47,7 @@ export class Bot {
       if (z.dmg <= 0 && !z.pull) continue;
       const dx = p.x - z.x, dy = p.y - z.y, d = Math.hypot(dx, dy) || 1;
       const edge = z.dmg > 0 ? z.r + 45 : z.r * 0.5;
-      if (d < edge) { const k = z.dmg > 0 ? 0.6 : 0.25; fx += (dx / d) * k; fy += (dy / d) * k; }
+      if (d < edge) { const k = z.dmg > 0 ? (d < z.r + 12 ? 1.3 : 0.6) : 0.25; fx += (dx / d) * k; fy += (dy / d) * k; }
     }
     for (const b of w.beams) {
       if (b.team !== 1) continue;

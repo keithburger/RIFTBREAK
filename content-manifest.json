@@ -1,0 +1,4006 @@
+{
+ "generated": "2026-11-12T00:27:38.550Z",
+ "generator": "scripts/build-manifest.ts",
+ "validation": {
+  "ok": true,
+  "problems": []
+ },
+ "testRun": {
+  "file": "test-results.json",
+  "when": "2026-11-12T00:27:03.874Z",
+  "passed": 262,
+  "failed": 1
+ },
+ "targets": {
+  "weapons": 40,
+  "evolutions": 80,
+  "fusions": 20,
+  "enemies": 64,
+  "bosses": 8,
+  "biomes": 4,
+  "reactions": 45,
+  "classes": 6,
+  "passives": 24,
+  "relics": 24,
+  "encounters": 12
+ },
+ "counts": {
+  "weapons": 40,
+  "evolutions": 80,
+  "fusions": 20,
+  "enemies": 64,
+  "bosses": 8,
+  "biomes": 4,
+  "reactions": 45,
+  "classes": 8,
+  "passives": 24,
+  "relics": 26,
+  "encounters": 12,
+  "modes": 7
+ },
+ "weapons": [
+  {
+   "id": "ember_carbine",
+   "name": "Ember Carbine",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "ember_carbine: base and both evolutions",
+   "element": "fire",
+   "kind": "shot",
+   "evolutions": [
+    {
+     "id": "inferno_repeater",
+     "name": "Inferno Repeater",
+     "needs": "haste"
+    },
+    {
+     "id": "phoenix_lance",
+     "name": "Phoenix Lance",
+     "needs": "piercing"
+    }
+   ]
+  },
+  {
+   "id": "magma_mortar",
+   "name": "Magma Mortar",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "magma_mortar: base and both evolutions",
+   "element": "fire",
+   "kind": "lob",
+   "evolutions": [
+    {
+     "id": "caldera",
+     "name": "Caldera",
+     "needs": "reach"
+    },
+    {
+     "id": "cluster_mortar",
+     "name": "Cluster Mortar",
+     "needs": "multicast"
+    }
+   ]
+  },
+  {
+   "id": "flame_jet",
+   "name": "Flame Jet",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "flame_jet: base and both evolutions",
+   "element": "fire",
+   "kind": "cone",
+   "evolutions": [
+    {
+     "id": "dragons_breath",
+     "name": "Dragon's Breath",
+     "needs": "linger"
+    },
+    {
+     "id": "blue_torch",
+     "name": "Blue Torch",
+     "needs": "might"
+    }
+   ]
+  },
+  {
+   "id": "sunflare",
+   "name": "Sunflare",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "sunflare: base and both evolutions",
+   "element": "fire",
+   "kind": "nova",
+   "evolutions": [
+    {
+     "id": "supernova",
+     "name": "Supernova",
+     "needs": "virulence"
+    },
+    {
+     "id": "solar_halo",
+     "name": "Solar Halo",
+     "needs": "blink"
+    }
+   ]
+  },
+  {
+   "id": "frost_shards",
+   "name": "Frost Shards",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "frost_shards: base and both evolutions",
+   "element": "frost",
+   "kind": "shot",
+   "evolutions": [
+    {
+     "id": "glacial_barrage",
+     "name": "Glacial Barrage",
+     "needs": "multicast"
+    },
+    {
+     "id": "permafrost_spike",
+     "name": "Permafrost Spike",
+     "needs": "brutality"
+    }
+   ]
+  },
+  {
+   "id": "rime_halo",
+   "name": "Rime Halo",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "rime_halo: base and both evolutions",
+   "element": "frost",
+   "kind": "orbit",
+   "evolutions": [
+    {
+     "id": "blizzard_crown",
+     "name": "Blizzard Crown",
+     "needs": "reach"
+    },
+    {
+     "id": "shatter_ring",
+     "name": "Shatter Ring",
+     "needs": "velocity"
+    }
+   ]
+  },
+  {
+   "id": "cryo_mines",
+   "name": "Cryo Mines",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "cryo_mines: base and both evolutions",
+   "element": "frost",
+   "kind": "mine",
+   "evolutions": [
+    {
+     "id": "glacier_seeds",
+     "name": "Glacier Seeds",
+     "needs": "linger"
+    },
+    {
+     "id": "seeker_mines",
+     "name": "Seeker Mines",
+     "needs": "swiftness"
+    }
+   ]
+  },
+  {
+   "id": "winter_lance",
+   "name": "Winter Lance",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "winter_lance: base and both evolutions",
+   "element": "frost",
+   "kind": "beam",
+   "evolutions": [
+    {
+     "id": "absolute_zero_beam",
+     "name": "Zero-Point Lance",
+     "needs": "might"
+    },
+    {
+     "id": "prism_frost",
+     "name": "Prism Frost",
+     "needs": "multicast"
+    }
+   ]
+  },
+  {
+   "id": "arc_coil",
+   "name": "Arc Coil",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "arc_coil: base and both evolutions",
+   "element": "shock",
+   "kind": "chain",
+   "evolutions": [
+    {
+     "id": "storm_lattice",
+     "name": "Storm Lattice",
+     "needs": "catalyst"
+    },
+    {
+     "id": "thunder_fork",
+     "name": "Thunder Fork",
+     "needs": "precision"
+    }
+   ]
+  },
+  {
+   "id": "tesla_drone",
+   "name": "Tesla Drone",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "tesla_drone: base and both evolutions",
+   "element": "shock",
+   "kind": "drone",
+   "evolutions": [
+    {
+     "id": "drone_swarm",
+     "name": "Drone Swarm",
+     "needs": "multicast"
+    },
+    {
+     "id": "overcharged_sentinel",
+     "name": "Overcharged Sentinel",
+     "needs": "haste"
+    }
+   ]
+  },
+  {
+   "id": "thunderstrike",
+   "name": "Thunderstrike",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "thunderstrike: base and both evolutions",
+   "element": "shock",
+   "kind": "strike",
+   "evolutions": [
+    {
+     "id": "tempest",
+     "name": "Tempest",
+     "needs": "reach"
+    },
+    {
+     "id": "judgment_bolt",
+     "name": "Judgment Bolt",
+     "needs": "brutality"
+    }
+   ]
+  },
+  {
+   "id": "volt_whip",
+   "name": "Volt Whip",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "volt_whip: base and both evolutions",
+   "element": "shock",
+   "kind": "whip",
+   "evolutions": [
+    {
+     "id": "cross_current",
+     "name": "Cross Current",
+     "needs": "linger"
+    },
+    {
+     "id": "lash_storm",
+     "name": "Lash Storm",
+     "needs": "swiftness"
+    }
+   ]
+  },
+  {
+   "id": "venom_spitter",
+   "name": "Venom Spitter",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "venom_spitter: base and both evolutions",
+   "element": "toxin",
+   "kind": "shot",
+   "evolutions": [
+    {
+     "id": "plague_mortar",
+     "name": "Plague Mortar",
+     "needs": "reach"
+    },
+    {
+     "id": "needle_hive",
+     "name": "Needle Hive",
+     "needs": "haste"
+    }
+   ]
+  },
+  {
+   "id": "spore_cloud",
+   "name": "Spore Cloud",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "spore_cloud: base and both evolutions",
+   "element": "toxin",
+   "kind": "aura",
+   "evolutions": [
+    {
+     "id": "miasma",
+     "name": "Miasma",
+     "needs": "reach"
+    },
+    {
+     "id": "spore_burst",
+     "name": "Spore Burst",
+     "needs": "catalyst"
+    }
+   ]
+  },
+  {
+   "id": "caustic_wake",
+   "name": "Caustic Wake",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "caustic_wake: base and both evolutions",
+   "element": "toxin",
+   "kind": "trail",
+   "evolutions": [
+    {
+     "id": "acid_river",
+     "name": "Acid River",
+     "needs": "swiftness"
+    },
+    {
+     "id": "volatile_wake",
+     "name": "Volatile Wake",
+     "needs": "blink"
+    }
+   ]
+  },
+  {
+   "id": "parasite_swarm",
+   "name": "Parasite Swarm",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "parasite_swarm: base and both evolutions",
+   "element": "toxin",
+   "kind": "shot",
+   "evolutions": [
+    {
+     "id": "brood",
+     "name": "Brood",
+     "needs": "multicast"
+    },
+    {
+     "id": "leech_swarm",
+     "name": "Leech Swarm",
+     "needs": "leech"
+    }
+   ]
+  },
+  {
+   "id": "tidal_wave",
+   "name": "Tidal Wave",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "tidal_wave: base and both evolutions",
+   "element": "water",
+   "kind": "shot",
+   "evolutions": [
+    {
+     "id": "tsunami",
+     "name": "Tsunami",
+     "needs": "reach"
+    },
+    {
+     "id": "riptide",
+     "name": "Riptide",
+     "needs": "velocity"
+    }
+   ]
+  },
+  {
+   "id": "bubble_trap",
+   "name": "Bubble Trap",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "bubble_trap: base and both evolutions",
+   "element": "water",
+   "kind": "shot",
+   "evolutions": [
+    {
+     "id": "foam_cascade",
+     "name": "Foam Cascade",
+     "needs": "multicast"
+    },
+    {
+     "id": "pressure_sphere",
+     "name": "Pressure Sphere",
+     "needs": "linger"
+    }
+   ]
+  },
+  {
+   "id": "geyser",
+   "name": "Geyser",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "geyser: base and both evolutions",
+   "element": "water",
+   "kind": "strike",
+   "evolutions": [
+    {
+     "id": "hot_springs",
+     "name": "Hot Springs",
+     "needs": "mending"
+    },
+    {
+     "id": "hydro_column",
+     "name": "Hydro Column",
+     "needs": "might"
+    }
+   ]
+  },
+  {
+   "id": "rain_caller",
+   "name": "Rain Caller",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "rain_caller: base and both evolutions",
+   "element": "water",
+   "kind": "rain",
+   "evolutions": [
+    {
+     "id": "monsoon",
+     "name": "Monsoon",
+     "needs": "haste"
+    },
+    {
+     "id": "hailstorm",
+     "name": "Hailstorm",
+     "needs": "brutality"
+    }
+   ]
+  },
+  {
+   "id": "gale_blades",
+   "name": "Gale Blades",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "gale_blades: base and both evolutions",
+   "element": "wind",
+   "kind": "shot",
+   "evolutions": [
+    {
+     "id": "cyclone_glaive",
+     "name": "Cyclone Glaive",
+     "needs": "linger"
+    },
+    {
+     "id": "twin_zephyrs",
+     "name": "Twin Zephyrs",
+     "needs": "multicast"
+    }
+   ]
+  },
+  {
+   "id": "twister",
+   "name": "Twister",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "twister: base and both evolutions",
+   "element": "wind",
+   "kind": "tornado",
+   "evolutions": [
+    {
+     "id": "maelstrom",
+     "name": "Maelstrom",
+     "needs": "reach"
+    },
+    {
+     "id": "twin_tempests",
+     "name": "Twin Tempests",
+     "needs": "multicast"
+    }
+   ]
+  },
+  {
+   "id": "zephyr_edge",
+   "name": "Zephyr Edge",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "zephyr_edge: base and both evolutions",
+   "element": "wind",
+   "kind": "arc",
+   "evolutions": [
+    {
+     "id": "hurricane_sweep",
+     "name": "Hurricane Sweep",
+     "needs": "reach"
+    },
+    {
+     "id": "vacuum_edge",
+     "name": "Vacuum Edge",
+     "needs": "velocity"
+    }
+   ]
+  },
+  {
+   "id": "slipstream",
+   "name": "Slipstream",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "slipstream: base and both evolutions",
+   "element": "wind",
+   "kind": "stride",
+   "evolutions": [
+    {
+     "id": "jetstream",
+     "name": "Jetstream",
+     "needs": "swiftness"
+    },
+    {
+     "id": "sonic_boom",
+     "name": "Sonic Boom",
+     "needs": "blink"
+    }
+   ]
+  },
+  {
+   "id": "boulder_ring",
+   "name": "Boulder Ring",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "boulder_ring: base and both evolutions",
+   "element": "earth",
+   "kind": "orbit",
+   "evolutions": [
+    {
+     "id": "asteroid_belt",
+     "name": "Asteroid Belt",
+     "needs": "multicast"
+    },
+    {
+     "id": "gravel_storm",
+     "name": "Gravel Storm",
+     "needs": "impact"
+    }
+   ]
+  },
+  {
+   "id": "seismic_slam",
+   "name": "Seismic Slam",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "seismic_slam: base and both evolutions",
+   "element": "earth",
+   "kind": "fissure",
+   "evolutions": [
+    {
+     "id": "tectonic_rift",
+     "name": "Tectonic Rift",
+     "needs": "linger"
+    },
+    {
+     "id": "aftershock",
+     "name": "Aftershock",
+     "needs": "haste"
+    }
+   ]
+  },
+  {
+   "id": "crystal_spires",
+   "name": "Crystal Spires",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "crystal_spires: base and both evolutions",
+   "element": "earth",
+   "kind": "spire",
+   "evolutions": [
+    {
+     "id": "geode_garden",
+     "name": "Geode Garden",
+     "needs": "linger"
+    },
+    {
+     "id": "resonant_pylons",
+     "name": "Resonant Pylons",
+     "needs": "catalyst"
+    }
+   ]
+  },
+  {
+   "id": "rail_boulder",
+   "name": "Rail Boulder",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "rail_boulder: base and both evolutions",
+   "element": "earth",
+   "kind": "shot",
+   "evolutions": [
+    {
+     "id": "avalanche",
+     "name": "Avalanche",
+     "needs": "multicast"
+    },
+    {
+     "id": "meteor_core",
+     "name": "Meteor Core",
+     "needs": "might"
+    }
+   ]
+  },
+  {
+   "id": "arcane_missiles",
+   "name": "Arcane Missiles",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "arcane_missiles: base and both evolutions",
+   "element": "arcane",
+   "kind": "shot",
+   "evolutions": [
+    {
+     "id": "missile_storm",
+     "name": "Missile Storm",
+     "needs": "multicast"
+    },
+    {
+     "id": "seeker_prime",
+     "name": "Seeker Prime",
+     "needs": "precision"
+    }
+   ]
+  },
+  {
+   "id": "arcane_sentry",
+   "name": "Arcane Sentry",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "arcane_sentry: base and both evolutions",
+   "element": "arcane",
+   "kind": "turret",
+   "evolutions": [
+    {
+     "id": "sentry_battery",
+     "name": "Sentry Battery",
+     "needs": "multicast"
+    },
+    {
+     "id": "obelisk",
+     "name": "Obelisk",
+     "needs": "reach"
+    }
+   ]
+  },
+  {
+   "id": "runic_sweep",
+   "name": "Runic Sweep",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "runic_sweep: base and both evolutions",
+   "element": "arcane",
+   "kind": "sweep",
+   "evolutions": [
+    {
+     "id": "twin_runes",
+     "name": "Twin Runes",
+     "needs": "multicast"
+    },
+    {
+     "id": "glyph_saw",
+     "name": "Glyph Saw",
+     "needs": "velocity"
+    }
+   ]
+  },
+  {
+   "id": "singularity_seed",
+   "name": "Singularity Seed",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "singularity_seed: base and both evolutions",
+   "element": "arcane",
+   "kind": "well",
+   "evolutions": [
+    {
+     "id": "event_horizon",
+     "name": "Event Horizon",
+     "needs": "reach"
+    },
+    {
+     "id": "binary_collapse",
+     "name": "Binary Collapse",
+     "needs": "haste"
+    }
+   ]
+  },
+  {
+   "id": "prism_ray",
+   "name": "Prism Ray",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "prism_ray: base and both evolutions",
+   "element": "light",
+   "kind": "ray",
+   "evolutions": [
+    {
+     "id": "spectrum_splitter",
+     "name": "Spectrum Splitter",
+     "needs": "multicast"
+    },
+    {
+     "id": "focused_sun",
+     "name": "Focused Sun",
+     "needs": "might"
+    }
+   ]
+  },
+  {
+   "id": "radiant_chakram",
+   "name": "Radiant Chakram",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "radiant_chakram: base and both evolutions",
+   "element": "light",
+   "kind": "shot",
+   "evolutions": [
+    {
+     "id": "solar_chakram",
+     "name": "Solar Chakram",
+     "needs": "piercing"
+    },
+    {
+     "id": "twin_halos",
+     "name": "Twin Halos",
+     "needs": "multicast"
+    }
+   ]
+  },
+  {
+   "id": "judgment_sigil",
+   "name": "Judgment Sigil",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "judgment_sigil: base and both evolutions",
+   "element": "light",
+   "kind": "strike",
+   "evolutions": [
+    {
+     "id": "chain_verdict",
+     "name": "Chain Verdict",
+     "needs": "catalyst"
+    },
+    {
+     "id": "final_verdict",
+     "name": "Final Verdict",
+     "needs": "brutality"
+    }
+   ]
+  },
+  {
+   "id": "dawn_lancer",
+   "name": "Dawn Lancer",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "dawn_lancer: base and both evolutions",
+   "element": "light",
+   "kind": "shot",
+   "evolutions": [
+    {
+     "id": "aurora_charge",
+     "name": "Aurora Charge",
+     "needs": "blink"
+    },
+    {
+     "id": "sunspear_volley",
+     "name": "Sunspear Volley",
+     "needs": "multicast"
+    }
+   ]
+  },
+  {
+   "id": "null_sphere",
+   "name": "Null Sphere",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "null_sphere: base and both evolutions",
+   "element": "void",
+   "kind": "shot",
+   "evolutions": [
+    {
+     "id": "devourer",
+     "name": "Devourer",
+     "needs": "reach"
+    },
+    {
+     "id": "rift_tear",
+     "name": "Rift Tear",
+     "needs": "linger"
+    }
+   ]
+  },
+  {
+   "id": "echo_shade",
+   "name": "Echo Shade",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "echo_shade: base and both evolutions",
+   "element": "void",
+   "kind": "shade",
+   "evolutions": [
+    {
+     "id": "legion_of_echoes",
+     "name": "Legion of Echoes",
+     "needs": "multicast"
+    },
+    {
+     "id": "reaper_shade",
+     "name": "Reaper Shade",
+     "needs": "brutality"
+    }
+   ]
+  },
+  {
+   "id": "entropy_field",
+   "name": "Entropy Field",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "entropy_field: base and both evolutions",
+   "element": "void",
+   "kind": "curse",
+   "evolutions": [
+    {
+     "id": "heat_death",
+     "name": "Heat Death",
+     "needs": "virulence"
+    },
+    {
+     "id": "oblivion_mark",
+     "name": "Oblivion Mark",
+     "needs": "might"
+    }
+   ]
+  },
+  {
+   "id": "phase_rend",
+   "name": "Phase Rend",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool (all modes)",
+   "verified": true,
+   "test": "phase_rend: base and both evolutions",
+   "element": "void",
+   "kind": "rend",
+   "evolutions": [
+    {
+     "id": "thousand_cuts",
+     "name": "Thousand Cuts",
+     "needs": "haste"
+    },
+    {
+     "id": "dimensional_scar",
+     "name": "Dimensional Scar",
+     "needs": "linger"
+    }
+   ]
+  }
+ ],
+ "fusions": [
+  {
+   "id": "plasma_repeater",
+   "name": "Plasma Repeater",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once ember_carbine + arc_coil are max rank",
+   "verified": true,
+   "test": "fusion plasma_repeater deals damage",
+   "elements": [
+    "fire",
+    "shock"
+   ],
+   "sources": [
+    "ember_carbine",
+    "arc_coil"
+   ]
+  },
+  {
+   "id": "eruption",
+   "name": "Eruption",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once magma_mortar + crystal_spires are max rank",
+   "verified": true,
+   "test": "fusion eruption deals damage",
+   "elements": [
+    "fire",
+    "earth"
+   ],
+   "sources": [
+    "magma_mortar",
+    "crystal_spires"
+   ]
+  },
+  {
+   "id": "firestorm_edge",
+   "name": "Firestorm Edge",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once flame_jet + zephyr_edge are max rank",
+   "verified": true,
+   "test": "fusion firestorm_edge deals damage",
+   "elements": [
+    "fire",
+    "wind"
+   ],
+   "sources": [
+    "flame_jet",
+    "zephyr_edge"
+   ]
+  },
+  {
+   "id": "frostfire_nova",
+   "name": "Frostfire Nova",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once sunflare + rime_halo are max rank",
+   "verified": true,
+   "test": "fusion frostfire_nova deals damage",
+   "elements": [
+    "fire",
+    "frost"
+   ],
+   "sources": [
+    "sunflare",
+    "rime_halo"
+   ]
+  },
+  {
+   "id": "glacier_cannon",
+   "name": "Glacier Cannon",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once frost_shards + rail_boulder are max rank",
+   "verified": true,
+   "test": "fusion glacier_cannon deals damage",
+   "elements": [
+    "frost",
+    "earth"
+   ],
+   "sources": [
+    "frost_shards",
+    "rail_boulder"
+   ]
+  },
+  {
+   "id": "cryo_battery",
+   "name": "Cryo Battery",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once cryo_mines + arcane_sentry are max rank",
+   "verified": true,
+   "test": "fusion cryo_battery deals damage",
+   "elements": [
+    "frost",
+    "arcane"
+   ],
+   "sources": [
+    "cryo_mines",
+    "arcane_sentry"
+   ]
+  },
+  {
+   "id": "aurora_beam",
+   "name": "Aurora Beam",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once winter_lance + prism_ray are max rank",
+   "verified": true,
+   "test": "fusion aurora_beam deals damage",
+   "elements": [
+    "frost",
+    "light"
+   ],
+   "sources": [
+    "winter_lance",
+    "prism_ray"
+   ]
+  },
+  {
+   "id": "phantom_array",
+   "name": "Phantom Array",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once tesla_drone + echo_shade are max rank",
+   "verified": true,
+   "test": "fusion phantom_array deals damage",
+   "elements": [
+    "shock",
+    "void"
+   ],
+   "sources": [
+    "tesla_drone",
+    "echo_shade"
+   ]
+  },
+  {
+   "id": "thunderstorm",
+   "name": "Thunderstorm",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once thunderstrike + rain_caller are max rank",
+   "verified": true,
+   "test": "fusion thunderstorm deals damage",
+   "elements": [
+    "shock",
+    "water"
+   ],
+   "sources": [
+    "thunderstrike",
+    "rain_caller"
+   ]
+  },
+  {
+   "id": "cyclone_lash",
+   "name": "Cyclone Lash",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once volt_whip + gale_blades are max rank",
+   "verified": true,
+   "test": "fusion cyclone_lash deals damage",
+   "elements": [
+    "shock",
+    "wind"
+   ],
+   "sources": [
+    "volt_whip",
+    "gale_blades"
+   ]
+  },
+  {
+   "id": "plague_bubbles",
+   "name": "Plague Bubbles",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once venom_spitter + bubble_trap are max rank",
+   "verified": true,
+   "test": "fusion plague_bubbles deals damage",
+   "elements": [
+    "toxin",
+    "water"
+   ],
+   "sources": [
+    "venom_spitter",
+    "bubble_trap"
+   ]
+  },
+  {
+   "id": "toxic_maelstrom",
+   "name": "Toxic Maelstrom",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once spore_cloud + twister are max rank",
+   "verified": true,
+   "test": "fusion toxic_maelstrom deals damage",
+   "elements": [
+    "toxin",
+    "wind"
+   ],
+   "sources": [
+    "spore_cloud",
+    "twister"
+   ]
+  },
+  {
+   "id": "corrosive_jetstream",
+   "name": "Corrosive Jetstream",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once caustic_wake + slipstream are max rank",
+   "verified": true,
+   "test": "fusion corrosive_jetstream deals damage",
+   "elements": [
+    "toxin",
+    "wind"
+   ],
+   "sources": [
+    "caustic_wake",
+    "slipstream"
+   ]
+  },
+  {
+   "id": "hive_mind",
+   "name": "Hive Mind",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once parasite_swarm + arcane_missiles are max rank",
+   "verified": true,
+   "test": "fusion hive_mind deals damage",
+   "elements": [
+    "toxin",
+    "arcane"
+   ],
+   "sources": [
+    "parasite_swarm",
+    "arcane_missiles"
+   ]
+  },
+  {
+   "id": "tidal_bulwark",
+   "name": "Tidal Bulwark",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once tidal_wave + boulder_ring are max rank",
+   "verified": true,
+   "test": "fusion tidal_bulwark deals damage",
+   "elements": [
+    "water",
+    "earth"
+   ],
+   "sources": [
+    "tidal_wave",
+    "boulder_ring"
+   ]
+  },
+  {
+   "id": "fault_line",
+   "name": "Fault Line",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once geyser + seismic_slam are max rank",
+   "verified": true,
+   "test": "fusion fault_line deals damage",
+   "elements": [
+    "water",
+    "earth"
+   ],
+   "sources": [
+    "geyser",
+    "seismic_slam"
+   ]
+  },
+  {
+   "id": "black_hole",
+   "name": "Black Hole",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once singularity_seed + null_sphere are max rank",
+   "verified": true,
+   "test": "fusion black_hole deals damage",
+   "elements": [
+    "arcane",
+    "void"
+   ],
+   "sources": [
+    "singularity_seed",
+    "null_sphere"
+   ]
+  },
+  {
+   "id": "solar_saw",
+   "name": "Solar Saw",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once runic_sweep + radiant_chakram are max rank",
+   "verified": true,
+   "test": "fusion solar_saw deals damage",
+   "elements": [
+    "arcane",
+    "light"
+   ],
+   "sources": [
+    "runic_sweep",
+    "radiant_chakram"
+   ]
+  },
+  {
+   "id": "doom_sentence",
+   "name": "Doom Sentence",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once judgment_sigil + entropy_field are max rank",
+   "verified": true,
+   "test": "fusion doom_sentence deals damage",
+   "elements": [
+    "light",
+    "void"
+   ],
+   "sources": [
+    "judgment_sigil",
+    "entropy_field"
+   ]
+  },
+  {
+   "id": "eclipse_blades",
+   "name": "Eclipse Blades",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up once dawn_lancer + phase_rend are max rank",
+   "verified": true,
+   "test": "fusion eclipse_blades deals damage",
+   "elements": [
+    "light",
+    "void"
+   ],
+   "sources": [
+    "dawn_lancer",
+    "phase_rend"
+   ]
+  }
+ ],
+ "enemies": [
+  {
+   "id": "sporeling",
+   "name": "Sporeling",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 0",
+   "verified": true,
+   "test": "sporeling (chase",
+   "biome": 0,
+   "move": "chase",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "thornback",
+   "name": "Thornback",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 0",
+   "verified": true,
+   "test": "thornback (charge",
+   "biome": 0,
+   "move": "charge",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "gust_wisp",
+   "name": "Gust Wisp",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 0",
+   "verified": true,
+   "test": "gust_wisp (zigzag",
+   "biome": 0,
+   "move": "zigzag",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "spore_spitter",
+   "name": "Spore Spitter",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 1",
+   "verified": true,
+   "test": "spore_spitter (kite",
+   "biome": 0,
+   "move": "kite",
+   "attack": "shoot",
+   "traits": []
+  },
+  {
+   "id": "vine_lasher",
+   "name": "Vine Lasher",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 1",
+   "verified": true,
+   "test": "vine_lasher (flank",
+   "biome": 0,
+   "move": "flank",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "bloom_pod",
+   "name": "Bloom Pod",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 1",
+   "verified": true,
+   "test": "bloom_pod (sentry",
+   "biome": 0,
+   "move": "sentry",
+   "attack": "radial",
+   "traits": []
+  },
+  {
+   "id": "root_crawler",
+   "name": "Root Crawler",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 1",
+   "verified": true,
+   "test": "root_crawler (burrow",
+   "biome": 0,
+   "move": "burrow",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "briar_swarm",
+   "name": "Briar Swarm",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 2",
+   "verified": true,
+   "test": "briar_swarm (formation",
+   "biome": 0,
+   "move": "formation",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "bark_guard",
+   "name": "Bark Guard",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 2",
+   "verified": true,
+   "test": "bark_guard (chase",
+   "biome": 0,
+   "move": "chase",
+   "attack": null,
+   "traits": [
+    "front"
+   ]
+  },
+  {
+   "id": "pollen_drifter",
+   "name": "Pollen Drifter",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 2",
+   "verified": true,
+   "test": "pollen_drifter (drift",
+   "biome": 0,
+   "move": "drift",
+   "attack": "field",
+   "traits": []
+  },
+  {
+   "id": "seed_bomber",
+   "name": "Seed Bomber",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 2",
+   "verified": true,
+   "test": "seed_bomber (kite",
+   "biome": 0,
+   "move": "kite",
+   "attack": "mortar",
+   "traits": []
+  },
+  {
+   "id": "mantis_stalker",
+   "name": "Mantis Stalker",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 2",
+   "verified": true,
+   "test": "mantis_stalker (ambush",
+   "biome": 0,
+   "move": "ambush",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "hive_mother",
+   "name": "Hive Mother",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 3",
+   "verified": true,
+   "test": "hive_mother (chase",
+   "biome": 0,
+   "move": "chase",
+   "attack": "summon",
+   "traits": [
+    "splitInto",
+    "splitN"
+   ]
+  },
+  {
+   "id": "fungal_brute",
+   "name": "Fungal Brute",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 3",
+   "verified": true,
+   "test": "fungal_brute (chase",
+   "biome": 0,
+   "move": "chase",
+   "attack": null,
+   "traits": [
+    "enrage",
+    "pool"
+   ]
+  },
+  {
+   "id": "wind_dancer",
+   "name": "Wind Dancer",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 3",
+   "verified": true,
+   "test": "wind_dancer (orbit",
+   "biome": 0,
+   "move": "orbit",
+   "attack": "spread",
+   "traits": []
+  },
+  {
+   "id": "elder_treant",
+   "name": "Elder Treant",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture spawn pool, tier 3",
+   "verified": true,
+   "test": "elder_treant (chase",
+   "biome": 0,
+   "move": "chase",
+   "attack": "mortar",
+   "traits": [
+    "regen"
+   ]
+  },
+  {
+   "id": "scrap_drone",
+   "name": "Scrap Drone",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 0",
+   "verified": true,
+   "test": "scrap_drone (chase",
+   "biome": 1,
+   "move": "chase",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "ram_bot",
+   "name": "Ram Bot",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 0",
+   "verified": true,
+   "test": "ram_bot (charge",
+   "biome": 1,
+   "move": "charge",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "buzzsaw",
+   "name": "Buzzsaw",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 0",
+   "verified": true,
+   "test": "buzzsaw (swoop",
+   "biome": 1,
+   "move": "swoop",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "gun_turret",
+   "name": "Gun Turret",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 1",
+   "verified": true,
+   "test": "gun_turret (sentry",
+   "biome": 1,
+   "move": "sentry",
+   "attack": "spread",
+   "traits": []
+  },
+  {
+   "id": "flame_walker",
+   "name": "Flame Walker",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 1",
+   "verified": true,
+   "test": "flame_walker (chase",
+   "biome": 1,
+   "move": "chase",
+   "attack": "trail",
+   "traits": []
+  },
+  {
+   "id": "bomber_bot",
+   "name": "Bomber Bot",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 1",
+   "verified": true,
+   "test": "bomber_bot (chase",
+   "biome": 1,
+   "move": "chase",
+   "attack": "kamikaze",
+   "traits": []
+  },
+  {
+   "id": "welder",
+   "name": "Welder",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 1",
+   "verified": true,
+   "test": "welder (flank",
+   "biome": 1,
+   "move": "flank",
+   "attack": "spread",
+   "traits": []
+  },
+  {
+   "id": "shield_generator",
+   "name": "Shield Generator",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 2",
+   "verified": true,
+   "test": "shield_generator (kite",
+   "biome": 1,
+   "move": "kite",
+   "attack": "shield",
+   "traits": []
+  },
+  {
+   "id": "tesla_node",
+   "name": "Tesla Node",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 2",
+   "verified": true,
+   "test": "tesla_node (sentry",
+   "biome": 1,
+   "move": "sentry",
+   "attack": "beam",
+   "traits": []
+  },
+  {
+   "id": "mortar_tank",
+   "name": "Mortar Tank",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 2",
+   "verified": true,
+   "test": "mortar_tank (kite",
+   "biome": 1,
+   "move": "kite",
+   "attack": "mortar",
+   "traits": []
+  },
+  {
+   "id": "phalanx_unit",
+   "name": "Phalanx Unit",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 2",
+   "verified": true,
+   "test": "phalanx_unit (formation",
+   "biome": 1,
+   "move": "formation",
+   "attack": null,
+   "traits": [
+    "front"
+   ]
+  },
+  {
+   "id": "repair_drone",
+   "name": "Repair Drone",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 2",
+   "verified": true,
+   "test": "repair_drone (kite",
+   "biome": 1,
+   "move": "kite",
+   "attack": "heal",
+   "traits": []
+  },
+  {
+   "id": "magnet_core",
+   "name": "Magnet Core",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 3",
+   "verified": true,
+   "test": "magnet_core (chase",
+   "biome": 1,
+   "move": "chase",
+   "attack": "pull",
+   "traits": []
+  },
+  {
+   "id": "overclocker",
+   "name": "Overclocker",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 3",
+   "verified": true,
+   "test": "overclocker (kite",
+   "biome": 1,
+   "move": "kite",
+   "attack": "buff",
+   "traits": []
+  },
+  {
+   "id": "piston_leaper",
+   "name": "Piston Leaper",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 3",
+   "verified": true,
+   "test": "piston_leaper (leap",
+   "biome": 1,
+   "move": "leap",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "forge_golem",
+   "name": "Forge Golem",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry spawn pool, tier 3",
+   "verified": true,
+   "test": "forge_golem (chase",
+   "biome": 1,
+   "move": "chase",
+   "attack": "slam",
+   "traits": [
+    "armor",
+    "burst"
+   ]
+  },
+  {
+   "id": "drip_slime",
+   "name": "Drip Slime",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 0",
+   "verified": true,
+   "test": "drip_slime (chase",
+   "biome": 2,
+   "move": "chase",
+   "attack": null,
+   "traits": [
+    "splitInto",
+    "splitN"
+   ]
+  },
+  {
+   "id": "slimelet",
+   "name": "Slimelet",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 0",
+   "verified": true,
+   "test": "slimelet (chase",
+   "biome": 2,
+   "move": "chase",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "frost_wisp",
+   "name": "Frost Wisp",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 0",
+   "verified": true,
+   "test": "frost_wisp (zigzag",
+   "biome": 2,
+   "move": "zigzag",
+   "attack": null,
+   "traits": [
+    "chill"
+   ]
+  },
+  {
+   "id": "ink_squid",
+   "name": "Ink Squid",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 1",
+   "verified": true,
+   "test": "ink_squid (kite",
+   "biome": 2,
+   "move": "kite",
+   "attack": "spread",
+   "traits": []
+  },
+  {
+   "id": "tide_crab",
+   "name": "Tide Crab",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 1",
+   "verified": true,
+   "test": "tide_crab (flank",
+   "biome": 2,
+   "move": "flank",
+   "attack": null,
+   "traits": [
+    "front"
+   ]
+  },
+  {
+   "id": "ice_lancer",
+   "name": "Ice Lancer",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 1",
+   "verified": true,
+   "test": "ice_lancer (charge",
+   "biome": 2,
+   "move": "charge",
+   "attack": "trail",
+   "traits": []
+  },
+  {
+   "id": "current_eel",
+   "name": "Current Eel",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 1",
+   "verified": true,
+   "test": "current_eel (swoop",
+   "biome": 2,
+   "move": "swoop",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "tome_mimic",
+   "name": "Tome Mimic",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 2",
+   "verified": true,
+   "test": "tome_mimic (ambush",
+   "biome": 2,
+   "move": "ambush",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "rune_caster",
+   "name": "Rune Caster",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 2",
+   "verified": true,
+   "test": "rune_caster (blink",
+   "biome": 2,
+   "move": "blink",
+   "attack": "radial",
+   "traits": []
+  },
+  {
+   "id": "bubble_mage",
+   "name": "Bubble Mage",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 2",
+   "verified": true,
+   "test": "bubble_mage (kite",
+   "biome": 2,
+   "move": "kite",
+   "attack": "homing",
+   "traits": []
+  },
+  {
+   "id": "scribe_swarm",
+   "name": "Scribe Swarm",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 2",
+   "verified": true,
+   "test": "scribe_swarm (formation",
+   "biome": 2,
+   "move": "formation",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "archive_sentinel",
+   "name": "Archive Sentinel",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 2",
+   "verified": true,
+   "test": "archive_sentinel (sentry",
+   "biome": 2,
+   "move": "sentry",
+   "attack": "sweepbeam",
+   "traits": []
+  },
+  {
+   "id": "whirl_spirit",
+   "name": "Whirl Spirit",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 3",
+   "verified": true,
+   "test": "whirl_spirit (orbit",
+   "biome": 2,
+   "move": "orbit",
+   "attack": "pull",
+   "traits": []
+  },
+  {
+   "id": "mirror_shade",
+   "name": "Mirror Shade",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 3",
+   "verified": true,
+   "test": "mirror_shade (intercept",
+   "biome": 2,
+   "move": "intercept",
+   "attack": null,
+   "traits": [
+    "phase"
+   ]
+  },
+  {
+   "id": "glacier_hulk",
+   "name": "Glacier Hulk",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 3",
+   "verified": true,
+   "test": "glacier_hulk (chase",
+   "biome": 2,
+   "move": "chase",
+   "attack": "field",
+   "traits": [
+    "regen"
+   ]
+  },
+  {
+   "id": "depth_horror",
+   "name": "Depth Horror",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive spawn pool, tier 3",
+   "verified": true,
+   "test": "depth_horror (chase",
+   "biome": 2,
+   "move": "chase",
+   "attack": "summon",
+   "traits": [
+    "enrage"
+   ]
+  },
+  {
+   "id": "null_mote",
+   "name": "Null Mote",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 0",
+   "verified": true,
+   "test": "null_mote (blink",
+   "biome": 3,
+   "move": "blink",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "star_shard",
+   "name": "Star Shard",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 0",
+   "verified": true,
+   "test": "star_shard (formation",
+   "biome": 3,
+   "move": "formation",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "void_leech",
+   "name": "Void Leech",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 0",
+   "verified": true,
+   "test": "void_leech (chase",
+   "biome": 3,
+   "move": "chase",
+   "attack": null,
+   "traits": [
+    "drain"
+   ]
+  },
+  {
+   "id": "rift_stalker",
+   "name": "Rift Stalker",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 1",
+   "verified": true,
+   "test": "rift_stalker (blink",
+   "biome": 3,
+   "move": "blink",
+   "attack": "slam",
+   "traits": []
+  },
+  {
+   "id": "gaze_orb",
+   "name": "Gaze Orb",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 1",
+   "verified": true,
+   "test": "gaze_orb (kite",
+   "biome": 3,
+   "move": "kite",
+   "attack": "beam",
+   "traits": []
+  },
+  {
+   "id": "nova_bomber",
+   "name": "Nova Bomber",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 1",
+   "verified": true,
+   "test": "nova_bomber (intercept",
+   "biome": 3,
+   "move": "intercept",
+   "attack": "kamikaze",
+   "traits": [
+    "burst"
+   ]
+  },
+  {
+   "id": "prism_guard",
+   "name": "Prism Guard",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 1",
+   "verified": true,
+   "test": "prism_guard (chase",
+   "biome": 3,
+   "move": "chase",
+   "attack": null,
+   "traits": [
+    "front",
+    "retaliate"
+   ]
+  },
+  {
+   "id": "phase_hound",
+   "name": "Phase Hound",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 2",
+   "verified": true,
+   "test": "phase_hound (intercept",
+   "biome": 3,
+   "move": "intercept",
+   "attack": null,
+   "traits": [
+    "phase"
+   ]
+  },
+  {
+   "id": "entropy_weaver",
+   "name": "Entropy Weaver",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 2",
+   "verified": true,
+   "test": "entropy_weaver (kite",
+   "biome": 3,
+   "move": "kite",
+   "attack": "ward",
+   "traits": []
+  },
+  {
+   "id": "light_archon",
+   "name": "Light Archon",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 2",
+   "verified": true,
+   "test": "light_archon (kite",
+   "biome": 3,
+   "move": "kite",
+   "attack": "spiral",
+   "traits": []
+  },
+  {
+   "id": "shadow_twin",
+   "name": "Shadow Twin",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 2",
+   "verified": true,
+   "test": "shadow_twin (flank",
+   "biome": 3,
+   "move": "flank",
+   "attack": null,
+   "traits": [
+    "splitHalf"
+   ]
+  },
+  {
+   "id": "chrono_wraith",
+   "name": "Chrono Wraith",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 2",
+   "verified": true,
+   "test": "chrono_wraith (blink",
+   "biome": 3,
+   "move": "blink",
+   "attack": "field",
+   "traits": []
+  },
+  {
+   "id": "gravity_warden",
+   "name": "Gravity Warden",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 3",
+   "verified": true,
+   "test": "gravity_warden (chase",
+   "biome": 3,
+   "move": "chase",
+   "attack": "pull",
+   "traits": []
+  },
+  {
+   "id": "obelisk",
+   "name": "Null Obelisk",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 3",
+   "verified": true,
+   "test": "obelisk (sentry",
+   "biome": 3,
+   "move": "sentry",
+   "attack": "mines",
+   "traits": []
+  },
+  {
+   "id": "void_maw",
+   "name": "Void Maw",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 3",
+   "verified": true,
+   "test": "void_maw (burrow",
+   "biome": 3,
+   "move": "burrow",
+   "attack": null,
+   "traits": []
+  },
+  {
+   "id": "abyss_knight",
+   "name": "Abyss Knight",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse spawn pool, tier 3",
+   "verified": true,
+   "test": "abyss_knight (leap",
+   "biome": 3,
+   "move": "leap",
+   "attack": "summon",
+   "traits": [
+    "front"
+   ]
+  }
+ ],
+ "bosses": [
+  {
+   "id": "mycelial_overmind",
+   "name": "Mycelial Overmind",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture finale (seed parity) and Boss Rush",
+   "verified": null,
+   "test": "Mycelial Overmind > fights through every phase",
+   "phases": 3,
+   "attacks": [
+    "spore_volley",
+    "root_lines",
+    "brood",
+    "spore_clouds",
+    "bloom"
+   ]
+  },
+  {
+   "id": "tempest_conductor",
+   "name": "Tempest Conductor",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Verdant Fracture finale (seed parity) and Boss Rush",
+   "verified": null,
+   "test": "Tempest Conductor > fights through every phase",
+   "phases": 3,
+   "attacks": [
+    "dive",
+    "feather_fan",
+    "storm_cells",
+    "cross_bolt",
+    "gale",
+    "cage"
+   ]
+  },
+  {
+   "id": "arachnoid_siege_engine",
+   "name": "Arachnoid Siege Engine",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry finale (seed parity) and Boss Rush",
+   "verified": null,
+   "test": "Arachnoid Siege Engine > fights through every phase",
+   "phases": 3,
+   "attacks": [
+    "stomp",
+    "cannons",
+    "death_ray",
+    "mines",
+    "missile_rain",
+    "deploy_drones",
+    "overdrive_stomp"
+   ]
+  },
+  {
+   "id": "cinder_colossus",
+   "name": "Cinder Colossus",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Ironvault Foundry finale (seed parity) and Boss Rush",
+   "verified": null,
+   "test": "Cinder Colossus > fights through every phase",
+   "phases": 3,
+   "attacks": [
+    "slam",
+    "meteor_rain",
+    "fire_breath",
+    "eruption",
+    "molten_charge",
+    "cataclysm"
+   ]
+  },
+  {
+   "id": "tidal_leviathan",
+   "name": "Tidal Leviathan",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive finale (seed parity) and Boss Rush",
+   "verified": null,
+   "test": "Tidal Leviathan > fights through every phase",
+   "phases": 3,
+   "attacks": [
+    "circle_barrage",
+    "lunge",
+    "whirlpool",
+    "tidal_wall",
+    "constrict"
+   ]
+  },
+  {
+   "id": "prism_seraph",
+   "name": "Prism Seraph",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Drowned Archive finale (seed parity) and Boss Rush",
+   "verified": null,
+   "test": "Prism Seraph > fights through every phase",
+   "phases": 3,
+   "attacks": [
+    "feather_spiral",
+    "prism_lattice",
+    "ice_lances",
+    "radiant_rotor",
+    "mirror_step"
+   ]
+  },
+  {
+   "id": "hollow_monarch",
+   "name": "Hollow Monarch",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse finale (seed parity) and Boss Rush",
+   "verified": null,
+   "test": "Hollow Monarch > fights through every phase",
+   "phases": 3,
+   "attacks": [
+    "blink_slash",
+    "collapse_ring",
+    "orb_fan",
+    "gravity_well",
+    "hollow_court",
+    "rift_lines"
+   ]
+  },
+  {
+   "id": "rift_sovereign",
+   "name": "Rift Sovereign",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "Null Expanse finale (seed parity) and Boss Rush",
+   "verified": null,
+   "test": "Rift Sovereign > fights through every phase",
+   "phases": 3,
+   "attacks": [
+    "aspect_of_fire",
+    "aspect_of_frost",
+    "aspect_of_storm",
+    "aspect_of_void",
+    "sovereign_beams",
+    "rift_tide",
+    "cataclysm"
+   ]
+  }
+ ],
+ "biomes": [
+  {
+   "id": "verdant_fracture",
+   "name": "Verdant Fracture",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "standard run stage 1",
+   "verified": true,
+   "test": "standard run: four biomes",
+   "hazards": [
+    "vent",
+    "bramble"
+   ],
+   "bosses": [
+    "mycelial_overmind",
+    "tempest_conductor"
+   ]
+  },
+  {
+   "id": "ironvault_foundry",
+   "name": "Ironvault Foundry",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "standard run stage 2",
+   "verified": true,
+   "test": "standard run: four biomes",
+   "hazards": [
+    "jet",
+    "arc"
+   ],
+   "bosses": [
+    "arachnoid_siege_engine",
+    "cinder_colossus"
+   ]
+  },
+  {
+   "id": "drowned_archive",
+   "name": "Drowned Archive",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "standard run stage 3",
+   "verified": true,
+   "test": "standard run: four biomes",
+   "hazards": [
+    "whirl",
+    "geyser"
+   ],
+   "bosses": [
+    "tidal_leviathan",
+    "prism_seraph"
+   ]
+  },
+  {
+   "id": "null_expanse",
+   "name": "Null Expanse",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "standard run stage 4",
+   "verified": true,
+   "test": "standard run: four biomes",
+   "hazards": [
+    "rift",
+    "flare"
+   ],
+   "bosses": [
+    "hollow_monarch",
+    "rift_sovereign"
+   ]
+  }
+ ],
+ "reactions": [
+  {
+   "id": "thermal_shock",
+   "name": "Thermal Shock",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a fire-marked enemy with frost (or vice versa)",
+   "verified": true,
+   "test": "fire + frost triggers",
+   "pair": "fire+frost",
+   "effects": [
+    "burst",
+    "status"
+   ]
+  },
+  {
+   "id": "plasma_burst",
+   "name": "Plasma Burst",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a fire-marked enemy with shock (or vice versa)",
+   "verified": true,
+   "test": "fire + shock triggers",
+   "pair": "fire+shock",
+   "effects": [
+    "burst"
+   ]
+  },
+  {
+   "id": "combustion",
+   "name": "Combustion",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a fire-marked enemy with toxin (or vice versa)",
+   "verified": true,
+   "test": "fire + toxin triggers",
+   "pair": "fire+toxin",
+   "effects": [
+    "burst",
+    "status"
+   ]
+  },
+  {
+   "id": "steam_blast",
+   "name": "Steam Blast",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a fire-marked enemy with water (or vice versa)",
+   "verified": true,
+   "test": "fire + water triggers",
+   "pair": "fire+water",
+   "effects": [
+    "burst",
+    "status",
+    "knock"
+   ]
+  },
+  {
+   "id": "firestorm",
+   "name": "Firestorm",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a fire-marked enemy with wind (or vice versa)",
+   "verified": true,
+   "test": "fire + wind triggers",
+   "pair": "fire+wind",
+   "effects": [
+    "zone",
+    "spread"
+   ]
+  },
+  {
+   "id": "magma",
+   "name": "Magma",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a fire-marked enemy with earth (or vice versa)",
+   "verified": true,
+   "test": "fire + earth triggers",
+   "pair": "earth+fire",
+   "effects": [
+    "zone"
+   ]
+  },
+  {
+   "id": "spellflare",
+   "name": "Spellflare",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a fire-marked enemy with arcane (or vice versa)",
+   "verified": true,
+   "test": "fire + arcane triggers",
+   "pair": "arcane+fire",
+   "effects": [
+    "shards"
+   ]
+  },
+  {
+   "id": "solar_flare",
+   "name": "Solar Flare",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a fire-marked enemy with light (or vice versa)",
+   "verified": true,
+   "test": "fire + light triggers",
+   "pair": "fire+light",
+   "effects": [
+    "burst",
+    "status"
+   ]
+  },
+  {
+   "id": "hellfire",
+   "name": "Hellfire",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a fire-marked enemy with void (or vice versa)",
+   "verified": true,
+   "test": "fire + void triggers",
+   "pair": "fire+void",
+   "effects": [
+    "maxhp",
+    "status"
+   ]
+  },
+  {
+   "id": "superconduct",
+   "name": "Superconduct",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a frost-marked enemy with shock (or vice versa)",
+   "verified": true,
+   "test": "frost + shock triggers",
+   "pair": "frost+shock",
+   "effects": [
+    "burst",
+    "status"
+   ]
+  },
+  {
+   "id": "cryotoxin",
+   "name": "Cryotoxin",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a frost-marked enemy with toxin (or vice versa)",
+   "verified": true,
+   "test": "frost + toxin triggers",
+   "pair": "frost+toxin",
+   "effects": [
+    "status",
+    "status"
+   ]
+  },
+  {
+   "id": "deep_freeze",
+   "name": "Deep Freeze",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a frost-marked enemy with water (or vice versa)",
+   "verified": true,
+   "test": "frost + water triggers",
+   "pair": "frost+water",
+   "effects": [
+    "status"
+   ]
+  },
+  {
+   "id": "blizzard",
+   "name": "Blizzard",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a frost-marked enemy with wind (or vice versa)",
+   "verified": true,
+   "test": "frost + wind triggers",
+   "pair": "frost+wind",
+   "effects": [
+    "zone"
+   ]
+  },
+  {
+   "id": "shatter",
+   "name": "Shatter",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a frost-marked enemy with earth (or vice versa)",
+   "verified": true,
+   "test": "frost + earth triggers",
+   "pair": "earth+frost",
+   "effects": [
+    "burst",
+    "shards"
+   ]
+  },
+  {
+   "id": "rime_prison",
+   "name": "Rime Prison",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a frost-marked enemy with arcane (or vice versa)",
+   "verified": true,
+   "test": "frost + arcane triggers",
+   "pair": "arcane+frost",
+   "effects": [
+    "status",
+    "status"
+   ]
+  },
+  {
+   "id": "prismatic_ice",
+   "name": "Prismatic Ice",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a frost-marked enemy with light (or vice versa)",
+   "verified": true,
+   "test": "frost + light triggers",
+   "pair": "frost+light",
+   "effects": [
+    "shards",
+    "status"
+   ]
+  },
+  {
+   "id": "absolute_zero",
+   "name": "Absolute Zero",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a frost-marked enemy with void (or vice versa)",
+   "verified": true,
+   "test": "frost + void triggers",
+   "pair": "frost+void",
+   "effects": [
+    "execute",
+    "status"
+   ]
+  },
+  {
+   "id": "neurotoxin",
+   "name": "Neurotoxin",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a shock-marked enemy with toxin (or vice versa)",
+   "verified": true,
+   "test": "shock + toxin triggers",
+   "pair": "shock+toxin",
+   "effects": [
+    "status",
+    "status"
+   ]
+  },
+  {
+   "id": "electrocute",
+   "name": "Electrocute",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a shock-marked enemy with water (or vice versa)",
+   "verified": true,
+   "test": "shock + water triggers",
+   "pair": "shock+water",
+   "effects": [
+    "chain"
+   ]
+  },
+  {
+   "id": "thunderhead",
+   "name": "Thunderhead",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a shock-marked enemy with wind (or vice versa)",
+   "verified": true,
+   "test": "shock + wind triggers",
+   "pair": "shock+wind",
+   "effects": [
+    "chain",
+    "knock"
+   ]
+  },
+  {
+   "id": "magnetize",
+   "name": "Magnetize",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a shock-marked enemy with earth (or vice versa)",
+   "verified": true,
+   "test": "shock + earth triggers",
+   "pair": "earth+shock",
+   "effects": [
+    "pull",
+    "status"
+   ]
+  },
+  {
+   "id": "overload",
+   "name": "Overload",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a shock-marked enemy with arcane (or vice versa)",
+   "verified": true,
+   "test": "shock + arcane triggers",
+   "pair": "arcane+shock",
+   "effects": [
+    "burst",
+    "surge"
+   ]
+  },
+  {
+   "id": "radiant_arc",
+   "name": "Radiant Arc",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a shock-marked enemy with light (or vice versa)",
+   "verified": true,
+   "test": "shock + light triggers",
+   "pair": "light+shock",
+   "effects": [
+    "chain",
+    "status"
+   ]
+  },
+  {
+   "id": "null_pulse",
+   "name": "Null Pulse",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a shock-marked enemy with void (or vice versa)",
+   "verified": true,
+   "test": "shock + void triggers",
+   "pair": "shock+void",
+   "effects": [
+    "burst",
+    "status"
+   ]
+  },
+  {
+   "id": "contagion",
+   "name": "Contagion",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a toxin-marked enemy with water (or vice versa)",
+   "verified": true,
+   "test": "toxin + water triggers",
+   "pair": "toxin+water",
+   "effects": [
+    "spread",
+    "status"
+   ]
+  },
+  {
+   "id": "miasma",
+   "name": "Miasma",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a toxin-marked enemy with wind (or vice versa)",
+   "verified": true,
+   "test": "toxin + wind triggers",
+   "pair": "toxin+wind",
+   "effects": [
+    "zone",
+    "status"
+   ]
+  },
+  {
+   "id": "blight_bloom",
+   "name": "Blight Bloom",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a toxin-marked enemy with earth (or vice versa)",
+   "verified": true,
+   "test": "toxin + earth triggers",
+   "pair": "earth+toxin",
+   "effects": [
+    "zone",
+    "heal"
+   ]
+  },
+  {
+   "id": "mutation",
+   "name": "Mutation",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a toxin-marked enemy with arcane (or vice versa)",
+   "verified": true,
+   "test": "toxin + arcane triggers",
+   "pair": "arcane+toxin",
+   "effects": [
+    "status",
+    "status"
+   ]
+  },
+  {
+   "id": "purge",
+   "name": "Purge",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a toxin-marked enemy with light (or vice versa)",
+   "verified": true,
+   "test": "toxin + light triggers",
+   "pair": "light+toxin",
+   "effects": [
+    "burst",
+    "heal"
+   ]
+  },
+  {
+   "id": "decay",
+   "name": "Decay",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a toxin-marked enemy with void (or vice versa)",
+   "verified": true,
+   "test": "toxin + void triggers",
+   "pair": "toxin+void",
+   "effects": [
+    "maxhp",
+    "status"
+   ]
+  },
+  {
+   "id": "tempest",
+   "name": "Tempest",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a water-marked enemy with wind (or vice versa)",
+   "verified": true,
+   "test": "water + wind triggers",
+   "pair": "water+wind",
+   "effects": [
+    "burst",
+    "knock"
+   ]
+  },
+  {
+   "id": "mudslide",
+   "name": "Mudslide",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a water-marked enemy with earth (or vice versa)",
+   "verified": true,
+   "test": "water + earth triggers",
+   "pair": "earth+water",
+   "effects": [
+    "zone"
+   ]
+  },
+  {
+   "id": "mirror_tide",
+   "name": "Mirror Tide",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a water-marked enemy with arcane (or vice versa)",
+   "verified": true,
+   "test": "water + arcane triggers",
+   "pair": "arcane+water",
+   "effects": [
+    "shards",
+    "spread"
+   ]
+  },
+  {
+   "id": "rainbow",
+   "name": "Rainbow",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a water-marked enemy with light (or vice versa)",
+   "verified": true,
+   "test": "water + light triggers",
+   "pair": "light+water",
+   "effects": [
+    "burst",
+    "heal",
+    "surge"
+   ]
+  },
+  {
+   "id": "abyssal_maw",
+   "name": "Abyssal Maw",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a water-marked enemy with void (or vice versa)",
+   "verified": true,
+   "test": "water + void triggers",
+   "pair": "void+water",
+   "effects": [
+    "zone"
+   ]
+  },
+  {
+   "id": "sandstorm",
+   "name": "Sandstorm",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a wind-marked enemy with earth (or vice versa)",
+   "verified": true,
+   "test": "wind + earth triggers",
+   "pair": "earth+wind",
+   "effects": [
+    "zone",
+    "status"
+   ]
+  },
+  {
+   "id": "aether_gust",
+   "name": "Aether Gust",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a wind-marked enemy with arcane (or vice versa)",
+   "verified": true,
+   "test": "wind + arcane triggers",
+   "pair": "arcane+wind",
+   "effects": [
+    "knock",
+    "status"
+   ]
+  },
+  {
+   "id": "sunburst_gale",
+   "name": "Sunburst Gale",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a wind-marked enemy with light (or vice versa)",
+   "verified": true,
+   "test": "wind + light triggers",
+   "pair": "light+wind",
+   "effects": [
+    "shards",
+    "knock"
+   ]
+  },
+  {
+   "id": "vacuum",
+   "name": "Vacuum",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a wind-marked enemy with void (or vice versa)",
+   "verified": true,
+   "test": "wind + void triggers",
+   "pair": "void+wind",
+   "effects": [
+    "pull",
+    "burst"
+   ]
+  },
+  {
+   "id": "crystallize",
+   "name": "Crystallize",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a earth-marked enemy with arcane (or vice versa)",
+   "verified": true,
+   "test": "earth + arcane triggers",
+   "pair": "arcane+earth",
+   "effects": [
+    "status",
+    "shards"
+   ]
+  },
+  {
+   "id": "gleaming_spire",
+   "name": "Gleaming Spire",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a earth-marked enemy with light (or vice versa)",
+   "verified": true,
+   "test": "earth + light triggers",
+   "pair": "earth+light",
+   "effects": [
+    "burst",
+    "status"
+   ]
+  },
+  {
+   "id": "gravity_crush",
+   "name": "Gravity Crush",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a earth-marked enemy with void (or vice versa)",
+   "verified": true,
+   "test": "earth + void triggers",
+   "pair": "earth+void",
+   "effects": [
+    "maxhp",
+    "pull",
+    "status"
+   ]
+  },
+  {
+   "id": "revelation",
+   "name": "Revelation",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a arcane-marked enemy with light (or vice versa)",
+   "verified": true,
+   "test": "arcane + light triggers",
+   "pair": "arcane+light",
+   "effects": [
+    "burst",
+    "status"
+   ]
+  },
+  {
+   "id": "rift_tear",
+   "name": "Rift Tear",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a arcane-marked enemy with void (or vice versa)",
+   "verified": true,
+   "test": "arcane + void triggers",
+   "pair": "arcane+void",
+   "effects": [
+    "burst",
+    "zone"
+   ]
+  },
+  {
+   "id": "annihilation",
+   "name": "Annihilation",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "hit a light-marked enemy with void (or vice versa)",
+   "verified": true,
+   "test": "light + void triggers",
+   "pair": "light+void",
+   "effects": [
+    "burst",
+    "execute"
+   ]
+  }
+ ],
+ "classes": [
+  {
+   "id": "vanguard",
+   "name": "Vanguard",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "available from the start",
+   "verified": true,
+   "test": "every class starts with a working weapon",
+   "weapon": "ember_carbine"
+  },
+  {
+   "id": "pyre_warden",
+   "name": "Pyre Warden",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "available from the start",
+   "verified": true,
+   "test": "every class starts with a working weapon",
+   "weapon": "magma_mortar"
+  },
+  {
+   "id": "stormcaller",
+   "name": "Stormcaller",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "available from the start",
+   "verified": true,
+   "test": "every class starts with a working weapon",
+   "weapon": "arc_coil"
+  },
+  {
+   "id": "geomancer",
+   "name": "Geomancer",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "unlock for 150 shards",
+   "verified": true,
+   "test": "every class starts with a working weapon",
+   "weapon": "boulder_ring"
+  },
+  {
+   "id": "voidwalker",
+   "name": "Voidwalker",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "unlock for 200 shards",
+   "verified": true,
+   "test": "every class starts with a working weapon",
+   "weapon": "phase_rend"
+  },
+  {
+   "id": "alchemist",
+   "name": "Alchemist",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "unlock for 250 shards",
+   "verified": true,
+   "test": "every class starts with a working weapon",
+   "weapon": "venom_spitter"
+  },
+  {
+   "id": "dawnblade",
+   "name": "Dawnblade",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "unlock for 300 shards",
+   "verified": true,
+   "test": "every class starts with a working weapon",
+   "weapon": "dawn_lancer"
+  },
+  {
+   "id": "windrunner",
+   "name": "Windrunner",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "unlock for 300 shards",
+   "verified": true,
+   "test": "every class starts with a working weapon",
+   "weapon": "slipstream"
+  }
+ ],
+ "passives": [
+  {
+   "id": "might",
+   "name": "Might Core",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "haste",
+   "name": "Haste Coil",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "reach",
+   "name": "Reach Lens",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "linger",
+   "name": "Linger Loop",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "velocity",
+   "name": "Velocity Rail",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "multicast",
+   "name": "Multicast Array",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 2
+  },
+  {
+   "id": "vitality",
+   "name": "Vitality Cell",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "mending",
+   "name": "Mending Weave",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "plating",
+   "name": "Reactive Plating",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "swiftness",
+   "name": "Swiftness Fins",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "magnet",
+   "name": "Magnet Halo",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "insight",
+   "name": "Insight Shard",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "fortune",
+   "name": "Fortune Charm",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "precision",
+   "name": "Precision Scope",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "brutality",
+   "name": "Brutality Edge",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "blink",
+   "name": "Blink Drive",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 3
+  },
+  {
+   "id": "piercing",
+   "name": "Piercing Tip",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 3
+  },
+  {
+   "id": "catalyst",
+   "name": "Catalyst Prism",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "virulence",
+   "name": "Virulence Gland",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "impact",
+   "name": "Impact Driver",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "greed",
+   "name": "Shard Siphon",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "thorns",
+   "name": "Thorn Lattice",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "leech",
+   "name": "Leech Fang",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  },
+  {
+   "id": "evasion",
+   "name": "Mirage Veil",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "level-up pool",
+   "verified": true,
+   "test": "always offers three distinct",
+   "max": 5
+  }
+ ],
+ "relics": [
+  {
+   "id": "glass_prism",
+   "name": "Glass Prism",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 1
+  },
+  {
+   "id": "echo_chamber",
+   "name": "Echo Chamber",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 2
+  },
+  {
+   "id": "kinetic_battery",
+   "name": "Kinetic Battery",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 1
+  },
+  {
+   "id": "stillness_core",
+   "name": "Stillness Core",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 1
+  },
+  {
+   "id": "corpse_bloom",
+   "name": "Corpse Bloom",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 2
+  },
+  {
+   "id": "vampiric_shard",
+   "name": "Vampiric Shard",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 1
+  },
+  {
+   "id": "overclock",
+   "name": "Overclock",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 2
+  },
+  {
+   "id": "reactor_heart",
+   "name": "Reactor Heart",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 2
+  },
+  {
+   "id": "chain_catalyst",
+   "name": "Chain Catalyst",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 3
+  },
+  {
+   "id": "phase_cloak",
+   "name": "Phase Cloak",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 1
+  },
+  {
+   "id": "orbital_guardian",
+   "name": "Orbital Guardian",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 2
+  },
+  {
+   "id": "gilded_idol",
+   "name": "Gilded Idol",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 1
+  },
+  {
+   "id": "berserker_sigil",
+   "name": "Berserker Sigil",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 2
+  },
+  {
+   "id": "titan_plating",
+   "name": "Titan Plating",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 1
+  },
+  {
+   "id": "lodestone",
+   "name": "Lodestone",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 1
+  },
+  {
+   "id": "second_wind",
+   "name": "Second Wind",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 3
+  },
+  {
+   "id": "prism_lens",
+   "name": "Prism Lens",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 2
+  },
+  {
+   "id": "frenzy_engine",
+   "name": "Frenzy Engine",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 2
+  },
+  {
+   "id": "gravity_anchor",
+   "name": "Gravity Anchor",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 1
+  },
+  {
+   "id": "twin_fates",
+   "name": "Twin Fates",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 3
+  },
+  {
+   "id": "chaos_infusion",
+   "name": "Chaos Infusion",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 2
+  },
+  {
+   "id": "momentum_drive",
+   "name": "Momentum Drive",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 1
+  },
+  {
+   "id": "executioner",
+   "name": "Executioner",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 3
+  },
+  {
+   "id": "time_dilation",
+   "name": "Time Dilation",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 2
+  },
+  {
+   "id": "scavenger",
+   "name": "Scavenger",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 1
+  },
+  {
+   "id": "giant_slayer",
+   "name": "Giant Slayer",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "elite / boss / event chests",
+   "verified": true,
+   "test": "every relic and class hook runs",
+   "rarity": 1
+  }
+ ],
+ "encounters": [
+  {
+   "id": "elite_ambush",
+   "name": "Elite Ambush",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "random field event after 45s",
+   "verified": true,
+   "test": "elite_ambush starts, has its effect"
+  },
+  {
+   "id": "swarm_rush",
+   "name": "Swarm Rush",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "random field event after 20s",
+   "verified": true,
+   "test": "swarm_rush starts, has its effect"
+  },
+  {
+   "id": "encirclement",
+   "name": "Encirclement",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "random field event after 60s",
+   "verified": true,
+   "test": "encirclement starts, has its effect"
+  },
+  {
+   "id": "rift_surge",
+   "name": "Rift Surge",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "random field event after 50s",
+   "verified": true,
+   "test": "rift_surge starts, has its effect"
+  },
+  {
+   "id": "treasure_courier",
+   "name": "Shard Courier",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "random field event after 30s",
+   "verified": true,
+   "test": "treasure_courier starts, has its effect"
+  },
+  {
+   "id": "shrine_of_power",
+   "name": "Shrine of Power",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "random field event after 40s",
+   "verified": true,
+   "test": "shrine_of_power starts, has its effect"
+  },
+  {
+   "id": "meteor_storm",
+   "name": "Meteor Storm",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "random field event after 70s",
+   "verified": true,
+   "test": "meteor_storm starts, has its effect"
+  },
+  {
+   "id": "cursed_altar",
+   "name": "Cursed Altar",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "random field event after 90s",
+   "verified": true,
+   "test": "cursed_altar starts, has its effect"
+  },
+  {
+   "id": "supply_drop",
+   "name": "Supply Drop",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "random field event after 35s",
+   "verified": true,
+   "test": "supply_drop starts, has its effect"
+  },
+  {
+   "id": "champion_duel",
+   "name": "Champion",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "random field event after 110s",
+   "verified": true,
+   "test": "champion_duel starts, has its effect"
+  },
+  {
+   "id": "elemental_storm",
+   "name": "Elemental Storm",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "random field event after 60s",
+   "verified": true,
+   "test": "elemental_storm starts, has its effect"
+  },
+  {
+   "id": "blood_moon",
+   "name": "Rift Tide",
+   "implemented": true,
+   "art": true,
+   "integrated": true,
+   "reach": "random field event after 80s",
+   "verified": true,
+   "test": "blood_moon starts, has its effect"
+  }
+ ],
+ "modes": [
+  {
+   "id": "standard",
+   "name": "Rift Run",
+   "kind": "standard"
+  },
+  {
+   "id": "endless",
+   "name": "Endless",
+   "kind": "endless"
+  },
+  {
+   "id": "bossrush",
+   "name": "Boss Rush",
+   "kind": "bossrush"
+  },
+  {
+   "id": "glass",
+   "name": "Challenge: Glass Cannon",
+   "kind": "challenge"
+  },
+  {
+   "id": "swarm",
+   "name": "Challenge: Infestation",
+   "kind": "challenge"
+  },
+  {
+   "id": "oath",
+   "name": "Challenge: Twin Oath",
+   "kind": "challenge"
+  },
+  {
+   "id": "sprint",
+   "name": "Challenge: Rift Sprint",
+   "kind": "challenge"
+  }
+ ]
+}

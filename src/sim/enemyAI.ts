@@ -291,7 +291,7 @@ ATTACKS.trail = (w, e, dt, a) => {
   e.atkT -= dt;
   if (e.atkT > 0 || e.hidden) return;
   e.atkT = N(a[1], 0.5);
-  spawnZone(w, e.x, e.y, N(a[2], 22), N(a[3], 2.5), e.dmg * 0.5, 'fire', 1, null, { delay: 0.5, tick: 0.5, style: 'tele', color: e.def.col2 });
+  spawnZone(w, e.x, e.y, N(a[2], 22), N(a[3], 2.5), e.dmg * 0.35, 'fire', 1, null, { delay: 0.6, tick: 0.5, style: 'tele', color: e.def.col2 });
 };
 /** kamikaze(triggerRadius, blastRadius): stops, primes, detonates. */
 ATTACKS.kamikaze = (w, e, dt, a) => {
@@ -412,7 +412,7 @@ export function updateEnemies(w: World, dt: number): void {
       const dx = p.x - e.x, dy = p.y - e.y, rr = e.r + p.r * 0.7;
       if (dx * dx + dy * dy < rr * rr && (!e.boss || e.boss.dying <= 0)) {
         e.touchT = 0.5;
-        if (hurtPlayer(w, e.dmg * (e.weakT > 0 ? 0.6 : 1))) {
+        if (hurtPlayer(w, e.dmg * (e.weakT > 0 ? 0.6 : 1), e.boss ? 'boss:contact' : 'touch:' + d.id)) {
           const tr = d.traits;
           if (tr?.drain) e.hp = Math.min(e.maxHp, e.hp + e.maxHp * 0.2);
           if (tr?.chill) p.slowT = 1.5;
@@ -442,7 +442,7 @@ export function updateBullets(w: World, dt: number): void {
     b.x += b.vx * dt * slow; b.y += b.vy * dt * slow;
     const dx = p.x - b.x, dy = p.y - b.y, rr = b.r + p.r * 0.6;
     if (dx * dx + dy * dy < rr * rr) {
-      if (hurtPlayer(w, b.dmg) || p.dashT <= 0) b.alive = false;
+      if (hurtPlayer(w, b.dmg, w.boss ? 'boss:bullet' : 'bullet') || p.dashT <= 0) b.alive = false;
     }
     if (b.life <= 0) b.alive = false;
     if (w.arena && (b.x - w.arena.x) ** 2 + (b.y - w.arena.y) ** 2 > (w.arena.r + 40) ** 2) b.alive = false;

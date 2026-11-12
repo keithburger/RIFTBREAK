@@ -33,6 +33,7 @@ export function damageEnemy(w: World, e0: Enemy, amount: number, el: ElementId, 
   }
   if (e.vulnT > 0) amount *= 1 + e.vuln;
   if (e.wardT > 0) amount *= 0.2;
+  if (e0.link) amount *= 0.35; // body segments forward reduced damage so area attacks cannot multi-hit a boss for full value
   const tr = e.def.traits;
   if (tr) {
     if (tr.front && !(flags & F_DOT)) {
@@ -106,10 +107,11 @@ export function killEnemy(w: World, e: Enemy): void {
     spawnPickup(w, 'xp', e.x, e.y, d.xp * ELITE_XP[e.elite] * w.xpMul);
     const luck = p.stats.luck;
     const r = w.rng.next();
-    if (r < 0.006 * luck) spawnPickup(w, 'heal', e.x, e.y, 20);
-    else if (r < 0.006 * luck + 0.0012) spawnPickup(w, 'magnet', e.x, e.y);
-    else if (r < 0.006 * luck + 0.002) spawnPickup(w, 'bomb', e.x, e.y);
-    else if (r < 0.006 * luck + 0.022) spawnPickup(w, 'shard', e.x, e.y, 1);
+    const hc = 0.009 * luck;
+    if (r < hc) spawnPickup(w, 'heal', e.x, e.y, 20);
+    else if (r < hc + 0.0012) spawnPickup(w, 'magnet', e.x, e.y);
+    else if (r < hc + 0.002) spawnPickup(w, 'bomb', e.x, e.y);
+    else if (r < hc + 0.022) spawnPickup(w, 'shard', e.x, e.y, 1);
     if (e.elite) {
       spawnPickup(w, 'chest', e.x, e.y, e.elite);
       spawnPickup(w, 'shard', e.x, e.y, 5 * e.elite);
@@ -431,7 +433,7 @@ export function healPlayer(w: World, amt: number): void {
 }
 
 /** Damage the player. Returns true if damage was taken. */
-export function hurtPlayer(w: World, dmg: number): boolean {
+export function hurtPlayer(w: World, dmg: number, src = 'other'): boolean {
   const p = w.player;
   if (w.state !== 'play' || p.iframes > 0 || p.dashT > 0 || w.god) return false;
   if (p.stats.evasion > 0 && w.rng.next() < p.stats.evasion) {
@@ -446,6 +448,7 @@ export function hurtPlayer(w: World, dmg: number): boolean {
   p.iframes = 0.55;
   p.hurtFlash = 0.3;
   w.stats.dmgTaken += dmg;
+  w.stats.hurtBy[src] = (w.stats.hurtBy[src] ?? 0) + dmg;
   w.fx.shake(7);
   w.fx.flash(0xff2244, 0.25);
   w.fx.sfx('hurt');
