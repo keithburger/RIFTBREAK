@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-12T00:27:38.550Z",
+ "generated": "2026-11-12T04:57:49.404Z",
  "generator": "scripts/build-manifest.ts",
  "validation": {
   "ok": true,
@@ -7,9 +7,9 @@
  },
  "testRun": {
   "file": "test-results.json",
-  "when": "2026-11-12T00:27:03.874Z",
-  "passed": 262,
-  "failed": 1
+  "when": "2026-11-12T04:57:19.585Z",
+  "passed": 267,
+  "failed": 0
  },
  "targets": {
   "weapons": 40,
@@ -2309,8 +2309,8 @@
    "art": true,
    "integrated": true,
    "reach": "Verdant Fracture finale (seed parity) and Boss Rush",
-   "verified": null,
-   "test": "Mycelial Overmind > fights through every phase",
+   "verified": true,
+   "test": "Mycelial Overmind fights through every phase",
    "phases": 3,
    "attacks": [
     "spore_volley",
@@ -2327,8 +2327,8 @@
    "art": true,
    "integrated": true,
    "reach": "Verdant Fracture finale (seed parity) and Boss Rush",
-   "verified": null,
-   "test": "Tempest Conductor > fights through every phase",
+   "verified": true,
+   "test": "Tempest Conductor fights through every phase",
    "phases": 3,
    "attacks": [
     "dive",
@@ -2346,8 +2346,8 @@
    "art": true,
    "integrated": true,
    "reach": "Ironvault Foundry finale (seed parity) and Boss Rush",
-   "verified": null,
-   "test": "Arachnoid Siege Engine > fights through every phase",
+   "verified": true,
+   "test": "Arachnoid Siege Engine fights through every phase",
    "phases": 3,
    "attacks": [
     "stomp",
@@ -2366,8 +2366,8 @@
    "art": true,
    "integrated": true,
    "reach": "Ironvault Foundry finale (seed parity) and Boss Rush",
-   "verified": null,
-   "test": "Cinder Colossus > fights through every phase",
+   "verified": true,
+   "test": "Cinder Colossus fights through every phase",
    "phases": 3,
    "attacks": [
     "slam",
@@ -2385,8 +2385,8 @@
    "art": true,
    "integrated": true,
    "reach": "Drowned Archive finale (seed parity) and Boss Rush",
-   "verified": null,
-   "test": "Tidal Leviathan > fights through every phase",
+   "verified": true,
+   "test": "Tidal Leviathan fights through every phase",
    "phases": 3,
    "attacks": [
     "circle_barrage",
@@ -2403,8 +2403,8 @@
    "art": true,
    "integrated": true,
    "reach": "Drowned Archive finale (seed parity) and Boss Rush",
-   "verified": null,
-   "test": "Prism Seraph > fights through every phase",
+   "verified": true,
+   "test": "Prism Seraph fights through every phase",
    "phases": 3,
    "attacks": [
     "feather_spiral",
@@ -2421,8 +2421,8 @@
    "art": true,
    "integrated": true,
    "reach": "Null Expanse finale (seed parity) and Boss Rush",
-   "verified": null,
-   "test": "Hollow Monarch > fights through every phase",
+   "verified": true,
+   "test": "Hollow Monarch fights through every phase",
    "phases": 3,
    "attacks": [
     "blink_slash",
@@ -2440,8 +2440,8 @@
    "art": true,
    "integrated": true,
    "reach": "Null Expanse finale (seed parity) and Boss Rush",
-   "verified": null,
-   "test": "Rift Sovereign > fights through every phase",
+   "verified": true,
+   "test": "Rift Sovereign fights through every phase",
    "phases": 3,
    "attacks": [
     "aspect_of_fire",

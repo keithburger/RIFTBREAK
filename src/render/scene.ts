@@ -93,7 +93,7 @@ export function drawScene(d: Draw, w: World, fx: FxSystem, v: View, t: number): 
     const blink = p.iframes > 0 && p.dashT <= 0 && Math.floor(t * 20) % 2 === 0 ? 0.45 : 1;
     const col = p.cls.col;
     d.circle(L.GLOW, 'glow', p.x, p.y, 62, col, 0.35);
-    if (p.surgeT > 0) { d.circle(L.GLOW, 'glow', p.x, p.y, 90, 0xffe08a, 0.35 + Math.sin(t * 12) * 0.1); d.circle(L.FX, 'dash_ring', p.x, p.y, 30, 0xffe08a, 0.8, t * 3); }
+    if (p.surgeT > 0) { d.circle(L.GLOW, 'glow', p.x, p.y, 70, 0xffe08a, 0.22 + Math.sin(t * 12) * 0.06); d.circle(L.FX, 'dash_ring', p.x, p.y, 30, 0xffe08a, 0.8, t * 3); }
     if (p.moving || p.dashT > 0) {
       const back = p.facing + Math.PI;
       const k = p.dashT > 0 ? 3 : 1;
@@ -113,7 +113,7 @@ export function drawScene(d: Draw, w: World, fx: FxSystem, v: View, t: number): 
     const s = (pr.r / (PROJ_REF[pr.sprite] ?? 8)) * (pr.mode === 1 ? pr.scale : 1);
     if (pr.sprite === 'p_void') { r.sprite(L.GLOW, 'p_void', pr.x, pr.y, t * 2, s, s, pr.color, 0.9); r.sprite(L.FX, 'swirl', pr.x, pr.y, -t * 4, s * 0.5, s * 0.5, pr.color, 0.6); continue; }
     r.sprite(L.ENT, pr.sprite, pr.x, pr.y, pr.rot, s, s, pr.color, 1);
-    if (q >= 1) r.sprite(L.GLOW, 'glow', pr.x, pr.y, 0, pr.r / 9 + 0.25, pr.r / 9 + 0.25, pr.color, 0.42);
+    if (q >= 1) r.sprite(L.GLOW, 'glow', pr.x, pr.y, 0, Math.min(2.2, pr.r / 9 + 0.25), Math.min(2.2, pr.r / 9 + 0.25), pr.color, 0.3);
     if (q >= 2 && (w.frame & 1) === 0 && pr.mode !== 3) fx.particle(pr.x, pr.y, -pr.vx * 0.05, -pr.vy * 0.05, 0.22, Math.min(9, pr.r * 0.7), pr.color);
   }
 
@@ -145,9 +145,9 @@ function drawZone(d: Draw, z: Zone, t: number, q: number): void {
       d.circle(L.GROUND, 'ring', z.x, z.y, z.r, col, 0.9);
       if (k > 0.75) d.circle(L.FX, 'ring', z.x, z.y, z.r, 0xffffff, (k - 0.75) * 3);
     } else if (z.style === 'pull') {
-      d.circle(L.GROUND, 'swirl', z.x, z.y, z.r, col, 0.4 * fade, -t * 2.5);
-      d.circle(L.GROUND, 'swirl', z.x, z.y, z.r * 0.55, col, 0.5 * fade, -t * 4);
-      d.circle(L.GROUND, 'ring', z.x, z.y, z.r, col, 0.5 * fade);
+      d.circle(L.GROUND, 'swirl', z.x, z.y, z.r, col, 0.2 * fade, -t * 2.5);
+      d.circle(L.GROUND, 'swirl', z.x, z.y, z.r * 0.55, col, 0.34 * fade, -t * 4);
+      d.circle(L.GROUND, 'dash_ring', z.x, z.y, z.r, col, 0.45 * fade, t * 0.3);
     } else if (z.style === 'field') {
       d.circle(L.GROUND, 'disc', z.x, z.y, z.r, col, 0.1 * fade);
       d.circle(L.GROUND, 'dash_ring', z.x, z.y, z.r, col, 0.6 * fade, t * 0.6);
@@ -162,7 +162,7 @@ function drawZone(d: Draw, z: Zone, t: number, q: number): void {
   switch (z.style) {
     case 'strike': case 'drop': case 'rend': {
       if (tele) { const k = (z.life - (z.max - z.delay)) / z.delay; d.circle(L.GROUND, 'ring', z.x, z.y, z.r * (0.3 + k * 0.7), c, 0.55 * (1 - k * 0.5)); }
-      else { d.circle(L.FX, 'soft', z.x, z.y, z.r * 1.5, c, fade * 0.9); d.circle(L.FX, 'ring2', z.x, z.y, z.r, 0xffffff, fade * 0.7); }
+      else { d.circle(L.FX, 'soft', z.x, z.y, z.r * 1.2, c, fade * 0.45); d.circle(L.FX, 'ring', z.x, z.y, z.r, 0xffffff, fade * 0.6); }
       break;
     }
     case 'aura':

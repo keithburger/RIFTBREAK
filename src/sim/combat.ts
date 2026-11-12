@@ -251,7 +251,7 @@ export function runReaction(w: World, e: Enemy, def: ReactionDef, basis: number,
   w.fx.ring(x, y, 34, def.col, 0.3);
   w.fx.burst(x, y, def.col, 6, 190, 3);
   w.fx.sfx('react', x, y);
-  if (w.rng.next() < 0.35) w.fx.text(x, y - e.r - 14, def.name, def.col, 11);
+  if (w.rng.next() < 0.12) w.fx.text(x, y - e.r - 14, def.name, def.col, 11);
   const sp = w.player.stats.statusPower;
   for (const f of def.fx) {
     switch (f.t) {

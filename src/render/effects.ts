@@ -98,8 +98,10 @@ export class FxSystem implements FxSink {
     }
     for (const g of this.rings) {
       const t = 1 - g.life / g.max, e = 1 - (1 - t) * (1 - t);
-      d.circle(L.FX, 'ring2', g.x, g.y, g.r * (0.25 + 0.75 * e), g.color, (1 - t) * 0.9);
-      if (g.r > 60) d.circle(L.GLOW, 'soft', g.x, g.y, g.r * e, g.color, (1 - t) * 0.22);
+      // big rings use the thin stroke so large shockwaves stay readable instead of flooding the screen
+      const big = g.r > 100;
+      d.circle(L.FX, big ? 'ring' : 'ring2', g.x, g.y, g.r * (0.25 + 0.75 * e), g.color, (1 - t) * (big ? 0.7 : 0.9));
+      if (g.r > 60 && this.settings.quality >= 2) d.circle(L.GLOW, 'soft', g.x, g.y, g.r * e, g.color, (1 - t) * (big ? 0.07 : 0.16));
     }
     for (const l of this.lines) {
       const t = l.life / l.max;
