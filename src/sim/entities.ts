@@ -89,7 +89,7 @@ export function spawnPickup(w: World, kind: PickupKind, x: number, y: number, va
   }
   const a = w.rng.angle();
   const sp = 40 + w.rng.next() * 60;
-  const pk: Pickup = { kind, x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, value, age: 0, pulled: false, alive: true };
+  const pk: Pickup = { kind, x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, value, age: 0, pt: 0, pulled: false, alive: true };
   w.pickups.push(pk);
   return pk;
 }

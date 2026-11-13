@@ -1,5 +1,7 @@
 /** DOM user interface: menus, HUD and overlays. Talks to the game only through UIHost. */
+import { TOKENS, clampTravel } from '../core/tokens';
 import './styles.css';
+import { applyTheme } from './theme';
 import type { Atlas } from '../render/atlas';
 import { DEFAULT_KEYS, type SaveStore } from '../save/save';
 import type { ContentDB, ElementId, OptionDef, WeaponDef, WeaponInst } from '../sim/types';
@@ -43,9 +45,11 @@ export class UI {
 
   constructor(root: HTMLElement, private host: UIHost) {
     this.root = root;
+    applyTheme();
     this.selClass = host.save.data.classes[0] ?? 'vanguard';
     this.joyEl = this.el('div', 'joy', '<i></i>');
-    document.body.appendChild(this.joyEl);
+    this.joyEl.setAttribute('aria-hidden', 'true');
+    root.appendChild(this.joyEl);
   }
 
   private el(tag: string, cls: string, html = ''): HTMLElement {
@@ -75,6 +79,7 @@ export class UI {
     this.overlay?.remove();
     this.overlay = e;
     this.overlayOpen = !!e;
+    this.joyVis();
     if (this.keyHandler) { window.removeEventListener('keydown', this.keyHandler); this.keyHandler = null; }
     if (e) this.root.appendChild(e);
   }
@@ -247,10 +252,12 @@ export class UI {
     dash.addEventListener('touchstart', (e) => { e.preventDefault(); e.stopPropagation(); this.host.dash(); }, { passive: false });
     dash.addEventListener('mousedown', () => this.host.dash());
     this.hud = h;
+    this.joyVis();
     this.hudKey = '';
     this.root.prepend(h);
   }
-  hideHud(): void { this.hud?.remove(); this.hud = null; this.joyEl.style.display = 'none'; }
+  hideHud(): void { this.hud?.remove(); this.hud = null; this.joyVis(); }
+  private joyVis(): void { this.joyEl.classList.toggle('live', !!this.hud && !this.overlayOpen); }
   setTouch(on: boolean): void { this.root.classList.toggle('touch', on); }
 
   updateHud(w: World): void {
@@ -303,13 +310,18 @@ export class UI {
     f.style.background = hex(color);
     f.style.opacity = String(Math.min(0.6, a));
   }
-  joystick(j: { ox: number; oy: number; x: number; y: number } | null): void {
-    const e = this.joyEl;
-    if (!j || !this.hud || this.overlayOpen) { e.style.display = 'none'; return; }
-    e.style.display = 'block';
-    e.style.left = j.ox + 'px'; e.style.top = j.oy + 'px';
-    const dx = j.x - j.ox, dy = j.y - j.oy, d = Math.hypot(dx, dy) || 1, m = Math.min(55, d);
-    (e.firstElementChild as HTMLElement).style.transform = `translate(${(dx / d) * m}px, ${(dy / d) * m}px)`;
+  /** Fixed joystick base centre (client px) – null unless the stick is on screen. */
+  joyBase(): { x: number; y: number; travel: number } | null {
+    if (!this.hud || this.overlayOpen || !this.root.classList.contains('touch')) return null;
+    const r = this.joyEl.getBoundingClientRect();
+    if (r.width === 0) return null;
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2, travel: clampTravel(TOKENS.joystick.travel) };
+  }
+  /** Thumb offset from the base centre (already clamped by Input), or null = recentre instantly. */
+  joystick(j: { x: number; y: number; active: boolean } | null): void {
+    const thumb = this.joyEl.firstElementChild as HTMLElement;
+    this.joyEl.classList.toggle('on', !!j);
+    thumb.style.transform = j ? `translate(${j.x.toFixed(1)}px, ${j.y.toFixed(1)}px)` : 'translate(0px, 0px)';
   }
 
   // ------------------------------------------------------------------------------------ overlays

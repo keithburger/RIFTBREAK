@@ -79,6 +79,8 @@ export function updatePlayer(w: World, input: InputState, dt: number): void {
   if (s.regen > 0 && p.hp < s.maxHp) p.hp = Math.min(s.maxHp, p.hp + s.regen * dt);
 }
 
+const PULL_BASE = 420, PULL_ACCEL = 900, PULL_MAX = 1500, COLLECT_R = 20;
+
 export function updatePickups(w: World, dt: number): void {
   const p = w.player;
   const mr = BASE_MAGNET * p.stats.magnet;
@@ -89,10 +91,14 @@ export function updatePickups(w: World, dt: number): void {
     const d2 = dx * dx + dy * dy;
     if (!k.pulled && d2 < mr * mr && k.age > 0.25) k.pulled = true;
     if (k.pulled) {
+      // Speed ramps with time *since the pull began* (not pickup age) and is capped, and the step is
+      // clamped to the remaining distance, so a gem can never overshoot or skip the collect radius.
       const d = Math.sqrt(d2) || 1;
-      const sp = 380 + k.age * 300;
-      k.x += (dx / d) * sp * dt; k.y += (dy / d) * sp * dt;
-      if (d < 20) { k.alive = false; collect(w, k.kind, k.value, k.x, k.y); }
+      k.pt += dt;
+      const sp = Math.min(PULL_MAX, PULL_BASE + k.pt * PULL_ACCEL);
+      const step = sp * dt;
+      if (d <= COLLECT_R + step) { k.x = p.x; k.y = p.y; k.alive = false; collect(w, k.kind, k.value, k.x, k.y); }
+      else { k.x += (dx / d) * step; k.y += (dy / d) * step; }
     } else {
       k.x += k.vx * dt; k.y += k.vy * dt;
       k.vx *= 1 - Math.min(1, dt * 5); k.vy *= 1 - Math.min(1, dt * 5);

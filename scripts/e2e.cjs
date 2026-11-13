@@ -193,11 +193,17 @@ const rift = (page, fn, ...a) => page.evaluate(([f, args]) => window.__rift[f](.
     await page.waitForSelector('.hud');
     await rift(page, 'god');
     const cdp = await ctx.newCDPSession(page);
-    const x0 = vp.width * 0.3, y0 = vp.height * 0.7;
+    const jr = await page.evaluate(() => { const r = document.querySelector('.joy').getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2, w: r.width, left: r.left, bottom: r.bottom }; });
+    const x0 = jr.x, y0 = jr.y;
+    check(`${name}: joystick base is in the lower-left thumb zone`, jr.x < vp.width * 0.4 && jr.y > vp.height * 0.55, JSON.stringify(jr));
     const before = await page.evaluate(() => ({ x: window.__rift.world.player.x, y: window.__rift.world.player.y }));
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: x0, y: y0, id: 1 }] });
-    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x0 + 60, y: y0, id: 1 }] });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x0 + 150, y: y0 - 20, id: 1 }] }); // far outside the ring
     await page.waitForTimeout(900);
+    const stick = await page.evaluate(() => { const b = document.querySelector('.joy').getBoundingClientRect(), t = document.querySelector('.joy i').getBoundingClientRect(); return { bx: b.left + b.width / 2, by: b.top + b.height / 2, off: Math.hypot(t.left + t.width / 2 - (b.left + b.width / 2), t.top + t.height / 2 - (b.top + b.height / 2)), vy: window.__rift.world.player.vy, vx: window.__rift.world.player.vx }; });
+    check(`${name}: joystick base stays fixed while dragging`, Math.abs(stick.bx - x0) < 0.5 && Math.abs(stick.by - y0) < 0.5);
+    check(`${name}: thumb travel is clamped to 40-50px`, stick.off >= 39 && stick.off <= 50.5, `off=${stick.off.toFixed(1)}`);
+    check(`${name}: direction kept outside the ring (normalised)`, stick.vx > 0 && stick.vy < 0 && Math.hypot(stick.vx, stick.vy) > 200, `v=${stick.vx.toFixed(0)},${stick.vy.toFixed(0)}`);
     const mid = await page.evaluate(() => ({ x: window.__rift.world.player.x, joy: getComputedStyle(document.querySelector('.joy')).display, dash: getComputedStyle(document.querySelector('.dashbtn')).display }));
     check(`${name}: virtual joystick moves the player`, mid.x - before.x > 60, `dx=${(mid.x - before.x).toFixed(0)}`);
     check(`${name}: joystick + dash button visible`, mid.joy === 'block' && mid.dash === 'block');
@@ -209,6 +215,9 @@ const rift = (page, fn, ...a) => page.evaluate(([f, args]) => window.__rift[f](.
       poll();
     }));
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await page.waitForTimeout(150);
+    const rel = await page.evaluate(() => ({ thumb: document.querySelector('.joy i').style.transform }));
+    check(`${name}: thumb recentres on release`, /translate\(0px, 0px\)/.test(rel.thumb), rel.thumb);
     check(`${name}: upgrade cards ignore input during lockout`, locked.n === 3 && locked.wait, JSON.stringify(locked));
     await shot(page, `mobile-${name}-levelup`);
     const inView = await page.evaluate(() => [...document.querySelectorAll('.choice')].every((c) => { const r = c.getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth + 1; }));

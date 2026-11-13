@@ -82,3 +82,33 @@ describe('player', () => {
     expect(Math.hypot(w.player.x, w.player.y)).toBeLessThanOrEqual(200);
   });
 });
+
+describe('xp pickups', () => {
+  it('always collect: old gems never overshoot or orbit a moving player', () => {
+    const w = mkWorld(); w.player.weapons = [];
+    const xp0 = w.player.xp + w.player.level * 1e6;
+    const ks = [0.1, 5, 40, 400].map((age, i) => {
+      const k = spawnPickup(w, 'xp', 200 + i * 30, -150 + i * 40, 1)!;
+      k.age = age; k.vx = k.vy = 0; k.pulled = true;
+      return k;
+    });
+    let maxStep = 0, px = 0, py = 0;
+    for (let i = 0; i < 60 * 4 && ks.some((k) => k.alive); i++) {
+      const before = ks.map((k) => [k.x, k.y]);
+      w.step({ mx: Math.cos(i / 20), my: Math.sin(i / 20), dash: false }); // circle-strafe
+      ks.forEach((k, j) => { if (k.alive) maxStep = Math.max(maxStep, Math.hypot(k.x - before[j][0], k.y - before[j][1])); });
+      px = w.player.x; py = w.player.y;
+    }
+    expect(ks.every((k) => !k.alive), 'all gems collected within 4 s').toBe(true);
+    expect(maxStep, 'pull speed is capped').toBeLessThan(1500 / 60 + 1);
+    expect(w.player.xp + w.player.level * 1e6).toBeGreaterThan(xp0);
+    expect(Number.isFinite(px + py)).toBe(true);
+  });
+  it('a magnet pull starts slow-to-fast per gem, independent of pickup age', () => {
+    const w = mkWorld(); w.player.weapons = [];
+    const k = spawnPickup(w, 'xp', 300, 0, 1)!;
+    k.age = 1000; k.vx = k.vy = 0; k.pulled = true;
+    w.step({ mx: 0, my: 0, dash: false });
+    expect(300 - k.x).toBeLessThan(30);
+  });
+});

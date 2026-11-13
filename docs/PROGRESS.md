@@ -28,6 +28,23 @@ State snapshot (not a diary). Update at milestones.
   40–100 s. Full-run test: 3/6 wins.
 - Performance: see `docs/TESTING.md` — sim 0.65 ms/step at 500 enemies; real-GPU frame rate unmeasured.
 
+## Visual overhaul & input repair (latest pass)
+- **XP orbiting fixed.** Root cause: pull speed was `380 + pickup.age*300` and `age` never stops
+  growing, so a gem older than a few seconds moved > 40 px/step, jumped over the 20 px collect
+  radius and oscillated around the player. Now speed ramps with time *since pulled* (`Pickup.pt`),
+  is capped (1500 px/s) and the step is clamped to the collect radius. The bob animation also used
+  `sin(t*5 + k.x)` (phase changed ~hundreds of rad/s while pulled → shimmer); now uses `k.age`,
+  zero while pulled. Regression test in `tests/player.test.ts`. No allocations added.
+- **Joystick:** fixed base (CSS-positioned, never script-moved), pointer events + capture,
+  46 px travel (clamped 40–50 in `core/tokens.ts`), 12 % dead zone, normalised direction held outside the ring,
+  instant release on up/cancel/lostcapture. e2e asserts base fixed, thumb ≤ 50 px, direction kept,
+  recentre on release (portrait + landscape).
+- **Design system:** `core/tokens.ts` → `ui/theme.ts` → CSS variables; `styles.css` rewritten on tokens.
+  `docs/ART_DIRECTION.md` has the rules and the art audit. `scripts/atlas-sheet.cjs` dumps contact sheets.
+- **Not done / remaining gaps:** no enemy/boss redraw (needs approved benchmark; ~16 enemies flagged
+  "revise"); UI restyled via CSS only — markup of select/armory/codex screens is unchanged; no real
+  device or GPU run; headless bench is software-rasterised (4.6 fps @ 494 enemies, sim 3.1 ms/step there).
+
 ## Known issues / limits
 1. **GPU frame rate is unverified.** Only a software rasterizer was available. Run
    `__rift.bench(500, 8)` (`?dev`) on real desktop / Chromebook / phone hardware.

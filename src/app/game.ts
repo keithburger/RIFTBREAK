@@ -66,6 +66,7 @@ export class Game implements UIHost {
     this.input.onPause = () => this.pauseToggle();
     this.input.onKey = (code) => { if (this.rebindCb) { const cb = this.rebindCb; this.rebindCb = null; cb(code); } };
     this.input.onJoy = (j) => { this.ui.joystick(this.state === 'run' ? j : null); if (this.input.touchSeen) this.ui.setTouch(true); };
+    this.input.joyBase = () => (this.state === 'run' ? this.ui.joyBase() : null);
     const unlock = (): void => this.audio.unlock();
     window.addEventListener('pointerdown', unlock);
     window.addEventListener('keydown', unlock);

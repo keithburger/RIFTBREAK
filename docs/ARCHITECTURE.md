@@ -11,6 +11,7 @@ core ◄── sim ◄── content
            ▲        │                 │       │
            └────── app (game.ts) ─────┴───────┘     the only layer that sees everything
 ```
+`ui` and `input` may also read `core` (design tokens, `core/tokens.ts` — pure data, no cycles).
 Enforced by `tests/architecture.test.ts` (imports, no DOM/timers/`Math.random` in `core|sim|content`,
 no file ≥ 700 lines).
 

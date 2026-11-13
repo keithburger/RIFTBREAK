@@ -120,7 +120,7 @@ export interface Minion {
   idx: number; target: Enemy | null; alive: boolean; r: number; st: number;
 }
 export type PickupKind = 'xp' | 'heal' | 'magnet' | 'bomb' | 'chest' | 'shard';
-export interface Pickup { kind: PickupKind; x: number; y: number; vx: number; vy: number; value: number; age: number; pulled: boolean; alive: boolean }
+export interface Pickup { kind: PickupKind; x: number; y: number; vx: number; vy: number; value: number; age: number; /** seconds spent being pulled (drives pull speed) */ pt: number; pulled: boolean; alive: boolean }
 
 export interface Hooks {
   onKill?(w: World, e: Enemy): void;

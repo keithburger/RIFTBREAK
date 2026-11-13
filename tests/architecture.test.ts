@@ -14,9 +14,9 @@ const ALLOWED: Record<string, string[]> = {
   content: ['core', 'sim', 'content'],
   save: ['save'],
   audio: ['audio'],
-  input: ['sim', 'input'],
+  input: ['core', 'sim', 'input'], // core: design tokens (joystick geometry)
   render: ['core', 'sim', 'render'],
-  ui: ['sim', 'render', 'save', 'ui'],
+  ui: ['core', 'sim', 'render', 'save', 'ui'], // core: design tokens
   app: ['core', 'sim', 'content', 'render', 'audio', 'input', 'save', 'ui', 'app'],
 };
 

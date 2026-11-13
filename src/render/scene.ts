@@ -50,7 +50,7 @@ export function drawScene(d: Draw, w: World, fx: FxSystem, v: View, t: number): 
   // ---- pickups
   for (const k of w.pickups) {
     if (!inView(k.x, k.y, 20)) continue;
-    const bob = Math.sin(t * 5 + k.x) * 2;
+    const bob = k.pulled ? 0 : Math.sin(k.age * 5) * 2; // stable per-pickup phase (k.x changes while pulled)
     const key = k.kind === 'xp' ? (k.value < 3 ? 'k_xp0' : k.value < 10 ? 'k_xp1' : k.value < 40 ? 'k_xp2' : 'k_xp3') : 'k_' + k.kind;
     const s = k.kind === 'chest' ? 1.2 + Math.sin(t * 4) * 0.08 : Math.min(1, k.age * 6);
     r.sprite(L.ENT, key, k.x, k.y + bob, 0, s, s, 0xffffff, 1);
