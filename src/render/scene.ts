@@ -3,6 +3,7 @@ import { TAU } from '../core/math';
 import type { Beam, Enemy, Zone } from '../sim/types';
 import type { World } from '../sim/world';
 import type { FxSystem } from './effects';
+import { edgeOf } from './geometry';
 import { L, type Draw } from './renderer';
 
 export interface View { x: number; y: number; zoom: number; w: number; h: number }
@@ -10,6 +11,13 @@ export interface View { x: number; y: number; zoom: number; w: number; h: number
 const TELE = 0xff3355;
 const PROJ_REF: Record<string, number> = { p_wave: 46, p_void: 30, p_rock: 14, p_bubble: 12, p_crescent: 15, p_disc: 12, p_bomb: 10, p_spear: 9, p_blade: 12, p_glob: 9, p_shard: 8, p_bolt: 7, p_missile: 8, p_mote: 8, p_feather: 7, p_spore: 6 };
 const MINION_SPRITE: Record<string, string> = { drone: 'p_drone', turret: 'p_turret', spire: 'p_spire', shade: 'p_shade', mine: 'p_mine' };
+/** Two-stroke limb / joint: a lighter-tint outline under the fill colour (docs/ART_DIRECTION.md). */
+const limb = (d: Draw, layer: number, x1: number, y1: number, x2: number, y2: number, w: number, col: number): void => {
+  d.line(layer, x1, y1, x2, y2, w + 3, edgeOf(col), 1); d.line(layer, x1, y1, x2, y2, w, col, 1);
+};
+const knob = (d: Draw, layer: number, x: number, y: number, rad: number, col: number): void => {
+  d.circle(layer, 'disc', x, y, rad + 1.5, edgeOf(col), 1); d.circle(layer, 'disc', x, y, rad, col, 1);
+};
 const cellHash = (x: number, y: number, s: number): number => { let h = (x * 374761393 + y * 668265263 + s * 2147483647) | 0; h = (h ^ (h >> 13)) * 1274126177; return (h ^ (h >> 16)) >>> 0; };
 
 export function drawScene(d: Draw, w: World, fx: FxSystem, v: View, t: number): void {
@@ -40,7 +48,6 @@ export function drawScene(d: Draw, w: World, fx: FxSystem, v: View, t: number): 
       const x = A.x + Math.cos(a) * A.r, y = A.y + Math.sin(a) * A.r;
       if (!inView(x, y, 20)) continue;
       r.sprite(L.GROUND, 'tri', x, y, a + Math.PI, 1.1, 0.8 + Math.sin(t * 3 + i) * 0.2, col, 0.75);
-      if (q >= 2) r.sprite(L.GLOW, 'soft', x, y, 0, 1.4, 1.4, col, 0.25);
     }
   }
 
@@ -54,7 +61,7 @@ export function drawScene(d: Draw, w: World, fx: FxSystem, v: View, t: number): 
     const key = k.kind === 'xp' ? (k.value < 3 ? 'k_xp0' : k.value < 10 ? 'k_xp1' : k.value < 40 ? 'k_xp2' : 'k_xp3') : 'k_' + k.kind;
     const s = k.kind === 'chest' ? 1.2 + Math.sin(t * 4) * 0.08 : Math.min(1, k.age * 6);
     r.sprite(L.ENT, key, k.x, k.y + bob, 0, s, s, 0xffffff, 1);
-    if (k.kind === 'chest') { d.circle(L.GLOW, 'glow', k.x, k.y, 46, 0xffd24a, 0.4 + Math.sin(t * 4) * 0.15); r.sprite(L.FX, 'spark', k.x, k.y - 22, t * 2, 0.5, 0.5, 0xfff3b8, 0.8); }
+    if (k.kind === 'chest') r.sprite(L.FX, 'spark', k.x, k.y - 22, t * 2, 0.5, 0.5, 0xfff3b8, 0.8);
   }
 
   // ---- minions
@@ -64,7 +71,6 @@ export function drawScene(d: Draw, w: World, fx: FxSystem, v: View, t: number): 
     if (m.kind === 'orbit') {
       const s = m.r / 12;
       r.sprite(L.ENT, wp.sprite, m.x, m.y, m.ang + (wp.sprite === 'p_rock' ? m.t * 2 : 0), s, s, wp.color, 1);
-      if (q >= 1) d.circle(L.GLOW, 'glow', m.x, m.y, m.r * 2.2, wp.color, 0.3);
     } else {
       const key = MINION_SPRITE[m.kind] ?? 'p_drone';
       const pop = Math.min(1, m.t * 5);
@@ -73,7 +79,6 @@ export function drawScene(d: Draw, w: World, fx: FxSystem, v: View, t: number): 
       r.sprite(L.ENT, key, m.x, m.y, rot, s, s, wp.color, m.kind === 'shade' ? 0.85 : 1);
       if (m.kind === 'mine' && m.t > 0.4) r.sprite(L.FX, 'soft', m.x, m.y, 0, 0.5, 0.5, 0xffffff, 0.4 + Math.sin(t * 10) * 0.4);
       if (m.kind === 'turret' && wp.x.obelisk) for (const o of [0, Math.PI]) { const L2 = wp.x.obelisk * p.stats.area; d.line(L.FX, m.x, m.y, m.x + Math.cos(m.ang + o) * L2, m.y + Math.sin(m.ang + o) * L2, 22, wp.color, 0.7, true); }
-      if (q >= 1) d.circle(L.GLOW, 'glow', m.x, m.y, 30, wp.color, 0.3);
     }
   }
 
@@ -92,8 +97,8 @@ export function drawScene(d: Draw, w: World, fx: FxSystem, v: View, t: number): 
   if (w.state !== 'lost') {
     const blink = p.iframes > 0 && p.dashT <= 0 && Math.floor(t * 20) % 2 === 0 ? 0.45 : 1;
     const col = p.cls.col;
-    d.circle(L.GLOW, 'glow', p.x, p.y, 62, col, 0.35);
-    if (p.surgeT > 0) { d.circle(L.GLOW, 'glow', p.x, p.y, 70, 0xffe08a, 0.22 + Math.sin(t * 12) * 0.06); d.circle(L.FX, 'dash_ring', p.x, p.y, 30, 0xffe08a, 0.8, t * 3); }
+    d.circle(L.GROUND, 'ring', p.x, p.y, 27, col, 0.55); // findability comes from a plotted ring, not a halo
+    if (p.surgeT > 0) d.circle(L.FX, 'dash_ring', p.x, p.y, 30, 0xffe08a, 0.8, t * 3);
     if (p.moving || p.dashT > 0) {
       const back = p.facing + Math.PI;
       const k = p.dashT > 0 ? 3 : 1;
@@ -113,15 +118,13 @@ export function drawScene(d: Draw, w: World, fx: FxSystem, v: View, t: number): 
     const s = (pr.r / (PROJ_REF[pr.sprite] ?? 8)) * (pr.mode === 1 ? pr.scale : 1);
     if (pr.sprite === 'p_void') { r.sprite(L.GLOW, 'p_void', pr.x, pr.y, t * 2, s, s, pr.color, 0.9); r.sprite(L.FX, 'swirl', pr.x, pr.y, -t * 4, s * 0.5, s * 0.5, pr.color, 0.6); continue; }
     r.sprite(L.ENT, pr.sprite, pr.x, pr.y, pr.rot, s, s, pr.color, 1);
-    if (q >= 1) r.sprite(L.GLOW, 'glow', pr.x, pr.y, 0, Math.min(2.2, pr.r / 9 + 0.25), Math.min(2.2, pr.r / 9 + 0.25), pr.color, 0.3);
     if (q >= 2 && (w.frame & 1) === 0 && pr.mode !== 3) fx.particle(pr.x, pr.y, -pr.vx * 0.05, -pr.vy * 0.05, 0.22, Math.min(9, pr.r * 0.7), pr.color);
   }
 
-  // ---- enemy bullets (always high-contrast: bright core + hostile halo)
+  // ---- enemy bullets (always high-contrast: red body, lighter-red edge, white core)
   for (const b of w.bullets) {
     if (!inView(b.x, b.y, 20)) continue;
     const s = b.r / 9;
-    r.sprite(L.GLOW, 'glow', b.x, b.y, 0, s * 0.55, s * 0.55, 0xff2850, 0.75);
     r.sprite(L.ENT, b.sprite, b.x, b.y, 0, s, s, b.color, 1);
     r.sprite(L.FX, 'soft', b.x, b.y, 0, s * 0.3, s * 0.3, 0xffffff, 0.9);
   }
@@ -153,8 +156,7 @@ function drawZone(d: Draw, z: Zone, t: number, q: number): void {
       d.circle(L.GROUND, 'dash_ring', z.x, z.y, z.r, col, 0.6 * fade, t * 0.6);
     } else {
       d.circle(L.GROUND, 'pool', z.x, z.y, z.r, col, (0.75 + Math.sin(t * 8 + z.x) * 0.15) * fade);
-      d.circle(L.GLOW, 'soft', z.x, z.y, z.r * 1.1, col, 0.3 * fade);
-      if (z.once) d.circle(L.FX, 'soft', z.x, z.y, z.r * 1.3, 0xffffff, 0.8 * fade);
+      if (z.once) d.circle(L.FX, 'soft', z.x, z.y, z.r * 1.15, 0xffffff, 0.55 * fade);
     }
     return;
   }
@@ -181,7 +183,6 @@ function drawZone(d: Draw, z: Zone, t: number, q: number): void {
     case 'shrine':
       d.circle(L.GROUND, 'pool', z.x, z.y, z.r, c, 0.35);
       d.circle(L.GROUND, 'dash_ring', z.x, z.y, z.r, c, 0.9, t * 0.8);
-      d.circle(L.GLOW, 'glow', z.x, z.y, z.r * (1.2 + Math.sin(t * 3) * 0.15), c, 0.4);
       r.sprite(L.FX, 'spark', z.x, z.y, t, 1.2, 1.2, c, 0.8);
       break;
     case 'heal':
@@ -194,7 +195,6 @@ function drawZone(d: Draw, z: Zone, t: number, q: number): void {
       break;
     default:
       d.circle(L.GROUND, 'pool', z.x, z.y, z.r, c, 0.5 * fade);
-      if (q >= 2) d.circle(L.GLOW, 'soft', z.x, z.y, z.r, c, 0.14 * fade);
   }
 }
 
@@ -213,7 +213,6 @@ function drawBeam(d: Draw, b: Beam, t: number): void {
   const pulse = 1 + Math.sin(t * 40) * 0.08;
   d.line(L.FX, b.x, b.y, x2, y2, b.width * 2.6 * pulse, b.color, 0.75 * fade, true);
   d.line(L.FX, b.x, b.y, x2, y2, b.width * 0.42, 0xffffff, 0.95 * fade);
-  d.circle(L.FX, 'glow', b.x, b.y, b.width * 1.6, b.color, 0.8 * fade);
   if (b.team === 1) d.line(L.GROUND, b.x, b.y, x2, y2, b.width, TELE, 0.25 * fade);
 }
 
@@ -234,7 +233,6 @@ function drawEnemy(d: Draw, w: World, e: Enemy, t: number, q: number): void {
   const rot = def.look[0] === 'saw' || def.look[0] === 'gear' ? t * 6 + e.id : def.move[0] === 'sentry' && def.look[0] !== 'turret' ? Math.sin(t + e.id) * 0.2 : e.dir;
   if (e.elite) {
     d.circle(L.GROUND, 'ring2', e.x, e.y, e.r * 1.45, e.elite === 2 ? 0xff5a8a : 0xffd24a, 0.75 + Math.sin(t * 6) * 0.2);
-    d.circle(L.GLOW, 'glow', e.x, e.y, e.r * 2.6, e.elite === 2 ? 0xff5a8a : 0xffd24a, 0.3);
     const bw = e.r * 2.2, f = Math.max(0, e.hp / e.maxHp);
     d.line(L.TOP, e.x - bw / 2, e.y - e.r - 14, e.x + bw / 2, e.y - e.r - 14, 4, 0x1a1a22, 0.9);
     d.line(L.TOP, e.x - bw / 2, e.y - e.r - 14, e.x - bw / 2 + bw * f, e.y - e.r - 14, 3, 0xffd24a, 1);
@@ -260,7 +258,6 @@ function drawBoss(d: Draw, w: World, fx: FxSystem, e: Enemy, t: number, q: numbe
   const R = e.r;
   const col = def.col, col2 = def.col2;
   const tintBody = e.freezeT > 0 || e.slow > 0.2 ? 0xb8e0ff : 0xffffff;
-  d.circle(L.GLOW, 'glow', x, y, R * 3.2, col, 0.28 + Math.sin(t * 2) * 0.06);
   if (c.trans > 0) { const k = (c.trans % 0.5) / 0.5; d.circle(L.FX, 'ring2', x, y, R * (1 + k * 3), col2, 1 - k); }
   let rot = e.dir;
   switch (def.id) {
@@ -275,17 +272,15 @@ function drawBoss(d: Draw, w: World, fx: FxSystem, e: Enemy, t: number, q: numbe
         const kx = l.hx + Math.cos(a) * (dist / 2) + Math.cos(a + 1.5708) * h * side;
         const ky = l.hy + Math.sin(a) * (dist / 2) + Math.sin(a + 1.5708) * h * side;
         const lift = l.t < 1 ? Math.sin(l.t * Math.PI) : 0;
-        d.line(L.ENT, l.hx, l.hy, kx, ky, 13, 0x1a1512, 1); d.line(L.ENT, l.hx, l.hy, kx, ky, 8, 0x8a7868, 1);
-        d.line(L.ENT, kx, ky, l.fx, l.fy, 10, 0x1a1512, 1); d.line(L.ENT, kx, ky, l.fx, l.fy, 5.5, 0xb8a08a, 1);
-        d.line(L.FX, kx, ky, l.fx, l.fy, 1.5, col2, 0.7);
-        d.circle(L.ENT, 'disc', kx, ky, 8, 0x3a302a, 1); d.circle(L.FX, 'soft', kx, ky, 6, col2, 0.8);
-        r.sprite(L.ENT, 'tri', l.fx, l.fy, a, 1.3 + lift * 0.7, 1.3 + lift * 0.7, 0xd8c8b8, 1);
-        if (lift > 0) d.circle(L.GLOW, 'glow', l.fx, l.fy, 20 + lift * 16, col2, 0.5);
+        limb(d, L.ENT, l.hx, l.hy, kx, ky, 8, col); limb(d, L.ENT, kx, ky, l.fx, l.fy, 5.5, col);
+        knob(d, L.ENT, kx, ky, 6, col2);
+        r.sprite(L.ENT, 'tri', l.fx, l.fy, a, 1.3 + lift * 0.7, 1.3 + lift * 0.7, edgeOf(col), 1);
       });
       r.sprite(L.ENT, key, x, y, rot, 1, 1, tintBody, 1);
       const cx = x + Math.cos(rot) * R * 1.25, cy = y + Math.sin(rot) * R * 1.25;
       const charging = c.d.hold ? 1 : 0;
-      d.circle(L.FX, 'glow', cx, cy, 18 + charging * (30 + Math.sin(t * 30) * 10), col2, 0.9);
+      d.circle(L.FX, 'disc', cx, cy, 14 + charging * (24 + Math.sin(t * 30) * 8), col2, 0.6);
+      if (charging) d.circle(L.FX, 'ring', cx, cy, 20 + (24 + Math.sin(t * 30) * 8), 0xffffff, 0.9);
       if (charging && q >= 1) for (let i = 0; i < 2; i++) { const a = Math.random() * TAU; fx.burst(cx + Math.cos(a) * 40, cy + Math.sin(a) * 40, col2, 1, 30, 3); }
       break;
     }
@@ -295,8 +290,8 @@ function drawBoss(d: Draw, w: World, fx: FxSystem, e: Enemy, t: number, q: numbe
         const a = (i / 8) * TAU + Math.sin(t * 0.8 + i) * 0.25;
         const mx = x + Math.cos(a) * R * 1.1, my = y + Math.sin(a) * R * 1.1;
         const ex = x + Math.cos(a + Math.sin(t * 1.7 + i * 2) * 0.3) * R * 1.9, ey = y + Math.sin(a + Math.sin(t * 1.7 + i * 2) * 0.3) * R * 1.9;
-        d.line(L.ENT, x, y, mx, my, 12, 0x2a4a22, 1); d.line(L.ENT, mx, my, ex, ey, 7, 0x4a7a32, 1);
-        d.circle(L.ENT, 'disc', ex, ey, 7, col2, 1); d.circle(L.GLOW, 'glow', ex, ey, 18, col2, 0.6);
+        limb(d, L.ENT, x, y, mx, my, 10, col); limb(d, L.ENT, mx, my, ex, ey, 6, col);
+        knob(d, L.ENT, ex, ey, 6, col2);
       }
       r.sprite(L.ENT, key, x, y, rot, 1 + Math.sin(t * 2.2) * 0.03, 1 + Math.sin(t * 2.2) * 0.03, tintBody, 1);
       d.circle(L.FX, 'dash_ring', x, y, R * 1.5, col, 0.5, -t * 0.7);
@@ -317,16 +312,14 @@ function drawBoss(d: Draw, w: World, fx: FxSystem, e: Enemy, t: number, q: numbe
       for (const s of [-1, 1]) {
         const a = rot + s * 1.25 + Math.sin(t * 2 + s) * 0.2;
         const fxp = x + Math.cos(a) * R * 1.45, fyp = y + Math.sin(a) * R * 1.45;
-        d.circle(L.ENT, 'disc', fxp, fyp, R * 0.42, 0x3a1a0a, 1); d.circle(L.ENT, 'disc', fxp, fyp, R * 0.3, col, 1); d.circle(L.GLOW, 'glow', fxp, fyp, R * 0.9, col2, 0.5);
+        knob(d, L.ENT, fxp, fyp, R * 0.4, col); d.circle(L.ENT, 'disc', fxp, fyp, R * 0.16, col2, 1);
       }
       r.sprite(L.ENT, key, x, y, rot, 1, 1, tintBody, 1);
-      d.circle(L.FX, 'soft', x, y, R * (0.9 + Math.sin(t * 5) * 0.12), col, 0.3);
       if (q >= 2 && Math.random() < 0.5) fx.particle(x + (Math.random() - 0.5) * R, y + (Math.random() - 0.5) * R, 0, -40, 0.6, 5, col2);
       break;
     }
     case 'tidal_leviathan': {
       r.sprite(L.ENT, key, x, y, rot, 1, 1, tintBody, 1);
-      d.circle(L.FX, 'soft', x + Math.cos(rot) * R, y + Math.sin(rot) * R, 20, col2, 0.6);
       break;
     }
     case 'prism_seraph': {
@@ -335,7 +328,6 @@ function drawBoss(d: Draw, w: World, fx: FxSystem, e: Enemy, t: number, q: numbe
         const a = (i / 6) * TAU + t * 0.8;
         const rr = R * (1.5 + Math.sin(t * 2 + i) * 0.15);
         r.sprite(L.ENT, 'p_blade', x + Math.cos(a) * rr, y + Math.sin(a) * rr, a + 1.57, 2.6, 2, i % 2 ? col2 : col, 0.95);
-        if (q >= 1) d.circle(L.GLOW, 'glow', x + Math.cos(a) * rr, y + Math.sin(a) * rr, 26, col2, 0.35);
       }
       r.sprite(L.ENT, key, x, y, rot, 1, 1, tintBody, 1);
       d.circle(L.FX, 'ring2', x, y, R * 0.75, col, 0.7 + Math.sin(t * 4) * 0.2);
@@ -355,7 +347,7 @@ function drawBoss(d: Draw, w: World, fx: FxSystem, e: Enemy, t: number, q: numbe
       r.sprite(L.ENT, key, x, y, rot, 1, 1, tintBody, 1);
       r.sprite(L.ENT, key, x, y, -rot * 1.5, 0.55, 0.55, 0xffffff, 0.9);
       const cols = [0xff6a2a, 0x8fe4ff, 0xffe94a, 0x9b5cff];
-      for (let i = 0; i < 4; i++) { const a = -t * 1.1 + (i / 4) * TAU; const ox = x + Math.cos(a) * R * 1.7, oy = y + Math.sin(a) * R * 1.7; d.circle(L.ENT, 'disc', ox, oy, 10, cols[i], 1); d.circle(L.GLOW, 'glow', ox, oy, 30, cols[i], 0.6); }
+      for (let i = 0; i < 4; i++) { const a = -t * 1.1 + (i / 4) * TAU; const ox = x + Math.cos(a) * R * 1.7, oy = y + Math.sin(a) * R * 1.7; knob(d, L.ENT, ox, oy, 10, cols[i]); }
       break;
     }
     default:

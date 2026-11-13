@@ -20,7 +20,7 @@ description: Add or rework a RIFTBREAK biome/world (palette, ground texture, dec
    damage source. Parameters `a, b, c` are documented per kind.
 4. Bosses: two entries (`/add-boss`). The standard run picks one per biome by seed parity; Boss Rush
    plays both.
-5. Art: add a branch for the new `idx` in `backgrounds()` for the 512 px seamless ground tile, and
+5. Art: add a branch for the new `idx` in `backgrounds()` for the 512 px seamless ground tile (a low-contrast plotted-graph construction, no noise/blotches — `docs/ART_DIRECTION.md`), and
    decor shapes in `decor()` (three keys: tall accent, cluster, scatter).
 6. Run length: standard mode plays every biome for `BIOME_TIME` (300 s) + boss. A fifth biome
    lengthens the run by ~6 min — adjust `BIOME_TIME` or say so explicitly.

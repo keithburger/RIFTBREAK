@@ -101,11 +101,10 @@ export class FxSystem implements FxSink {
       // big rings use the thin stroke so large shockwaves stay readable instead of flooding the screen
       const big = g.r > 100;
       d.circle(L.FX, big ? 'ring' : 'ring2', g.x, g.y, g.r * (0.25 + 0.75 * e), g.color, (1 - t) * (big ? 0.7 : 0.9));
-      if (g.r > 60 && this.settings.quality >= 2) d.circle(L.GLOW, 'soft', g.x, g.y, g.r * e, g.color, (1 - t) * (big ? 0.07 : 0.16));
     }
     for (const l of this.lines) {
       const t = l.life / l.max;
-      d.line(L.FX, l.x1, l.y1, l.x2, l.y2, l.width * 3.2, l.color, t * 0.8, true);
+      d.line(L.FX, l.x1, l.y1, l.x2, l.y2, l.width * 1.8, l.color, t * 0.9, true);
       d.line(L.FX, l.x1, l.y1, l.x2, l.y2, Math.max(1, l.width * 0.6 * t), 0xffffff, t);
     }
     for (const s of this.slashes) {

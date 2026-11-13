@@ -77,12 +77,12 @@ evolutions, passives, relics, classes, modes and meta upgrades express tuning as
 
 ## Presentation
 
-- **Atlas** (`render/atlas.ts`, `shapes.ts`): every sprite is drawn with Canvas 2D at startup into
+- **Atlas** (`render/atlas.ts`, `shapes.ts`): every sprite is drawn with Canvas 2D (flat, ≤ 3 colours, via `render/geometry.ts` + the Kit) at startup into
   one 4096² page (enemies, bosses, projectiles, icons, glyphs, decor) plus four seamless ground tiles.
 - **Renderer** (`render/renderer.ts`): a layered immediate-mode sprite batcher with two backends,
   `PixiRenderer` (WebGL) and `CanvasRenderer` (fallback, chosen automatically if WebGL is missing or
-  PixiJS init throws; force with `?renderer=canvas`). Layers: ground, additive glow, entities,
-  additive FX, top.
+  PixiJS init throws; force with `?renderer=canvas`). Layers: ground, additive (flat shapes only), entities,
+  additive FX, top. Art style: `docs/ART_DIRECTION.md`.
 - **Scene** (`render/scene.ts`): read-only pass over `World`. **Effects** (`render/effects.ts`):
   implements `FxSink` with pooled particles, rings, lines, slashes, text; owns shake/flash and the
   quality level (0–3, auto-adapts to frame time; decorative effects shed first).

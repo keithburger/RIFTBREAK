@@ -27,7 +27,8 @@ description: Add a new RIFTBREAK enemy archetype or a new enemy movement/attack 
    `E(id, name, biome, tier, hp, spd, dmg, r, xp, cost, look, col, col2, move, desc, {atk, traits, group})`.
    `tier` 0–3 controls when it enters the pool; `cost` is its spawn budget (≈ hp/25, more if dangerous).
 5. Look: reuse a `BODIES` family with a new variant/colours, or add a body in `render/shapes.ts`
-   (facing +x, built with the Kit). The sprite is generated automatically from the def.
+   (facing +x, built with the Kit: flat fill + lighter-tint outline, ≤ 3 colours, geometry not colour
+   distinguishes it — see `docs/ART_DIRECTION.md`). The sprite is generated automatically from the def.
 6. Each biome currently has exactly 16 enemies (tests assert 64 total / 16 per biome). Adding a 65th
    means updating those expectations on purpose.
 

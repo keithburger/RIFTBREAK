@@ -23,7 +23,7 @@ description: Add a new RIFTBREAK weapon (base weapon with 5 ranks and two evolut
 3. **Add the definition** with `W(id, name, element, desc, base, ups, evoA, evoB)`:
    - 4 rank-ups as ops lists; 2 evolutions via `E(id, name, needsPassiveId, desc, ops)`.
    - Each evolution must change mechanics (an op other than `dmg`/`cd`).
-   - `base.sprite` must be an existing `p_*` key, or add one in `render/atlas.ts: projectiles()`
+   - `base.sprite` must be an existing `p_*` key, or add one in `render/atlas.ts: projectiles()` (two-grey flat style, see `docs/ART_DIRECTION.md`)
      (white, ~28 px, distinctive silhouette) and, if its size is unusual, a `PROJ_REF` entry in
      `render/scene.ts`.
 4. **Fusion instead?** Use `F(id, name, sourceA, sourceB, el, el2, desc, base, U)`. Note the

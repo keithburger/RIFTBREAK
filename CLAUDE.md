@@ -72,6 +72,11 @@ Allowed imports are enforced by `tests/architecture.test.ts`:
 - Enemies: `move` + optional `atk` + `traits`; signatures must be unique within a biome.
 - After any content change: `npm run validate`, the relevant test file, then `npm run manifest`.
 
+## Art
+
+All art follows `docs/ART_DIRECTION.md` (Desmos-style: flat fills, 2–3 colours per sprite, outline = lighter tint of
+the fill, no gradients/glows/texture, built from circles/arcs/curves/polygons). It overrides any older note.
+
 ## Verification expectations
 
 - Never claim something works without running it. Sim/content change → `npm run test:fast`.

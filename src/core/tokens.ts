@@ -31,9 +31,17 @@ export const TOKENS = {
   outline: { hair: 1, line: 2, strong: 3 },
   shadow: {
     panel: '0 10px 30px rgba(0,0,0,.55)',
-    /** Controlled bloom: one colour, low alpha, never stacked. */
-    glow: '0 0 14px -2px var(--glow, rgba(95,212,255,.45))',
     text: '0 1px 3px rgba(0,0,0,.8)',
+  },
+  /** Sprite art rules (docs/ART_DIRECTION.md). */
+  art: {
+    /** Outline = fill mixed this far toward white. */
+    edgeTint: 0.5,
+    /** Outline width, logical px. */
+    line: 1.5,
+    /** Grey of the fill / outline in runtime-tinted (white-authored) sprites. */
+    fillGrey: 168,
+    maxColors: 3,
   },
   motion: { fast: 90, base: 180, slow: 320, ease: 'cubic-bezier(.2,.8,.2,1)' },
   breakpoint: { phone: 520, tablet: 900, desktop: 1280 },

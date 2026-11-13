@@ -1,77 +1,70 @@
 /**
- * Shape language for all procedural sprites. A Kit paints layered geometric forms with a consistent
- * treatment: dark keyline, gradient body, light rim and emissive cores. Bodies face +x.
+ * Shape language for all baked sprites (docs/ART_DIRECTION.md): flat fill, an outline that is a lighter
+ * tint of that fill, one accent. A Kit paints constructions (polygons, circles, curves, repeats) with
+ * exactly that treatment, so every body is ≤ 3 colours. Bodies face +x.
  */
-type Ctx = CanvasRenderingContext2D;
-
-const rgb = (c: number, a = 1): string => `rgba(${(c >> 16) & 255},${(c >> 8) & 255},${c & 255},${a})`;
-const lerpC = (a: number, b: number, t: number): number =>
-  (Math.round(((a >> 16) & 255) + (((b >> 16) & 255) - ((a >> 16) & 255)) * t) << 16) |
-  (Math.round(((a >> 8) & 255) + (((b >> 8) & 255) - ((a >> 8) & 255)) * t) << 8) |
-  Math.round((a & 255) + ((b & 255) - (a & 255)) * t);
+import { LINE, TAU, arcPts, edgeOf, ngonPts, plotPts, polarPts, repeat, rgb, starPts, tracePts, wavePts, type Ctx } from './geometry';
 
 export interface Kit {
   c: Ctx; col: number; col2: number; r: number;
+  /** Filled polygon in the body colour (+ lighter-tint outline). */
   body(pts: number[]): void;
+  /** Filled polygon in the accent colour (+ outline). */
   core(pts: number[]): void;
+  /** Knock-out: a transparent hole with an outline (not a darker colour). */
   dark(pts: number[]): void;
+  /** Circle. kind 0 = body, 1 = accent, 2 = knock-out. */
   disc(x: number, y: number, rad: number, kind?: number): void;
+  /** Open polyline limb: lighter outline stroke under a narrower fill stroke (accent when `bright`). */
   line(pts: number[], w: number, bright?: boolean): void;
+  /** Thick stroked path (rings, arcs, ellipses): `trace` adds the path to the context. */
+  band(trace: (c: Ctx) => void, w: number, accent?: boolean): void;
+  /** Closed parametric curve as a body (kind as in disc). */
+  plot(f: (t: number) => [number, number], kind?: number, n?: number): void;
+  /** Closed polar curve r(θ) as a body (kind as in disc). */
+  polar(r: (a: number) => number, kind?: number, n?: number, rot?: number, cx?: number, cy?: number): void;
+  /** Same construction repeated n times about the origin; fn draws one copy along +x. */
+  rep(n: number, fn: (i: number, a: number) => void, a0?: number, step?: number): void;
   ngon(n: number, rad: number, rot?: number, cx?: number, cy?: number): number[];
   star(n: number, r1: number, r2: number, rot?: number, cx?: number, cy?: number): number[];
   eye(x: number, y: number, rad: number): void;
 }
 
 export function makeKit(c: Ctx, col: number, col2: number, r: number): Kit {
-  const trace = (k: Kit, pts: number[]): void => {
-    k.c.beginPath();
-    for (let i = 0; i < pts.length; i += 2) i ? k.c.lineTo(pts[i], pts[i + 1]) : k.c.moveTo(pts[i], pts[i + 1]);
-    k.c.closePath();
-  };
-  const paintBody = (k: Kit): void => {
-    const c2 = k.c, R = k.r * 1.3;
-    c2.lineWidth = 4; c2.strokeStyle = 'rgba(4,6,12,0.9)'; c2.stroke();
-    const g = c2.createLinearGradient(-R, -R, R, R);
-    g.addColorStop(0, rgb(lerpC(k.col, 0xffffff, 0.28)));
-    g.addColorStop(0.55, rgb(k.col));
-    g.addColorStop(1, rgb(lerpC(k.col, 0x000000, 0.5)));
-    c2.fillStyle = g; c2.fill();
-    c2.lineWidth = 1.4; c2.strokeStyle = rgb(lerpC(k.col, 0xffffff, 0.55), 0.9); c2.stroke();
-  };
-  const paintCore = (k: Kit): void => {
-    const c2 = k.c;
-    c2.save();
-    c2.shadowColor = rgb(k.col2); c2.shadowBlur = 10;
-    c2.fillStyle = rgb(lerpC(k.col2, 0xffffff, 0.35)); c2.fill();
-    c2.restore();
+  const edge = edgeOf(col);
+  const paint = (kind: number): void => {
+    const g = k.c;
+    g.lineJoin = 'miter'; g.miterLimit = 3; g.lineWidth = LINE; g.strokeStyle = rgb(edge);
+    if (kind === 2) { g.save(); g.globalCompositeOperation = 'destination-out'; g.fillStyle = '#000'; g.fill(); g.restore(); }
+    else { g.fillStyle = rgb(kind === 1 ? k.col2 : k.col); g.fill(); }
+    g.stroke();
   };
   const k: Kit = {
     c, col, col2, r,
-    body(pts) { trace(k, pts); paintBody(k); },
-    core(pts) { trace(k, pts); paintCore(k); },
-    dark(pts) { trace(k, pts); k.c.fillStyle = 'rgba(6,8,16,0.72)'; k.c.fill(); },
-    disc(x, y, rad, kind = 0) {
-      k.c.beginPath(); k.c.arc(x, y, rad, 0, Math.PI * 2);
-      if (kind === 0) paintBody(k); else if (kind === 1) paintCore(k); else { k.c.fillStyle = 'rgba(6,8,16,0.72)'; k.c.fill(); }
-    },
+    body(pts) { tracePts(k.c, pts); paint(0); },
+    core(pts) { tracePts(k.c, pts); paint(1); },
+    dark(pts) { tracePts(k.c, pts); paint(2); },
+    disc(x, y, rad, kind = 0) { k.c.beginPath(); k.c.arc(x, y, rad, 0, TAU); paint(kind); },
     line(pts, w, bright = false) {
-      const c2 = k.c;
-      c2.beginPath();
-      for (let i = 0; i < pts.length; i += 2) i ? c2.lineTo(pts[i], pts[i + 1]) : c2.moveTo(pts[i], pts[i + 1]);
-      c2.lineWidth = w + 2.5; c2.strokeStyle = 'rgba(4,6,12,0.9)'; c2.stroke();
-      c2.lineWidth = w; c2.strokeStyle = rgb(bright ? lerpC(k.col2, 0xffffff, 0.3) : lerpC(k.col, 0x000000, 0.15)); c2.stroke();
+      const g = k.c;
+      tracePts(g, pts, false);
+      g.lineCap = 'round'; g.lineJoin = 'round';
+      g.lineWidth = w + LINE * 2; g.strokeStyle = rgb(edge); g.stroke();
+      g.lineWidth = w; g.strokeStyle = rgb(bright ? k.col2 : k.col); g.stroke();
     },
-    ngon(n, rad, rot = 0, cx = 0, cy = 0) {
-      const o: number[] = [];
-      for (let i = 0; i < n; i++) { const a = rot + (i / n) * Math.PI * 2; o.push(cx + Math.cos(a) * rad, cy + Math.sin(a) * rad); }
-      return o;
+    band(trace, w, accent = false) {
+      const g = k.c;
+      g.beginPath(); trace(g);
+      g.lineCap = 'butt'; g.lineJoin = 'round';
+      g.lineWidth = w + LINE * 2; g.strokeStyle = rgb(edge); g.stroke();
+      g.lineWidth = w; g.strokeStyle = rgb(accent ? k.col2 : k.col); g.stroke();
     },
-    star(n, r1, r2, rot = 0, cx = 0, cy = 0) {
-      const o: number[] = [];
-      for (let i = 0; i < n * 2; i++) { const a = rot + (i / (n * 2)) * Math.PI * 2, rr = i % 2 ? r2 : r1; o.push(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr); }
-      return o;
-    },
-    eye(x, y, rad) { k.disc(x, y, rad, 2); k.disc(x + rad * 0.2, y, rad * 0.55, 1); },
+    plot(f, kind = 0, n = 56) { tracePts(k.c, plotPts(f, 0, TAU, n)); paint(kind); },
+    polar(rf, kind = 0, n = 72, rot = 0, cx = 0, cy = 0) { tracePts(k.c, polarPts(rf, n, rot, cx, cy)); paint(kind); },
+    rep(n, fn, a0 = 0, step = TAU / n) { repeat(k.c, n, fn, a0, step); },
+    ngon: ngonPts,
+    star: starPts,
+    eye(x, y, rad) { k.disc(x, y, rad, 2); k.disc(x + rad * 0.2, y, rad * 0.5, 1); },
   };
   return k;
 }
@@ -81,10 +74,11 @@ const sc = (pts: number[], u: number): number[] => pts.map((p) => p * u);
 
 /** Enemy silhouettes. `v` selects a variant so one family yields several distinct looks. */
 export const BODIES: Record<string, Body> = {
+  /** Superellipse |x/a|^2.5 + |y/b|^2.5 = 1, optionally with three repeated studs. */
   slime(k, v) {
-    const u = k.r;
-    k.body(k.ngon(12, u * 1.05).map((p, i) => (i % 2 ? p * 0.92 : p * (i % 4 === 0 ? 1 : 0.85))));
-    if (v === 1) for (const a of [2.4, 3.14, 3.9]) k.disc(Math.cos(a) * u * 1.15, Math.sin(a) * u * 1.15, u * 0.24);
+    const u = k.r, sg = (x: number): number => Math.sign(x) * Math.abs(x) ** 0.8;
+    k.plot((t) => [u * 1.08 * sg(Math.cos(t)), u * sg(Math.sin(t))]);
+    if (v === 1) k.rep(3, () => k.disc(u * 1.12, 0, u * 0.22), 2.35, 0.8);
     k.eye(u * 0.3, v === 2 ? 0 : -u * 0.32, u * 0.26);
     if (v !== 2) k.eye(u * 0.3, u * 0.32, u * 0.26);
   },
@@ -93,6 +87,7 @@ export const BODIES: Record<string, Body> = {
     if (v === 0) { k.body(sc([1.1, 0, 0.5, 0.75, -0.7, 0.8, -1.1, 0.3, -1.1, -0.3, -0.7, -0.8, 0.5, -0.75], u)); k.core(sc([1.55, 0, 0.9, 0.22, 0.9, -0.22], u)); k.line(sc([-0.8, 0, 0.6, 0], u), 1.5); for (const s of [-1, 1]) k.core(sc([0.2, 0.42 * s, -0.3, 0.6 * s, -0.3, 0.3 * s], u)); }
     else { k.body(sc([0.6, 0.85, -1.1, 0.8, -1.1, -0.8, 0.6, -0.85, 1.5, 0], u)); k.dark(sc([0.3, 0.5, -0.8, 0.5, -0.8, -0.5, 0.3, -0.5], u)); k.core(sc([1.5, 0, 0.8, 0.5, 0.95, 0, 0.8, -0.5], u)); for (const s of [-1, 1]) k.disc(-0.5 * u, 0.95 * s * u, u * 0.22); }
   },
+  /** Comet: head disc + v+1 tails (tapering triangles fanned by repetition). */
   wisp(k, v) {
     const u = k.r;
     for (let i = 0; i <= v; i++) { const o = (i - v / 2) * 0.55; k.body(sc([0.4, o + 0.35, -1.9, o * 1.8, 0.4, o - 0.35], u)); }
@@ -135,18 +130,15 @@ export const BODIES: Record<string, Body> = {
     const u = k.r;
     k.disc(-0.15 * u, 0, u * 0.85);
     k.eye(-0.05 * u, 0, u * 0.3);
-    const c = k.c;
-    if (v === 0) { c.beginPath(); c.arc(0, 0, u * 1.15, -1.05, 1.05); c.arc(0, 0, u * 0.9, 1.05, -1.05, true); c.closePath(); c.lineWidth = 4; c.strokeStyle = 'rgba(4,6,12,0.9)'; c.stroke(); c.fillStyle = rgb(k.col2); c.fill(); }
+    if (v === 0) k.band((c) => c.arc(0, 0, u * 1.02, -1.05, 1.05), u * 0.26, true);
     else if (v === 1) { k.body(sc([0.75, 1.1, 1.15, 1.1, 1.15, -1.1, 0.75, -1.1], u)); k.core(sc([0.88, 0.8, 1.02, 0.8, 1.02, -0.8, 0.88, -0.8], u)); }
     else { k.body(sc([1.45, 0, 0.65, 1.0, 0.65, -1.0], u)); k.core(sc([1.2, 0, 0.8, 0.5, 0.8, -0.5], u)); }
   },
+  /** Half-disc bell + sine-wave tentacles y = A·sin(2π·c·s). */
   jelly(k, v) {
-    const u = k.r, c = k.c;
-    for (let i = 0; i < 3 + v; i++) { const o = (i - (2 + v) / 2) * (1.3 / (2 + v)); k.line([-0.2 * u, o * u, -0.9 * u, o * u * 1.3 + Math.sin(i * 2) * 3, -1.55 * u, o * u * 1.1], 2, i % 2 === 0); }
-    c.beginPath(); c.arc(0, 0, u, -1.57, 1.57); c.closePath();
-    k.body([]);
-    c.beginPath(); c.arc(0, 0, u, -1.57, 1.57); c.closePath();
-    c.lineWidth = 4; c.strokeStyle = 'rgba(4,6,12,0.9)'; c.stroke(); c.fillStyle = rgb(k.col); c.fill(); c.lineWidth = 1.4; c.strokeStyle = rgb(lerpC(k.col, 0xffffff, 0.6)); c.stroke();
+    const u = k.r, n = 3 + v;
+    for (let i = 0; i < n; i++) { const o = (i - (n - 1) / 2) * (1.5 / n); k.line(wavePts(-0.2 * u, -1.65 * u, o * u, u * 0.14, 1.5, i, 14), 2, i % 2 === 0); }
+    k.body([...arcPts(0, 0, u, -Math.PI / 2, Math.PI / 2, 18)]);
     k.disc(0.42 * u, 0, u * (v === 2 ? 0.42 : 0.3), 1);
   },
   tank(k, v) {
@@ -158,11 +150,11 @@ export const BODIES: Record<string, Body> = {
     k.disc(-0.05 * u, 0, u * 0.46);
     k.disc(-0.05 * u, 0, u * 0.2, 1);
   },
+  /** n repeated triangles around an n-gon hub (a spiked ring), accent studs on each tip. */
   cluster(k, v) {
-    const u = k.r;
-    const n = 6 + v;
-    for (let i = 0; i < n; i++) { const a = (i / n) * 6.283 + 0.3; k.disc(Math.cos(a) * u * 0.68, Math.sin(a) * u * 0.68, u * 0.42); k.disc(Math.cos(a) * u * 0.68, Math.sin(a) * u * 0.68, u * 0.16, 1); }
-    k.disc(0, 0, u * 0.56);
+    const u = k.r, n = 6 + v;
+    k.rep(n, () => { k.body(k.ngon(3, u * 0.46, 0, u * 0.72, 0)); k.disc(u * 0.92, 0, u * 0.09, 1); }, 0.3);
+    k.body(k.ngon(n, u * 0.62, 0.3));
     k.eye(u * 0.08, 0, u * 0.3);
   },
   skull(k, v) {
@@ -178,10 +170,10 @@ export const BODIES: Record<string, Body> = {
     k.body(sc([1.25, 0, 0, 0.42, -0.9, 0, 0, -0.42], u));
     k.core(sc([0.7, 0, 0.1, 0.18, 0.1, -0.18], u));
   },
+  /** Rose r = 0.62 + 0.68·|cos(3.5θ)| (seven petals) around a knocked-out hub. */
   tree(k) {
     const u = k.r;
-    for (let i = 0; i < 7; i++) { const a = (i / 7) * 6.283; k.body([Math.cos(a - 0.35) * u * 0.6, Math.sin(a - 0.35) * u * 0.6, Math.cos(a) * u * 1.3, Math.sin(a) * u * 1.3, Math.cos(a + 0.35) * u * 0.6, Math.sin(a + 0.35) * u * 0.6]); }
-    k.body(k.ngon(7, u * 0.78, 0.22));
+    k.polar((a) => u * (0.6 + 0.72 * Math.abs(Math.cos(3.5 * a))), 0, 112, 0.22);
     k.dark(k.ngon(7, u * 0.45, 0.22));
     for (const s of [-1, 1]) k.disc(0.2 * u, 0.2 * s * u, u * 0.1, 1);
   },
@@ -216,9 +208,9 @@ export const BODIES: Record<string, Body> = {
     for (const s of [-1, 1]) k.disc(0.55 * u, 0.18 * s * u, u * 0.1, 1);
   },
   orb(k, v) {
-    const u = k.r, c = k.c;
+    const u = k.r;
     k.disc(0, 0, u * 0.82);
-    c.beginPath(); c.ellipse(0, 0, u * 1.3, u * 0.42, v * 0.6 + 0.4, 0, 6.3); c.lineWidth = 3.5; c.strokeStyle = 'rgba(4,6,12,0.9)'; c.stroke(); c.lineWidth = 1.6; c.strokeStyle = rgb(k.col2); c.stroke();
+    k.band((c) => c.ellipse(0, 0, u * 1.3, u * 0.42, v * 0.6 + 0.4, 0, TAU), 2, true);
     if (v === 2) k.core(k.star(4, u * 0.6, u * 0.2)); else if (v === 0) { k.dark(k.ngon(3, u * 0.5, 0)); k.disc(0, 0, u * 0.2, 1); } else k.disc(0, 0, u * 0.36, 1);
   },
   crab(k, v) {
@@ -243,10 +235,10 @@ export const BODIES: Record<string, Body> = {
     if (v === 2) k.body(sc([0.5, -0.6, 0.2, -1.4, -0.1, -0.7], u));
   },
   ring(k, v) {
-    const u = k.r, c = k.c;
-    c.beginPath(); c.arc(0, 0, u * 0.95, 0, 6.3); c.lineWidth = u * 0.42 + 3; c.strokeStyle = 'rgba(4,6,12,0.9)'; c.stroke(); c.lineWidth = u * 0.42; c.strokeStyle = rgb(k.col); c.stroke(); c.lineWidth = 1.3; c.strokeStyle = rgb(lerpC(k.col, 0xffffff, 0.6)); c.stroke();
+    const u = k.r;
+    k.band((c) => c.arc(0, 0, u * 0.95, 0, TAU), u * 0.42);
     k.disc(0, 0, u * 0.34, 1);
-    for (let i = 0; i < 2 + v; i++) { const a = (i / (2 + v)) * 6.283; k.disc(Math.cos(a) * u * 0.95, Math.sin(a) * u * 0.95, u * 0.2, 1); }
+    k.rep(2 + v, () => k.disc(u * 0.95, 0, u * 0.2, 1));
   },
   gear(k, v) {
     const u = k.r;
@@ -257,11 +249,11 @@ export const BODIES: Record<string, Body> = {
     k.dark(k.ngon(8, u * 0.56));
     if (v) k.core(k.star(4, u * 0.46, u * 0.18, 0.78)); else k.disc(0, 0, u * 0.28, 1);
   },
+  /** Lens x = 1.15u·cos t, y = 1.05u·sgn(sin t)|sin t|^1.6 with repeated lashes. */
   eye(k, v) {
-    const u = k.r, c = k.c;
-    if (v >= 1) for (let i = 0; i < 6 + v * 2; i++) { const a = (i / (6 + v * 2)) * 6.283; k.body([Math.cos(a - 0.14) * u * 0.9, Math.sin(a - 0.14) * u * 0.9, Math.cos(a) * u * 1.4, Math.sin(a) * u * 1.4, Math.cos(a + 0.14) * u * 0.9, Math.sin(a + 0.14) * u * 0.9]); }
-    c.beginPath(); c.moveTo(-u * 1.15, 0); c.quadraticCurveTo(0, -u * 1.1, u * 1.15, 0); c.quadraticCurveTo(0, u * 1.1, -u * 1.15, 0); c.closePath();
-    c.lineWidth = 4; c.strokeStyle = 'rgba(4,6,12,0.9)'; c.stroke(); c.fillStyle = rgb(k.col); c.fill(); c.lineWidth = 1.4; c.strokeStyle = rgb(lerpC(k.col, 0xffffff, 0.6)); c.stroke();
+    const u = k.r, sg = (x: number): number => Math.sign(x) * Math.abs(x) ** 1.6;
+    if (v >= 1) k.rep(6 + v * 2, () => k.body([u * 0.9, -u * 0.13, u * 1.4, 0, u * 0.9, u * 0.13]));
+    k.plot((t) => [u * 1.15 * Math.cos(t), u * 1.05 * sg(Math.sin(t))]);
     k.disc(u * 0.15, 0, u * 0.5, 2);
     k.disc(u * 0.22, 0, u * 0.28, 1);
   },
@@ -275,7 +267,7 @@ export const BODIES: Record<string, Body> = {
   },
   squid(k, v) {
     const u = k.r;
-    for (let i = 0; i < 4 + v; i++) { const o = (i - (3 + v) / 2) * (1.2 / (3 + v)); k.line([-0.3 * u, o * u, -1.0 * u, o * u * 1.6 + Math.sin(i * 3) * 4, -1.7 * u, o * u * 1.2], 2.2, i % 2 === 1); }
+    for (let i = 0; i < 4 + v; i++) { const o = (i - (3 + v) / 2) * (1.2 / (3 + v)); k.line(wavePts(-0.3 * u, -1.7 * u, o * u * 1.4, u * 0.13, 1.25, i * 2.1, 14), 2.2, i % 2 === 1); }
     k.body(sc([1.35, 0, 0.2, 0.85, -0.5, 0.65, -0.5, -0.65, 0.2, -0.85], u));
     for (const s of [-1, 1]) k.eye(0.15 * u, 0.4 * s * u, u * 0.2);
     if (v) k.core(sc([1.2, 0, 0.7, 0.2, 0.7, -0.2], u));
@@ -307,10 +299,10 @@ export const BODIES: Record<string, Body> = {
 export const BOSS_BODIES: Record<string, (k: Kit) => void> = {
   mycelial_overmind(k) {
     const u = k.r;
-    for (let i = 0; i < 9; i++) { const a = (i / 9) * 6.283; k.disc(Math.cos(a) * u * 0.82, Math.sin(a) * u * 0.82, u * 0.4); k.disc(Math.cos(a) * u * 0.82, Math.sin(a) * u * 0.82, u * 0.15, 1); }
+    k.rep(9, () => k.body(k.ngon(3, u * 0.5, 0, u * 0.95, 0)), 0);
     k.body(k.ngon(9, u * 0.85, 0.35));
     k.dark(k.ngon(9, u * 0.6, 0.35));
-    for (let i = 0; i < 5; i++) { const a = (i / 5) * 6.283 + 0.3; k.core(k.ngon(5, u * 0.12, a, Math.cos(a) * u * 0.36, Math.sin(a) * u * 0.36)); }
+    k.rep(5, () => k.core(k.ngon(5, u * 0.12, 0, u * 0.36, 0)), 0.3);
     k.eye(0, 0, u * 0.24);
   },
   tempest_conductor(k) {
@@ -387,30 +379,27 @@ export const PLAYER_SHIPS: ((k: Kit) => void)[] = [
   (k) => { const u = k.r; for (const s of [-1, 1]) { k.body(sc([0.5, 0.2 * s, -0.3, 1.25 * s, -1.4, 1.0 * s, -0.6, 0.25 * s], u)); k.core(sc([-0.3, 0.6 * s, -0.9, 0.95 * s, -0.7, 0.5 * s], u)); } k.body(sc([1.3, 0, 0.1, 0.38, -0.8, 0, 0.1, -0.38], u)); k.disc(0.2 * u, 0, u * 0.15, 1); },
 ];
 
-/** UI emblem: framed glyph on a tinted tile. `frame` 0 = passive, 1-3 = relic frame styles. */
+/** UI emblem: flat tile in a dark tone of the colour, outlined in the colour, glyph in the lighter tint. */
 export function drawEmblem(c: Ctx, glyph: string, col: number, frame: number): void {
-  const S = 16;
+  const S = 16, dark = ((col >> 16 & 255) * 0.22 << 16) | ((col >> 8 & 255) * 0.22 << 8) | (col & 255) * 0.22, light = edgeOf(col);
   c.save();
-  const g = c.createLinearGradient(-S, -S, S, S);
-  g.addColorStop(0, rgb(lerpC(col, 0x000000, 0.55)));
-  g.addColorStop(1, rgb(lerpC(col, 0x000000, 0.86)));
-  c.fillStyle = g;
-  c.strokeStyle = rgb(col, 0.9);
-  c.lineWidth = 1.6;
+  c.fillStyle = rgb(dark | 0);
+  c.strokeStyle = rgb(col);
+  c.lineWidth = LINE;
+  c.lineJoin = 'miter';
   c.beginPath();
-  if (frame === 0) c.roundRect(-S, -S, S * 2, S * 2, 6);
+  if (frame === 0) c.rect(-S, -S, S * 2, S * 2);
   else if (frame === 1) for (let i = 0; i < 6; i++) { const a = i * 1.047 + 0.5236; c.lineTo(Math.cos(a) * 17.5, Math.sin(a) * 17.5); }
   else if (frame === 2) { c.moveTo(0, -17.5); c.lineTo(17.5, 0); c.lineTo(0, 17.5); c.lineTo(-17.5, 0); }
-  else c.arc(0, 0, 16.5, 0, 7);
+  else c.arc(0, 0, 16.5, 0, TAU);
   c.closePath();
   c.fill();
   c.stroke();
-  c.shadowColor = rgb(col); c.shadowBlur = 8;
-  c.fillStyle = rgb(lerpC(col, 0xffffff, 0.55));
+  c.fillStyle = rgb(light);
   c.strokeStyle = c.fillStyle;
-  c.lineWidth = 2.4;
+  c.lineWidth = 2.2;
   c.lineCap = 'round'; c.lineJoin = 'round';
-  const P = (pts: number[], fill = true): void => { c.beginPath(); for (let i = 0; i < pts.length; i += 2) i ? c.lineTo(pts[i], pts[i + 1]) : c.moveTo(pts[i], pts[i + 1]); if (fill) { c.closePath(); c.fill(); } else c.stroke(); };
+  const P = (pts: number[], fill = true): void => { tracePts(c, pts, fill); if (fill) c.fill(); else c.stroke(); };
   const s = frame ? 0.82 : 1;
   c.scale(s, s);
   switch (glyph) {

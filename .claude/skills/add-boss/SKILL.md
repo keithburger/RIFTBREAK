@@ -25,7 +25,7 @@ description: Add or rework a RIFTBREAK boss encounter (phases, attack scripts, v
 3. Register: add to `BOSS_DEFS` in `src/content/registry.ts` and to a biome's `bosses` pair in
    `src/content/biomes.ts` (each biome holds exactly two; replacing one removes it from play).
 4. Visuals: add a body in `render/shapes.ts: BOSS_BODIES[<id>]` and an animated case in
-   `render/scene.ts: drawBoss` (limbs, orbiting parts, charge glows). Use `c.legs`/`c.segs`/`c.d`
+   `render/scene.ts: drawBoss` (limbs, orbiting parts, charge telegraphs (flat rings/shapes, no glows — see docs/ART_DIRECTION.md)). Use `c.legs`/`c.segs`/`c.d`
    for sim-owned parts; keep purely decorative motion in the draw code.
 5. Feedback (intro, phase change, death sequence, rewards) comes from the framework in
    `sim/boss.ts`. Add `w.fx.banner` + `w.fx.sfx` for the signature attack.

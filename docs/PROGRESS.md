@@ -45,6 +45,13 @@ State snapshot (not a diary). Update at milestones.
   "revise"); UI restyled via CSS only — markup of select/armory/codex screens is unchanged; no real
   device or GPU run; headless bench is software-rasterised (4.6 fps @ 494 enemies, sim 3.1 ms/step there).
 
+## Art redraw (Desmos-style) — latest pass
+- All sprites, ground tiles and effects follow `docs/ART_DIRECTION.md` (flat, ≤ 3 colours, lighter-tint
+  outline, no gradients/glows). Measured with `node scripts/art-audit.cjs`: 155 baked sprites, max 3 colours.
+- New: `render/geometry.ts` (ink palette, plot/polar/wave/arc/repeat helpers), `scripts/art-audit.cjs`,
+  `tests/geometry.test.ts`; `atlas-sheet.cjs` now draws at 1× and 3×. Gameplay, hitboxes, balance and UI layout untouched.
+- Gaps: see ART_DIRECTION §8.
+
 ## Known issues / limits
 1. **GPU frame rate is unverified.** Only a software rasterizer was available. Run
    `__rift.bench(500, 8)` (`?dev`) on real desktop / Chromebook / phone hardware.
