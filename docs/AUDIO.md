@@ -54,3 +54,37 @@ Boss / level-up / evolve / hurt are priority 3; xp, shards, kills, enemy shots a
 source *and* recorded from simulated full runs and all eight bosses — has a recipe and metadata, plus
 pooling, stealing, ducking, spatialisation, sample fallback and music crossfades.
 In a browser, `?dev` exposes `__rift.audio()` (voices, drops, steals, per-sound play counts, music state).
+
+## Importing generated audio by hand
+
+Automated delivery is not available in the Claude session (its network policy blocks both the
+ElevenLabs API and the download host, and no API key is provisioned), so import is manual:
+
+1. In ElevenLabs (Sound Effects / Music), generate a sound and download it. Keep SFX short (≤ 2 s;
+   bosses ≤ 4 s) — one clear sound per generation. Don't regenerate a sound you already have.
+2. Rename it to its **event id** (below) and put it in `public/audio/sfx/` (or `public/audio/music/`).
+   Several takes of one sound: `slash_1.mp3`, `slash_2.mp3` …
+3. Optional optimisation (needs ffmpeg), mono 96 kbps SFX normalised to a common loudness:
+   `ffmpeg -i in.wav -ac 1 -af loudnorm=I=-18:TP=-2 -b:a 96k public/audio/sfx/<id>.mp3`
+   Music: `ffmpeg -i in.wav -af loudnorm=I=-16:TP=-1.5 -b:a 128k public/audio/music/<track>.mp3`
+4. `npm run audio:index`, then `npm test` — `tests/audio.test.ts` fails on a file whose name is not a
+   real event id/track, or if the index is stale. Commit the files and `audio-index.json`.
+
+Anything without a file keeps its synthesized sound, so you can import in any order. Suggested order:
+weapon sounds and bosses first, then biome/boss music, then UI.
+
+SFX event ids (by mix bus), plus `shot_<element>` for each of: fire frost shock toxin water wind earth arcane light void
+- **weapon**: `slash` `whip` `rend` `strike` `zap` `beam` `ray` `lob` `drop` `flame` `nova` `quake` `well` `wind` `wave` `curse` `react` `boom` `bigboom`
+- **enemy**: `kill` `elite_die` `eshot` `mortar` `charge` `beep` `reveal` `blink` `block` `elite`
+- **player**: `hurt` `dash` `heal` `heartbeat` `revive` `defeat` `victory`
+- **pickup**: `xp` `shard` `magnet` `chest`
+- **upgrade**: `relic` `levelup` `evolve`
+- **ui**: `select` `click`
+- **world**: `event` `biome`
+- **boss**: `boss_intro` `boss_phase` `boss_break` `boss_die` `ray_charge` `ray_fire`
+
+Music track ids: `menu`, `verdant_fracture`, `ironvault_foundry`, `drowned_archive`, `null_expanse`,
+`boss` (generic), and per boss: `mycelial_overmind` `tempest_conductor` `arachnoid_siege_engine`
+`cinder_colossus` `tidal_leviathan` `prism_seraph` `hollow_monarch` `rift_sovereign`.
+Match each biome loop to its tempo in `src/content/biomes.ts` (96 / 112 / 104 / 120 BPM) and make loops
+seamless (loop-point on a bar line); stems of one track must be identical in length.

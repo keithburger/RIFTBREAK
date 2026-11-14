@@ -121,6 +121,27 @@ describe('sound catalogue', () => {
   }, 240000);
 });
 
+// --- shipped assets --------------------------------------------------------------------------------
+
+describe('audio assets', () => {
+  const dirOf = (d: string): string[] => { try { return readdirSync(join('public/audio', d)).filter((f) => /\.(mp3|ogg|wav|m4a|webm)$/i.test(f)).sort().map((f) => `${d}/${f}`); } catch { return []; } };
+  const index = JSON.parse(readFileSync('public/audio/audio-index.json', 'utf8')) as { sfx: string[]; music: string[] };
+  const base = (f: string): string => f.replace(/^[a-z]+\//, '').replace(/(?:_\d+)?\.[a-z0-9]+$/i, '');
+
+  it('audio-index.json lists exactly the files on disk (run `npm run audio:index`)', () => {
+    expect(index.sfx).toEqual(dirOf('sfx'));
+    expect(index.music).toEqual(dirOf('music'));
+  });
+  it('every sfx file is named after a real event id (so it can never be silently ignored)', () => {
+    const known = (n: string): boolean => !!recipe(n) && !!metaOf(n);
+    expect(index.sfx.filter((f) => !known(base(f)))).toEqual([]);
+  });
+  it('every music file is a real track: menu, a biome, a boss, or the generic boss theme', () => {
+    const tracks = new Set(['menu', 'boss', ...C.biomes.map((b) => b.id), ...C.bosses.keys()]);
+    expect(index.music.filter((f) => !tracks.has(base(f)))).toEqual([]);
+  });
+});
+
 // --- sound-effect engine ---------------------------------------------------------------------------
 
 describe('sfx engine', () => {
