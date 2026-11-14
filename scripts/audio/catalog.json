@@ -65,7 +65,7 @@
     { "id": "evolve", "bus": "upgrade", "dur": 2.5, "prompt": "Weapon evolution transformation, powerful rising energy surge into a huge bright cinematic impact with a shimmering tail" },
 
     { "id": "select", "bus": "ui", "dur": 0.5, "n": 2, "prompt": "UI menu confirm, crisp soft digital tick-chime, clean and satisfying" },
-    { "id": "click", "bus": "ui", "dur": 0.5, "n": 2, "prompt": "UI button click, tiny dry tactile tick, subtle" },
+    { "id": "click", "bus": "ui", "dur": 0.5, "n": 2, "prompt": "Crisp UI button click, a short clear plastic mechanical click with a bright sharp transient, clearly audible and dry" },
 
     { "id": "event", "bus": "world", "dur": 1.5, "prompt": "Environmental hazard alert, rumbling warning with an ominous rising swell and a metallic pulse" },
     { "id": "biome", "bus": "world", "dur": 3.0, "prompt": "Entering a new world, vast cinematic transition whoosh with a deep resonant boom and an ethereal pad swell" },
