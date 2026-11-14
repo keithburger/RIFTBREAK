@@ -10,7 +10,7 @@
  * Track changes crossfade, quantized to the end of the current bar (capped so a change never feels
  * late). Intensity (0 calm · 1 combat · 2 boss/peak) is smoothed, never switched hard.
  */
-import { MUSIC_FADE, MUSIC_KEEP, MUSIC_MAX_WAIT } from './manifest';
+import { MUSIC_BPM, MUSIC_FADE, MUSIC_KEEP, MUSIC_MAX_WAIT } from './manifest';
 import type { SampleBank } from './samples';
 import { synthVoice } from './synth';
 
@@ -141,7 +141,7 @@ export class MusicDirector {
       src.start(when);
       return { src, g, lvl: sl };
     });
-    return { key: req.key, bus, bpm: req.gen.tempo, t0: when, stems, track: id, endAt: Infinity };
+    return { key: req.key, bus, bpm: MUSIC_BPM[id] ?? req.gen.tempo, t0: when, stems, track: id, endAt: Infinity };
   }
 
   private makeGen(req: MusicRequest, when: number): Layer {

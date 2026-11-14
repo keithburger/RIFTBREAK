@@ -1,0 +1,149 @@
+name: Generate audio
+
+# Generates RIFTBREAK's sound effects and music with the ElevenLabs API and commits the results.
+# The API key lives only in the repository secret ELEVENLABS_API_KEY; it is passed to one step via
+# the environment and scrubbed from all output by scripts/audio/generate.mjs.
+#
+# Run it from the Actions tab (workflow_dispatch) or by editing scripts/audio/request.json and pushing.
+on:
+  workflow_dispatch:
+    inputs:
+      group:
+        description: What to generate
+        type: choice
+        default: probe
+        options: [probe, sfx, music-menu, music-biomes, music-bosses, music, all]
+      only:
+        description: Optional comma-separated ids (overrides group), e.g. slash,kill,menu
+        type: string
+        default: ''
+      limit:
+        description: Stop after this many generated entries (0 = no limit)
+        type: string
+        default: '0'
+      max_credits:
+        description: Stop once this many credits were spent (0 = no limit)
+        type: string
+        default: '0'
+      dry_run:
+        description: List what would be generated without calling the API
+        type: boolean
+        default: false
+      force:
+        description: Regenerate even if already in audio-lock.json (spends credits)
+        type: boolean
+        default: false
+  push:
+    paths:
+      - scripts/audio/request.json
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generate-audio
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg unzip
+
+      - name: Restore cached raw takes
+        uses: actions/cache/restore@v4
+        with:
+          path: audio-raw
+          key: audio-raw-${{ github.run_id }}
+          restore-keys: audio-raw-
+
+      - name: Resolve request
+        id: req
+        env:
+          EVENT: ${{ github.event_name }}
+          IN_GROUP: ${{ inputs.group }}
+          IN_ONLY: ${{ inputs.only }}
+          IN_LIMIT: ${{ inputs.limit }}
+          IN_MAX: ${{ inputs.max_credits }}
+          IN_DRY: ${{ inputs.dry_run }}
+          IN_FORCE: ${{ inputs.force }}
+        run: |
+          node - <<'JS'
+          const fs = require('fs');
+          const e = process.env;
+          const r = e.EVENT === 'workflow_dispatch'
+            ? { group: e.IN_GROUP, only: e.IN_ONLY, limit: +e.IN_LIMIT || 0, maxCredits: +e.IN_MAX || 0, dryRun: e.IN_DRY === 'true', force: e.IN_FORCE === 'true' }
+            : JSON.parse(fs.readFileSync('scripts/audio/request.json', 'utf8'));
+          const ok = /^[a-z0-9_,]*$/;
+          if (!['probe','sfx','music-menu','music-biomes','music-bosses','music','all'].includes(r.group) || !ok.test(r.only || '')) throw new Error('bad request');
+          const args = ['--group', r.group];
+          if (r.only) args.push('--only', r.only);
+          if (r.limit) args.push('--limit', String(+r.limit));
+          if (r.maxCredits) args.push('--max-credits', String(+r.maxCredits));
+          if (r.dryRun) args.push('--dry-run');
+          if (r.force) args.push('--force');
+          fs.appendFileSync(e.GITHUB_OUTPUT, `args=${args.join(' ')}\n`);
+          console.log('generator args:', args.join(' '));
+          JS
+
+      - name: Generate
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: |
+          if [ -z "$ELEVENLABS_API_KEY" ] && [[ "${{ steps.req.outputs.args }}" != *--dry-run* ]]; then
+            echo "::error::Repository secret ELEVENLABS_API_KEY is not set"; exit 2
+          fi
+          node scripts/audio/generate.mjs ${{ steps.req.outputs.args }}
+
+      - name: Save raw takes to cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: audio-raw
+          key: audio-raw-${{ github.run_id }}
+
+      - name: Upload raw takes and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audio-raw-and-reports
+          path: |
+            audio-raw
+            scripts/audio/reports
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - name: Rebuild audio index
+        if: always()
+        run: node scripts/build-audio-index.cjs
+
+      - name: Commit and push results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/audio scripts/audio/audio-lock.json scripts/audio/reports
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git commit -m "Audio: generated assets (${{ steps.req.outputs.args }})"
+          for i in 1 2 3 4; do
+            git pull --rebase origin "${{ github.ref_name }}" && git push origin "HEAD:${{ github.ref_name }}" && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
+
+      - name: Verify audio tests
+        if: always()
+        run: |
+          npm ci --no-audit --no-fund
+          npx vitest run tests/audio.test.ts tests/audio-catalog.test.ts

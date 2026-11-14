@@ -95,3 +95,13 @@ export const MUSIC_FADE = 2.2;
 export const MUSIC_MAX_WAIT = 3;
 /** Decoded stems of at most this many tracks are kept in memory (menu + current). */
 export const MUSIC_KEEP = 2;
+
+/**
+ * Tempo of each sampled track, used to quantize crossfades to its bar lines. Must match
+ * scripts/audio/catalog.json (tests/audio-catalog.test.ts). Tracks not listed use the biome tempo.
+ */
+export const MUSIC_BPM: Record<string, number> = {
+  menu: 84, verdant_fracture: 96, ironvault_foundry: 112, drowned_archive: 104, null_expanse: 120, boss: 124,
+  mycelial_overmind: 100, tempest_conductor: 132, arachnoid_siege_engine: 118, cinder_colossus: 108,
+  tidal_leviathan: 90, prism_seraph: 128, hollow_monarch: 110, rift_sovereign: 140,
+};

@@ -13,6 +13,7 @@
     "validate": "tsx scripts/validate-content.ts",
     "manifest": "tsx scripts/build-manifest.ts",
     "audio:index": "node scripts/build-audio-index.cjs",
+    "audio:mock": "node scripts/audio/mock-server.mjs 8787",
     "balance": "tsx scripts/balance.ts",
     "bench": "tsx scripts/bench.ts",
     "e2e": "node scripts/e2e.cjs",
