@@ -35,13 +35,14 @@ const OUT_MUSIC = join(OUT, 'music');
 const RAW_DIR = process.env.AUDIO_RAW_DIR || join(ROOT, 'audio-raw');
 const API = (process.env.ELEVENLABS_API_BASE || 'https://api.elevenlabs.io').replace(/\/$/, '');
 const KEY = process.env.ELEVENLABS_API_KEY || '';
-const PIPELINE = 3; // bump to force a re-master of everything (changes the hash)
+const PIPELINE = 4; // bump to force a re-master of everything (changes the hash)
 const SFX_MODEL = 'eleven_text_to_sound_v2';
 const MUSIC_MODELS = (process.env.AUDIO_MUSIC_MODELS || 'music_v2_5,music_v1').split(','); // newest first; falls back on a 4xx
 let MUSIC_MODEL = MUSIC_MODELS[0];
 
 // Per-bus loudness targets (LUFS, integrated) so the mix starts balanced before BUS_TRIM.
 const SFX_LUFS = { weapon: -21, enemy: -23, player: -17, pickup: -24, upgrade: -16, ui: -22, world: -18, boss: -13 };
+const MAX_BOOST = 18; // dB; a take needing more is rejected and re-rolled
 const SFX_STEREO = new Set(['boss', 'upgrade', 'world']);
 const MUSIC_LUFS = -17;
 
@@ -154,6 +155,7 @@ function masterSfx(raw, outFile, bus, dur) {
   let gain;
   if (m != null) gain = target - m;
   else gain = -3 - levels(tmp).max; // too short to meter: peak-normalise instead
+  if (gain > MAX_BOOST) throw new Error(`take too quiet (needs +${gain.toFixed(0)} dB)`); // would just amplify the noise floor
   gain = Math.max(-24, Math.min(24, gain));
   const tail = Math.min(0.03, p.duration / 4);
   ff(['-i', tmp, '-af', `volume=${gain.toFixed(2)}dB,alimiter=limit=0.89:attack=1:release=30:level=false,afade=t=in:d=0.002,afade=t=out:st=${(p.duration - tail).toFixed(4)}:d=${tail.toFixed(4)}`,
@@ -168,20 +170,34 @@ async function genSfx(e) {
   if (!FORCE && have && lock.sfx[e.id]?.hash === hash) return { id: e.id, status: 'skipped' };
   if (DRY) return { id: e.id, status: 'would-generate', takes: files.length };
   const info = [], costs = [];
+  const NUDGE = ' Clearly audible, full volume, strong distinct transient.';
   for (let i = 0; i < files.length; i++) {
-    const raw = join(RAW_DIR, 'sfx', files[i]);
-    mkdirSync(dirname(raw), { recursive: true });
-    const rawHash = sha(JSON.stringify([SFX_MODEL, sfxPrompt(e, i), e.dur, e.infl ?? 0.4]));
-    const metaFile = raw + '.json';
-    const cached = !FORCE && existsSync(raw) && existsSync(metaFile) && JSON.parse(readFileSync(metaFile, 'utf8')).hash === rawHash;
-    if (!cached) {
-      const { data: audio, cost } = await api('/v1/sound-generation', { meta: true, query: { output_format: 'mp3_44100_128' }, json: { text: sfxPrompt(e, i), duration_seconds: e.dur, prompt_influence: e.infl ?? 0.4, model_id: SFX_MODEL } });
-      costs.push(cost);
-      writeFileSync(raw, audio);
-      writeFileSync(metaFile, JSON.stringify({ hash: rawHash }));
+    let done = false, lastErr;
+    for (let attempt = 0; attempt < 3 && !done; attempt++) {
+      const text = sfxPrompt(e, i) + (attempt ? NUDGE : '');
+      const raw = join(RAW_DIR, 'sfx', attempt ? `${files[i]}.a${attempt}` : files[i]);
+      mkdirSync(dirname(raw), { recursive: true });
+      const rawHash = sha(JSON.stringify([SFX_MODEL, text, e.dur, e.infl ?? 0.4]));
+      const metaFile = raw + '.json';
+      const cached = !FORCE && existsSync(raw) && existsSync(metaFile) && JSON.parse(readFileSync(metaFile, 'utf8')).hash === rawHash;
+      try {
+        if (!cached) {
+          const { data: audio, cost } = await api('/v1/sound-generation', { meta: true, query: { output_format: 'mp3_44100_128' }, json: { text, duration_seconds: e.dur, prompt_influence: e.infl ?? 0.4, model_id: SFX_MODEL } });
+          costs.push(cost);
+          writeFileSync(raw, audio);
+          writeFileSync(metaFile, JSON.stringify({ hash: rawHash }));
+        }
+        mkdirSync(OUT_SFX, { recursive: true });
+        const r = masterSfx(raw, join(OUT_SFX, files[i]), e.bus, e.dur);
+        info.push({ ...r, attempt });
+        done = true;
+      } catch (err) {
+        if (err.status) throw err; // API/auth errors are not a quality problem
+        lastErr = err;
+        log(`  ${files[i]} attempt ${attempt + 1}: ${err.message}${attempt < 2 ? ' — re-rolling' : ''}`);
+      }
     }
-    mkdirSync(OUT_SFX, { recursive: true });
-    info.push(masterSfx(raw, join(OUT_SFX, files[i]), e.bus, e.dur));
+    if (!done) throw lastErr;
   }
   lock.sfx[e.id] = { hash, files, at: new Date().toISOString() };
   saveLock();
