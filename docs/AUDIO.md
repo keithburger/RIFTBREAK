@@ -80,7 +80,7 @@ on a GitHub runner using the repo secret `ELEVENLABS_API_KEY` (never printed, ne
   (−17 LUFS at full intensity), 128 kbps stereo. MP3 carries the LAME gapless header; Chromium decodes
   the loop to the exact designed sample count (verified).
 - **Stems**: one composition → ElevenLabs six-stem separation → three intensity layers
-  (`_1` bass+other, `_2` drums, `_3` guitar/piano/vocals; silent stems are dropped). They come from the
+  (`_1` melodic/harmonic `other`, `_2` drums, `_3` bass; silent stems are dropped — ElevenLabs puts all melodic content in `other`). They come from the
   same take, so they are sample-synchronized. Intensity 0/1/2 fades layers 1/1+2/1+2+3.
 - **Local rehearsal without credits**: `npm run audio:mock &`, then run `generate.mjs` with
   `ELEVENLABS_API_BASE=http://127.0.0.1:8787 ELEVENLABS_API_KEY=x AUDIO_OUT_DIR=… AUDIO_LOCK_FILE=…`.

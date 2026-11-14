@@ -2,8 +2,8 @@
   "_doc": "Single source of truth for generated audio. ids are the game's real event/track ids (tests/audio-catalog.test.ts enforces coverage). Edit a prompt and the generator re-spends credits for that entry only (hash in audio-lock.json).",
   "sfxStyle": "Isolated single game sound effect, clean dry studio recording, no music, no speech, no background ambience, no reverb tail beyond what is described.",
   "sfxVariants": ["", "Variation: slightly different timbre and a touch higher pitched.", "Variation: slightly lower pitched with a different tail."],
-  "musicStyle": "Instrumental only, no vocals, no spoken words. Constant tempo in 4/4 with no tempo changes or rubato. Starts immediately at full groove with no intro, no fade-in, no fade-out, no ending, designed to loop seamlessly. Clear separate layers: sustained pads and bass bed, distinct drums and percussion, and a separate melodic lead. Cinematic, polished video-game soundtrack mix.",
-  "stemGroups": { "1": ["bass", "other"], "2": ["drums"], "3": ["guitar", "piano", "vocals"] },
+  "musicStyle": "Instrumental only, no vocals, no spoken words. Constant tempo in 4/4 with no tempo changes or rubato. Starts immediately at full groove with no intro, no fade-in, no fade-out, no ending, designed to loop seamlessly. Clear separate layers: melodic and harmonic content (pads, arpeggios, lead) that works alone as a calm bed, distinct drums and percussion, and a distinct bass line. Cinematic, polished video-game soundtrack mix.",
+  "stemGroups": { "1": ["other", "guitar", "piano", "vocals"], "2": ["drums"], "3": ["bass"] },
   "sfx": [
     { "id": "slash", "bus": "weapon", "dur": 0.5, "n": 2, "prompt": "Fast energy blade slash, bright metallic whoosh with a thin sharp shing" },
     { "id": "whip", "bus": "weapon", "dur": 0.5, "n": 2, "prompt": "Sharp whip crack, snappy high-frequency snap with a tiny whoosh lead-in" },
