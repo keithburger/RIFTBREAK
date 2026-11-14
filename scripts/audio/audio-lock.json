@@ -1,0 +1,37 @@
+{
+  "sfx": {
+    "hurt": {
+      "hash": "ee5f460268de7c66",
+      "files": [
+        "hurt_1.mp3",
+        "hurt_2.mp3"
+      ],
+      "at": "2026-11-14T22:17:58.938Z"
+    },
+    "slash": {
+      "hash": "0aeb8f3fd0dbf8e2",
+      "files": [
+        "slash_1.mp3",
+        "slash_2.mp3"
+      ],
+      "at": "2026-11-14T22:17:59.130Z"
+    },
+    "boss_intro": {
+      "hash": "f5b9de0db04ea379",
+      "files": [
+        "boss_intro.mp3"
+      ],
+      "at": "2026-11-14T22:18:01.181Z"
+    },
+    "kill": {
+      "hash": "6b4dff945a38f178",
+      "files": [
+        "kill_1.mp3",
+        "kill_2.mp3",
+        "kill_3.mp3"
+      ],
+      "at": "2026-11-14T22:18:02.476Z"
+    }
+  },
+  "music": {}
+}

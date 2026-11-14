@@ -1,4 +1,13 @@
 {
-  "sfx": [],
+  "sfx": [
+    "sfx/boss_intro.mp3",
+    "sfx/hurt_1.mp3",
+    "sfx/hurt_2.mp3",
+    "sfx/kill_1.mp3",
+    "sfx/kill_2.mp3",
+    "sfx/kill_3.mp3",
+    "sfx/slash_1.mp3",
+    "sfx/slash_2.mp3"
+  ],
   "music": []
 }
