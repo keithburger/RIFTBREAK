@@ -55,10 +55,39 @@ source *and* recorded from simulated full runs and all eight bosses — has a re
 pooling, stealing, ducking, spatialisation, sample fallback and music crossfades.
 In a browser, `?dev` exposes `__rift.audio()` (voices, drops, steals, per-sound play counts, music state).
 
-## Importing generated audio by hand
+## Generating audio (GitHub Actions + ElevenLabs)
 
-Automated delivery is not available in the Claude session (its network policy blocks both the
-ElevenLabs API and the download host, and no API key is provisioned), so import is manual:
+All shipped samples come from one pipeline; the Claude sandbox cannot reach the API, so generation runs
+on a GitHub runner using the repo secret `ELEVENLABS_API_KEY` (never printed, never written to disk).
+
+- **Catalog**: `scripts/audio/catalog.json` — one prompt per sound id (63 ids, 89 takes) and per track
+  (menu, 4 biomes, 8 bosses, generic boss). `tests/audio-catalog.test.ts` fails if an id is missing,
+  a prompt is duplicated, or a BPM disagrees with `MUSIC_BPM` / `biomes.ts`.
+- **Run it**: Actions → *Generate audio* → Run workflow (`group`: `probe`, `sfx`, `music-menu`,
+  `music-biomes`, `music-bosses`, `music`, `all`; optional `only`, `limit`, `max_credits`, `dry_run`,
+  `force`) — or edit `scripts/audio/request.json` and push. The runner commits the results to the branch.
+- **Never pays twice**: `scripts/audio/audio-lock.json` stores a hash of each entry's prompt + params;
+  matching entries with files on disk are skipped. Raw takes are cached (`audio-raw/`, Actions cache +
+  artifact), so changing the mastering (`PIPELINE` in `generate.mjs`) re-masters at zero cost.
+  `--force` is the only way to buy a new take.
+- **Probe first**: `--group probe` reads the live OpenAPI spec and subscription and writes
+  `scripts/audio/reports/probe.json` (which endpoints/params exist, credits remaining). Music runs refuse
+  to start if `/v1/music` is missing; if stem separation is missing they ship full-mix loops.
+- **Mastering** (ffmpeg): SFX are trimmed, loudness-matched per bus (LUFS table in `generate.mjs`),
+  limited, 2 ms/≤30 ms fades, mono 96 kbps (stereo for boss/upgrade/world). Music: tempo estimated
+  from the take and time-fitted to the catalog BPM (≤ ±14 %), beat-aligned, cut to a whole number of bars
+  (≤ 44 s), the continuation folded over the loop start (seamless wrap), one gain for all layers
+  (−17 LUFS at full intensity), 128 kbps stereo. MP3 carries the LAME gapless header; Chromium decodes
+  the loop to the exact designed sample count (verified).
+- **Stems**: one composition → ElevenLabs six-stem separation → three intensity layers
+  (`_1` bass+other, `_2` drums, `_3` guitar/piano/vocals; silent stems are dropped). They come from the
+  same take, so they are sample-synchronized. Intensity 0/1/2 fades layers 1/1+2/1+2+3.
+- **Local rehearsal without credits**: `npm run audio:mock &`, then run `generate.mjs` with
+  `ELEVENLABS_API_BASE=http://127.0.0.1:8787 ELEVENLABS_API_KEY=x AUDIO_OUT_DIR=… AUDIO_LOCK_FILE=…`.
+
+## Importing audio by hand (fallback)
+
+Use this if you want to replace a single sound with one made elsewhere:
 
 1. In ElevenLabs (Sound Effects / Music), generate a sound and download it. Keep SFX short (≤ 2 s;
    bosses ≤ 4 s) — one clear sound per generation. Don't regenerate a sound you already have.
