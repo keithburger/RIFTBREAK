@@ -50,7 +50,7 @@ const MUSIC_LUFS = -17;
 const args = process.argv.slice(2);
 const flag = (n) => args.includes('--' + n);
 const opt = (n, d) => { const i = args.indexOf('--' + n); return i >= 0 && args[i + 1] && !args[i + 1].startsWith('--') ? args[i + 1] : d; };
-const DRY = flag('dry-run'), FORCE = flag('force');
+const DRY = flag('dry-run'), FORCE = flag('force'), REMASTER = flag('remaster'); // remaster: ignore the lock, keep cached takes (no credits)
 const MAX_CREDITS = +opt('max-credits', '0') || Infinity;
 const LIMIT = +opt('limit', '0') || Infinity;
 const ONLY = new Set((opt('only', '') || '').split(',').map((s) => s.trim()).filter(Boolean));
@@ -167,7 +167,7 @@ function masterSfx(raw, outFile, bus, dur) {
 async function genSfx(e) {
   const files = sfxFiles(e), hash = sfxHash(e);
   const have = files.every((f) => existsSync(join(OUT_SFX, f)));
-  if (!FORCE && have && lock.sfx[e.id]?.hash === hash) return { id: e.id, status: 'skipped' };
+  if (!FORCE && !REMASTER && have && lock.sfx[e.id]?.hash === hash) return { id: e.id, status: 'skipped' };
   if (DRY) return { id: e.id, status: 'would-generate', takes: files.length };
   const info = [], costs = [];
   const NUDGE = ' Clearly audible, full volume, strong distinct transient.';
@@ -278,7 +278,7 @@ function masterMusic(m, layers, outBase, work) {
 async function genMusic(m, caps) {
   const bars = m.bars || loopBars(m.bpm), hash = musicHash(m);
   const lk = lock.music[m.id];
-  if (!FORCE && lk?.hash === hash && lk.files.every((f) => existsSync(join(OUT_MUSIC, f)))) return { id: m.id, status: 'skipped' };
+  if (!FORCE && !REMASTER && lk?.hash === hash && lk.files.every((f) => existsSync(join(OUT_MUSIC, f)))) return { id: m.id, status: 'skipped' };
   const barSec = 240 / m.bpm;
   const lengthMs = Math.ceil((bars + 4) * barSec * 1000 / 100) * 100;
   if (DRY) return { id: m.id, status: 'would-generate', bpm: m.bpm, bars, requestMs: lengthMs };
@@ -307,7 +307,7 @@ async function genMusic(m, caps) {
     writeFileSync(metaFile, JSON.stringify({ hash: rawHash, model: MUSIC_MODEL }));
   }
   const audio = readFileSync(fullFile);
-  let layers = [{ files: [fullFile] }], stemInfo = 'none (full mix only)';
+  let layers = [{ files: [fullFile] }], stemInfo = 'none (full mix only)', stemReport = '';
   if (caps.stems) {
     try {
       const form = new FormData();
@@ -320,9 +320,10 @@ async function genMusic(m, caps) {
         files = extractZip(zip, stemDir);
       }
       const g = groupStems(files);
-      const out = [1, 2, 3].map((k) => g[k]).filter((x) => x.length).map((files) => ({ files }));
+      const out = [1, 2, 3].map((k) => ({ k, files: g[k] })).filter((x) => x.files.length);
       // drop layers that are effectively silent (e.g. an absent vocal stem)
-      const live = out.filter((l) => { const t = join(work, 'chk.wav'); mixTo(l.files, t); return levels(t).max > -40; });
+      const live = out.filter((l) => { const t = join(work, 'chk.wav'); mixTo(l.files, t); l.peak = +levels(t).max.toFixed(1); return l.peak > -40; });
+      stemReport = files.map((f) => { const lv = levels(f); return `${f.split('/').pop()}:${lv.max.toFixed(0)}dB`; }).join(' ') + ' | groups ' + out.map((l) => `${l.k}=${l.files.length}f@${l.peak}dB`).join(' ');
       if (live.length >= 2) { layers = live; stemInfo = `${files.length} stems -> ${live.length} layers`; }
     } catch (e) { log(`  stems unavailable for ${m.id}: ${e.message}`); stemInfo = 'separation failed: ' + scrub(e.message).slice(0, 120); }
   }
@@ -332,7 +333,7 @@ async function genMusic(m, caps) {
   rmSync(work, { recursive: true, force: true });
   lock.music[m.id] = { hash, files: info.files, at: new Date().toISOString() };
   saveLock();
-  return { id: m.id, status: 'generated', model: MUSIC_MODEL, cost: musicCost, stems: stemInfo, ...info };
+  return { id: m.id, status: 'generated', model: MUSIC_MODEL, cost: musicCost, stems: stemInfo, stemReport, ...info };
 }
 
 // --- driver ----------------------------------------------------------------------------------

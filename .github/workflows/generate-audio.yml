@@ -33,6 +33,10 @@ on:
         description: Regenerate even if already in audio-lock.json (spends credits)
         type: boolean
         default: false
+      remaster:
+        description: Re-run mastering from cached takes, ignoring the lock (no credits unless a take is missing)
+        type: boolean
+        default: false
   push:
     paths:
       - scripts/audio/request.json
@@ -78,12 +82,13 @@ jobs:
           IN_MAX: ${{ inputs.max_credits }}
           IN_DRY: ${{ inputs.dry_run }}
           IN_FORCE: ${{ inputs.force }}
+          IN_REMASTER: ${{ inputs.remaster }}
         run: |
           node - <<'JS'
           const fs = require('fs');
           const e = process.env;
           const r = e.EVENT === 'workflow_dispatch'
-            ? { group: e.IN_GROUP, only: e.IN_ONLY, limit: +e.IN_LIMIT || 0, maxCredits: +e.IN_MAX || 0, dryRun: e.IN_DRY === 'true', force: e.IN_FORCE === 'true' }
+            ? { group: e.IN_GROUP, only: e.IN_ONLY, limit: +e.IN_LIMIT || 0, maxCredits: +e.IN_MAX || 0, dryRun: e.IN_DRY === 'true', force: e.IN_FORCE === 'true', remaster: e.IN_REMASTER === 'true' }
             : JSON.parse(fs.readFileSync('scripts/audio/request.json', 'utf8'));
           const ok = /^[a-z0-9_,]*$/;
           if (!['probe','sfx','music-menu','music-biomes','music-bosses','music','all'].includes(r.group) || !ok.test(r.only || '')) throw new Error('bad request');
@@ -93,6 +98,7 @@ jobs:
           if (r.maxCredits) args.push('--max-credits', String(+r.maxCredits));
           if (r.dryRun) args.push('--dry-run');
           if (r.force) args.push('--force');
+          if (r.remaster) args.push('--remaster');
           fs.appendFileSync(e.GITHUB_OUTPUT, `args=${args.join(' ')}\n`);
           console.log('generator args:', args.join(' '));
           JS
