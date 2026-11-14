@@ -31,6 +31,417 @@
         "kill_3.mp3"
       ],
       "at": "2026-11-14T22:18:02.476Z"
+    },
+    "rend": {
+      "hash": "16d29284bc2d7fa0",
+      "files": [
+        "rend.mp3"
+      ],
+      "at": "2026-11-14T22:18:46.242Z"
+    },
+    "whip": {
+      "hash": "ac4ba6b0ab1b6ca7",
+      "files": [
+        "whip_1.mp3",
+        "whip_2.mp3"
+      ],
+      "at": "2026-11-14T22:18:48.617Z"
+    },
+    "strike": {
+      "hash": "0c8ef15b4305546f",
+      "files": [
+        "strike_1.mp3",
+        "strike_2.mp3"
+      ],
+      "at": "2026-11-14T22:18:48.837Z"
+    },
+    "zap": {
+      "hash": "b609db7a4f23ec38",
+      "files": [
+        "zap_1.mp3",
+        "zap_2.mp3"
+      ],
+      "at": "2026-11-14T22:18:49.819Z"
+    },
+    "beam": {
+      "hash": "1f51eb9ac88f5c3c",
+      "files": [
+        "beam.mp3"
+      ],
+      "at": "2026-11-14T22:18:50.345Z"
+    },
+    "ray": {
+      "hash": "dbd5eed81e58137f",
+      "files": [
+        "ray.mp3"
+      ],
+      "at": "2026-11-14T22:18:50.537Z"
+    },
+    "lob": {
+      "hash": "a6b63995e8a40e1b",
+      "files": [
+        "lob.mp3"
+      ],
+      "at": "2026-11-14T22:18:51.282Z"
+    },
+    "flame": {
+      "hash": "437029652364e349",
+      "files": [
+        "flame.mp3"
+      ],
+      "at": "2026-11-14T22:18:52.112Z"
+    },
+    "nova": {
+      "hash": "6b46a1bd33b7b9c5",
+      "files": [
+        "nova.mp3"
+      ],
+      "at": "2026-11-14T22:18:53.250Z"
+    },
+    "quake": {
+      "hash": "b5b65ff5adda716e",
+      "files": [
+        "quake.mp3"
+      ],
+      "at": "2026-11-14T22:18:53.661Z"
+    },
+    "well": {
+      "hash": "60ee0d42b13e1843",
+      "files": [
+        "well.mp3"
+      ],
+      "at": "2026-11-14T22:18:53.919Z"
+    },
+    "wind": {
+      "hash": "09f3173cd9f4d9e4",
+      "files": [
+        "wind.mp3"
+      ],
+      "at": "2026-11-14T22:18:54.813Z"
+    },
+    "wave": {
+      "hash": "be9fc713dc19c255",
+      "files": [
+        "wave.mp3"
+      ],
+      "at": "2026-11-14T22:18:55.340Z"
+    },
+    "curse": {
+      "hash": "1763ee8218c34d58",
+      "files": [
+        "curse.mp3"
+      ],
+      "at": "2026-11-14T22:18:55.833Z"
+    },
+    "bigboom": {
+      "hash": "7adcebaafff67782",
+      "files": [
+        "bigboom.mp3"
+      ],
+      "at": "2026-11-14T22:18:57.976Z"
+    },
+    "react": {
+      "hash": "5ef166d4e38e507d",
+      "files": [
+        "react_1.mp3",
+        "react_2.mp3"
+      ],
+      "at": "2026-11-14T22:18:58.481Z"
+    },
+    "boom": {
+      "hash": "ca41e2d20e0ee28d",
+      "files": [
+        "boom_1.mp3",
+        "boom_2.mp3"
+      ],
+      "at": "2026-11-14T22:18:58.957Z"
+    },
+    "shot_fire": {
+      "hash": "cdd958f7c16298e7",
+      "files": [
+        "shot_fire_1.mp3",
+        "shot_fire_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:01.570Z"
+    },
+    "shot_frost": {
+      "hash": "01b0dd78464da199",
+      "files": [
+        "shot_frost_1.mp3",
+        "shot_frost_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:02.226Z"
+    },
+    "shot_shock": {
+      "hash": "2abff058fcf1c3af",
+      "files": [
+        "shot_shock_1.mp3",
+        "shot_shock_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:02.724Z"
+    },
+    "shot_water": {
+      "hash": "11c03b782d9fa34e",
+      "files": [
+        "shot_water_1.mp3",
+        "shot_water_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:05.875Z"
+    },
+    "shot_wind": {
+      "hash": "4b799786eca6f6ad",
+      "files": [
+        "shot_wind_1.mp3",
+        "shot_wind_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:06.412Z"
+    },
+    "shot_toxin": {
+      "hash": "c0786cb22e01cfac",
+      "files": [
+        "shot_toxin_1.mp3",
+        "shot_toxin_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:06.643Z"
+    },
+    "shot_arcane": {
+      "hash": "870b18c1d18a7112",
+      "files": [
+        "shot_arcane_1.mp3",
+        "shot_arcane_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:09.702Z"
+    },
+    "shot_light": {
+      "hash": "9275c2ca62612870",
+      "files": [
+        "shot_light_1.mp3",
+        "shot_light_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:10.382Z"
+    },
+    "shot_earth": {
+      "hash": "df2f140c9d119b78",
+      "files": [
+        "shot_earth_1.mp3",
+        "shot_earth_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:10.946Z"
+    },
+    "elite_die": {
+      "hash": "3f402e507a4a1c13",
+      "files": [
+        "elite_die.mp3"
+      ],
+      "at": "2026-11-14T22:19:12.454Z"
+    },
+    "mortar": {
+      "hash": "598a6a660db99b8d",
+      "files": [
+        "mortar.mp3"
+      ],
+      "at": "2026-11-14T22:19:14.189Z"
+    },
+    "shot_void": {
+      "hash": "cefe723276817a6d",
+      "files": [
+        "shot_void_1.mp3",
+        "shot_void_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:14.407Z"
+    },
+    "eshot": {
+      "hash": "d1361570d314651b",
+      "files": [
+        "eshot_1.mp3",
+        "eshot_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:14.589Z"
+    },
+    "charge": {
+      "hash": "5a1cc06099ffb6eb",
+      "files": [
+        "charge.mp3"
+      ],
+      "at": "2026-11-14T22:19:15.806Z"
+    },
+    "beep": {
+      "hash": "05c1e11a09a93b55",
+      "files": [
+        "beep.mp3"
+      ],
+      "at": "2026-11-14T22:19:16.024Z"
+    },
+    "reveal": {
+      "hash": "b444afd1ac4fefc1",
+      "files": [
+        "reveal.mp3"
+      ],
+      "at": "2026-11-14T22:19:16.281Z"
+    },
+    "blink": {
+      "hash": "fa92f5d2cbab4f6b",
+      "files": [
+        "blink.mp3"
+      ],
+      "at": "2026-11-14T22:19:17.576Z"
+    },
+    "block": {
+      "hash": "d9a2c2392f6345b8",
+      "files": [
+        "block.mp3"
+      ],
+      "at": "2026-11-14T22:19:17.762Z"
+    },
+    "elite": {
+      "hash": "80b61a6d4c03879e",
+      "files": [
+        "elite.mp3"
+      ],
+      "at": "2026-11-14T22:19:18.515Z"
+    },
+    "heal": {
+      "hash": "68d0f4b448bbcb04",
+      "files": [
+        "heal.mp3"
+      ],
+      "at": "2026-11-14T22:19:19.382Z"
+    },
+    "heartbeat": {
+      "hash": "c2c2c992c728a141",
+      "files": [
+        "heartbeat.mp3"
+      ],
+      "at": "2026-11-14T22:19:20.088Z"
+    },
+    "dash": {
+      "hash": "7628ed4d5bcaa69d",
+      "files": [
+        "dash_1.mp3",
+        "dash_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:21.092Z"
+    },
+    "revive": {
+      "hash": "05f0c466d9baf473",
+      "files": [
+        "revive.mp3"
+      ],
+      "at": "2026-11-14T22:19:21.575Z"
+    },
+    "defeat": {
+      "hash": "b4341441beea6382",
+      "files": [
+        "defeat.mp3"
+      ],
+      "at": "2026-11-14T22:19:21.879Z"
+    },
+    "victory": {
+      "hash": "bcf84db8018ffb4d",
+      "files": [
+        "victory.mp3"
+      ],
+      "at": "2026-11-14T22:19:22.853Z"
+    },
+    "magnet": {
+      "hash": "0f0fdb4494a61b71",
+      "files": [
+        "magnet.mp3"
+      ],
+      "at": "2026-11-14T22:19:25.181Z"
+    },
+    "shard": {
+      "hash": "5d99c9dfa04375f9",
+      "files": [
+        "shard_1.mp3",
+        "shard_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:26.670Z"
+    },
+    "chest": {
+      "hash": "dd0fef25bcdebffd",
+      "files": [
+        "chest.mp3"
+      ],
+      "at": "2026-11-14T22:19:27.291Z"
+    },
+    "relic": {
+      "hash": "7c7a599a17652625",
+      "files": [
+        "relic.mp3"
+      ],
+      "at": "2026-11-14T22:19:27.537Z"
+    },
+    "levelup": {
+      "hash": "3803418ffe9a842d",
+      "files": [
+        "levelup.mp3"
+      ],
+      "at": "2026-11-14T22:19:28.494Z"
+    },
+    "evolve": {
+      "hash": "4f9d2f0726e3d7fa",
+      "files": [
+        "evolve.mp3"
+      ],
+      "at": "2026-11-14T22:19:29.241Z"
+    },
+    "select": {
+      "hash": "6473f2aca24648ce",
+      "files": [
+        "select_1.mp3",
+        "select_2.mp3"
+      ],
+      "at": "2026-11-14T22:19:30.935Z"
+    },
+    "event": {
+      "hash": "8fee950d1a6b102b",
+      "files": [
+        "event.mp3"
+      ],
+      "at": "2026-11-14T22:19:31.667Z"
+    },
+    "biome": {
+      "hash": "2f96a95e616a1579",
+      "files": [
+        "biome.mp3"
+      ],
+      "at": "2026-11-14T22:19:32.062Z"
+    },
+    "boss_phase": {
+      "hash": "80cde137e20e8916",
+      "files": [
+        "boss_phase.mp3"
+      ],
+      "at": "2026-11-14T22:19:33.219Z"
+    },
+    "boss_break": {
+      "hash": "496032d18b6bad1d",
+      "files": [
+        "boss_break.mp3"
+      ],
+      "at": "2026-11-14T22:19:33.753Z"
+    },
+    "boss_die": {
+      "hash": "76ee2f9ec1b1253b",
+      "files": [
+        "boss_die.mp3"
+      ],
+      "at": "2026-11-14T22:19:34.318Z"
+    },
+    "ray_charge": {
+      "hash": "01facf2c6930a81b",
+      "files": [
+        "ray_charge.mp3"
+      ],
+      "at": "2026-11-14T22:19:35.370Z"
+    },
+    "ray_fire": {
+      "hash": "209cf12d09d4ce14",
+      "files": [
+        "ray_fire.mp3"
+      ],
+      "at": "2026-11-14T22:19:36.081Z"
     }
   },
   "music": {}
