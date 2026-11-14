@@ -477,6 +477,33 @@
         "menu_3.mp3"
       ],
       "at": "2026-11-14T22:28:06.628Z"
+    },
+    "verdant_fracture": {
+      "hash": "a534991182ede638",
+      "files": [
+        "verdant_fracture_1.mp3",
+        "verdant_fracture_2.mp3",
+        "verdant_fracture_3.mp3"
+      ],
+      "at": "2026-11-14T22:29:18.089Z"
+    },
+    "ironvault_foundry": {
+      "hash": "8c3a0e34754e109c",
+      "files": [
+        "ironvault_foundry_1.mp3",
+        "ironvault_foundry_2.mp3",
+        "ironvault_foundry_3.mp3"
+      ],
+      "at": "2026-11-14T22:29:37.822Z"
+    },
+    "drowned_archive": {
+      "hash": "c62a7fed15d2f400",
+      "files": [
+        "drowned_archive_1.mp3",
+        "drowned_archive_2.mp3",
+        "drowned_archive_3.mp3"
+      ],
+      "at": "2026-11-14T22:29:56.101Z"
     }
   }
 }

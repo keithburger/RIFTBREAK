@@ -1,11 +1,11 @@
 {
-  "at": "2026-11-14T22:27:47.557Z",
+  "at": "2026-11-14T22:28:56.226Z",
   "api": "api.elevenlabs.io",
   "subscription": {
     "tier": "creator",
-    "creditsUsed": 2907,
+    "creditsUsed": 4798,
     "creditsLimit": 130983,
-    "creditsRemaining": 128076
+    "creditsRemaining": 126185
   },
   "paths": [
     "/v1/music",
