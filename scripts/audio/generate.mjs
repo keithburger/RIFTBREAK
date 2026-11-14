@@ -37,7 +37,8 @@ const API = (process.env.ELEVENLABS_API_BASE || 'https://api.elevenlabs.io').rep
 const KEY = process.env.ELEVENLABS_API_KEY || '';
 const PIPELINE = 3; // bump to force a re-master of everything (changes the hash)
 const SFX_MODEL = 'eleven_text_to_sound_v2';
-const MUSIC_MODEL = 'music_v1';
+const MUSIC_MODELS = (process.env.AUDIO_MUSIC_MODELS || 'music_v2_5,music_v1').split(','); // newest first; falls back on a 4xx
+let MUSIC_MODEL = MUSIC_MODELS[0];
 
 // Per-bus loudness targets (LUFS, integrated) so the mix starts balanced before BUS_TRIM.
 const SFX_LUFS = { weapon: -21, enemy: -23, player: -17, pickup: -24, upgrade: -16, ui: -22, world: -18, boss: -13 };
@@ -54,7 +55,7 @@ const LIMIT = +opt('limit', '0') || Infinity;
 const ONLY = new Set((opt('only', '') || '').split(',').map((s) => s.trim()).filter(Boolean));
 const GROUP = opt('group', flag('probe') ? 'probe' : 'sfx');
 
-const scrub = (s) => { let t = String(s); if (KEY) t = t.split(KEY).join('***'); return t.replace(/xi-api-key[^\s,}]*/gi, 'xi-api-key: ***'); };
+const scrub = (s) => { let t = String(s); if (KEY.length >= 8) t = t.split(KEY).join('***'); return t.replace(/xi-api-key[^\s,}]*/gi, 'xi-api-key: ***'); };
 const log = (...a) => console.log(scrub(a.join(' ')));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const sha = (s) => createHash('sha1').update(s).digest('hex').slice(0, 16);
@@ -62,7 +63,7 @@ const lock = existsSync(LOCK_FILE) ? JSON.parse(readFileSync(LOCK_FILE, 'utf8'))
 const saveLock = () => writeFileSync(LOCK_FILE, JSON.stringify(lock, null, 2) + '\n');
 const report = { startedAt: new Date().toISOString(), group: GROUP, dry: DRY, items: [], credits: { start: null, end: null, used: 0 } };
 
-async function api(path, { method = 'POST', json, form, query, text = false } = {}) {
+async function api(path, { method = 'POST', json, form, query, text = false, meta = false } = {}) {
   const url = new URL(API + path);
   for (const [k, v] of Object.entries(query || {})) url.searchParams.set(k, v);
   let lastErr;
@@ -73,7 +74,13 @@ async function api(path, { method = 'POST', json, form, query, text = false } = 
         headers: { 'xi-api-key': KEY, ...(json ? { 'content-type': 'application/json' } : {}) },
         body: form ?? (json ? JSON.stringify(json) : undefined),
       });
-      if (res.ok) return text ? res.text() : Buffer.from(await res.arrayBuffer());
+      if (res.ok) {
+        const data = text ? await res.text() : Buffer.from(await res.arrayBuffer());
+        if (!meta) return data;
+        const cost = {};
+        for (const [k, v] of res.headers) if (/cost|credit|character/i.test(k)) cost[k] = v;
+        return { data, cost };
+      }
       const body = scrub((await res.text()).slice(0, 500));
       const err = new Error(`${method} ${path} -> HTTP ${res.status}: ${body}`);
       err.status = res.status;
@@ -154,7 +161,7 @@ async function genSfx(e) {
   const have = files.every((f) => existsSync(join(OUT_SFX, f)));
   if (!FORCE && have && lock.sfx[e.id]?.hash === hash) return { id: e.id, status: 'skipped' };
   if (DRY) return { id: e.id, status: 'would-generate', takes: files.length };
-  const info = [];
+  const info = [], costs = [];
   for (let i = 0; i < files.length; i++) {
     const raw = join(RAW_DIR, 'sfx', files[i]);
     mkdirSync(dirname(raw), { recursive: true });
@@ -162,7 +169,8 @@ async function genSfx(e) {
     const metaFile = raw + '.json';
     const cached = !FORCE && existsSync(raw) && existsSync(metaFile) && JSON.parse(readFileSync(metaFile, 'utf8')).hash === rawHash;
     if (!cached) {
-      const audio = await api('/v1/sound-generation', { query: { output_format: 'mp3_44100_128' }, json: { text: sfxPrompt(e, i), duration_seconds: e.dur, prompt_influence: e.infl ?? 0.4, model_id: SFX_MODEL } });
+      const { data: audio, cost } = await api('/v1/sound-generation', { meta: true, query: { output_format: 'mp3_44100_128' }, json: { text: sfxPrompt(e, i), duration_seconds: e.dur, prompt_influence: e.infl ?? 0.4, model_id: SFX_MODEL } });
+      costs.push(cost);
       writeFileSync(raw, audio);
       writeFileSync(metaFile, JSON.stringify({ hash: rawHash }));
     }
@@ -171,11 +179,11 @@ async function genSfx(e) {
   }
   lock.sfx[e.id] = { hash, files, at: new Date().toISOString() };
   saveLock();
-  return { id: e.id, status: 'generated', takes: files.length, info, reusedRaw: undefined };
+  return { id: e.id, status: 'generated', takes: files.length, info, cost: costs.filter((c) => c && Object.keys(c).length) };
 }
 
 // --- music -----------------------------------------------------------------------------------
-const musicHash = (m) => sha(JSON.stringify([PIPELINE, MUSIC_MODEL, m.id, m.bpm, m.bars || 0, m.prompt, CATALOG.musicStyle, CATALOG.stemGroups]));
+const musicHash = (m) => sha(JSON.stringify([PIPELINE, m.id, m.bpm, m.bars || 0, m.prompt, CATALOG.musicStyle, CATALOG.stemGroups]));
 const musicPrompt = (m) => `${m.prompt} ${CATALOG.musicStyle}`;
 
 function extractZip(zip, dir) {
@@ -256,14 +264,25 @@ async function genMusic(m, caps) {
   const raw = join(RAW_DIR, 'music', m.id);
   mkdirSync(raw, { recursive: true });
   const fullFile = join(raw, 'full.mp3'), metaFile = join(raw, 'meta.json');
-  const rawHash = sha(JSON.stringify([MUSIC_MODEL, m.id, m.bpm, bars, musicPrompt(m), lengthMs]));
+  let musicCost = null;
+  const rawHash = sha(JSON.stringify([m.id, m.bpm, bars, musicPrompt(m), lengthMs]));
   const cached = !FORCE && existsSync(fullFile) && existsSync(metaFile) && JSON.parse(readFileSync(metaFile, 'utf8')).hash === rawHash;
   if (cached) log(`  ${m.id}: re-mastering from the cached take (no credits spent)`);
   else {
     rmSync(raw, { recursive: true, force: true }); mkdirSync(raw, { recursive: true });
-    const take = await api('/v1/music', { query: { output_format: 'mp3_44100_128' }, json: { prompt: musicPrompt(m), music_length_ms: lengthMs, model_id: MUSIC_MODEL, force_instrumental: true } });
+    let take = null;
+    for (;;) {
+      try {
+        const r = await api('/v1/music', { meta: true, query: { output_format: 'mp3_44100_128' }, json: { prompt: musicPrompt(m), music_length_ms: lengthMs, model_id: MUSIC_MODEL, force_instrumental: true } });
+        take = r.data; musicCost = r.cost; break;
+      } catch (e) {
+        const i = MUSIC_MODELS.indexOf(MUSIC_MODEL);
+        if (e.status >= 400 && e.status < 500 && e.status !== 429 && i < MUSIC_MODELS.length - 1) { log(`  ${MUSIC_MODEL} rejected (${e.status}); trying ${MUSIC_MODELS[i + 1]}`); MUSIC_MODEL = MUSIC_MODELS[i + 1]; continue; }
+        throw e;
+      }
+    }
     writeFileSync(fullFile, take);
-    writeFileSync(metaFile, JSON.stringify({ hash: rawHash }));
+    writeFileSync(metaFile, JSON.stringify({ hash: rawHash, model: MUSIC_MODEL }));
   }
   const audio = readFileSync(fullFile);
   let layers = [{ files: [fullFile] }], stemInfo = 'none (full mix only)';
@@ -291,7 +310,7 @@ async function genMusic(m, caps) {
   rmSync(work, { recursive: true, force: true });
   lock.music[m.id] = { hash, files: info.files, at: new Date().toISOString() };
   saveLock();
-  return { id: m.id, status: 'generated', stems: stemInfo, ...info };
+  return { id: m.id, status: 'generated', model: MUSIC_MODEL, cost: musicCost, stems: stemInfo, ...info };
 }
 
 // --- driver ----------------------------------------------------------------------------------
@@ -318,6 +337,7 @@ async function main() {
   const before = DRY ? null : await credits();
   report.credits.start = before?.used ?? null;
   if (before) log(`credits: ${before.limit - before.used} remaining of ${before.limit} (${before.tier})`);
+  else if (!DRY) log('credits: meter unavailable for this key (needs the user_read scope) — spend is bounded by --limit and per-request cost headers in the run report');
 
   let done = 0, spent = 0;
   const queue = [...sfx.map((e) => ({ kind: 'sfx', e })), ...music.map((m) => ({ kind: 'music', e: m }))];
