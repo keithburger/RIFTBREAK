@@ -238,8 +238,9 @@ function mixTo(files, out, extra = []) {
 
 /** Tempo-fits, loop-folds, loudness-matches and encodes the layers. Returns a summary. */
 function masterMusic(m, layers, outBase, work) {
-  const bars = m.bars || loopBars(m.bpm), barSec = 240 / m.bpm;
-  const len = Math.round(bars * barSec * SR), ovl = Math.min(barSec, 2.5);
+  let bars = m.bars || loopBars(m.bpm);
+  const barSec = 240 / m.bpm, ovl = Math.min(barSec, 2.5);
+  let len = Math.round(bars * barSec * SR);
   const full = join(work, 'full.wav');
   mixTo(layers.flatMap((l) => l.files), full);
   const est = estimateTempo(decodeMono(full), 11025, m.bpm);
@@ -252,8 +253,11 @@ function masterMusic(m, layers, outBase, work) {
   mixTo(layers.flatMap((l) => l.files), fitted, tempo);
   const ph = estimateTempo(decodeMono(fitted), 11025, m.bpm, 0.0001).phase;
   const start = ph + barSec; // skip one bar of intro, land on a beat
-  const need = start + len / SR + ovl;
   const have = probe(fitted).duration;
+  // a take that came back shorter than asked gets a shorter (still whole-bar, multiple-of-4) loop instead of a re-buy
+  while (start + (bars * barSec) + ovl > have - 0.05 && bars > 8) bars -= 4;
+  len = Math.round(bars * barSec * SR);
+  const need = start + len / SR + ovl;
   if (have < need - 0.05) throw new Error(`take too short after tempo fit: ${have.toFixed(1)} s < ${need.toFixed(1)} s`);
   const wavs = layers.map((l, i) => {
     const raw = join(work, `layer${i}.wav`), loop = join(work, `loop${i}.wav`);
