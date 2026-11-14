@@ -1,0 +1,75 @@
+{
+  "startedAt": "2026-11-14T22:21:03.263Z",
+  "group": "sfx",
+  "dry": false,
+  "items": [
+    {
+      "id": "drop",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": 24,
+          "loud": -46.5
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "click",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": 24,
+          "loud": -68.8
+        },
+        {
+          "dur": 0.48,
+          "gain": 24,
+          "loud": null
+        }
+      ],
+      "cost": [
+        {
+          "character-cost": "6"
+        }
+      ]
+    },
+    {
+      "id": "xp",
+      "status": "generated",
+      "takes": 3,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": 3.4,
+          "loud": -27.4
+        },
+        {
+          "dur": 0.48,
+          "gain": 24,
+          "loud": -50.9
+        },
+        {
+          "dur": 0.48,
+          "gain": -0.3,
+          "loud": -23.8
+        }
+      ],
+      "cost": [
+        {
+          "character-cost": "6"
+        }
+      ]
+    }
+  ],
+  "credits": {
+    "start": 946,
+    "end": 946,
+    "used": 0
+  },
+  "finishedAt": "2026-11-14T22:21:09.002Z"
+}
