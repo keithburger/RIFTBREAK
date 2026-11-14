@@ -1,0 +1,40 @@
+{
+  "startedAt": "2026-11-14T22:24:28.501Z",
+  "group": "sfx",
+  "dry": false,
+  "items": [
+    {
+      "id": "click",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.25,
+          "gain": -3,
+          "loud": null,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": 0.6,
+          "loud": -22.6,
+          "attempt": 0
+        }
+      ],
+      "cost": [
+        {
+          "character-cost": "6"
+        },
+        {
+          "character-cost": "6"
+        }
+      ]
+    }
+  ],
+  "credits": {
+    "start": 1006,
+    "end": 1006,
+    "used": 0
+  },
+  "finishedAt": "2026-11-14T22:24:35.996Z"
+}
