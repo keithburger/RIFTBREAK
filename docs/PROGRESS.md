@@ -89,3 +89,11 @@ npm run verify                              # typecheck, validate, tests, manife
 (npm run preview > /dev/null 2>&1 &) ; sleep 2 ; npm run e2e
 npm run dev                                 # play at the printed URL; add ?dev for tools
 ```
+
+### Audio generation (state)
+Pipeline complete and tested against a mock API (`scripts/audio/`, `.github/workflows/generate-audio.yml`);
+live probe confirmed `/v1/sound-generation`, `/v1/music` (music_v1/v2/v2_5) and six-stem separation.
+**No real assets yet**: the `ELEVENLABS_API_KEY` secret currently holds a key *ID* (not an `sk_…` secret), so
+every request is rejected (no credits spent). Once fixed, run *Generate audio*: pilot `only=slash,kill,hurt,boss_intro`,
+then `sfx`, `music-menu`, `music-biomes`, `music-bosses`; finally `npm test`, `npm run build`, `npm run e2e`.
+

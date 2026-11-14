@@ -316,6 +316,12 @@ async function genMusic(m, caps) {
 // --- driver ----------------------------------------------------------------------------------
 async function main() {
   if (!KEY && !DRY && !/^(http:\/\/(127\.0\.0\.1|localhost))/.test(API)) { console.error('ELEVENLABS_API_KEY is not set'); process.exit(2); }
+  // Fail fast (before any request) on the most likely misconfiguration: pasting the key's ID instead of its secret.
+  if (KEY && !/^sk_/.test(KEY) && /elevenlabs\.io/.test(API) && !DRY) {
+    console.error('ELEVENLABS_API_KEY does not look like an API key (secret keys start with "sk_"; it may be the key\'s ID). '
+      + 'Create or rotate a key in ElevenLabs > Developers > API keys, copy the sk_... value shown once, and save it as the repository secret.');
+    process.exit(2);
+  }
   if (GROUP === 'probe') { await probeApi(); return; }
   let sfx = [], music = [];
   const g = GROUP;
