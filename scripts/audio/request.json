@@ -1,10 +1,10 @@
 {
   "_doc": "Pushing a change to this file runs the 'Generate audio' workflow with these parameters (alternative to workflow_dispatch). group: probe | sfx | music-menu | music-biomes | music-bosses | music | all. Already-generated entries are skipped via audio-lock.json.",
   "group": "sfx",
-  "only": "",
+  "only": "drop,xp,click",
   "limit": 0,
   "maxCredits": 0,
   "dryRun": false,
   "force": false,
-  "nonce": 5
+  "nonce": 6
 }

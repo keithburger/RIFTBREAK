@@ -138,11 +138,17 @@ const sfxHash = (e) => sha(JSON.stringify([PIPELINE, SFX_MODEL, e.id, e.bus, e.d
 function masterSfx(raw, outFile, bus, dur) {
   const stereo = SFX_STEREO.has(bus);
   const tmp = outFile + '.tmp.wav';
-  const trim = 'silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.004';
-  ff(['-i', raw, '-af', `${trim},areverse,${trim},areverse,aresample=${SR}`, '-ac', stereo ? '2' : '1', '-c:a', 'pcm_f32le', tmp]);
-  const p = probe(tmp);
+  // Trim leading/trailing silence, loosening the threshold (and finally not trimming) for very short or quiet sounds.
+  let p = null;
+  for (const th of ['-50dB', '-62dB', null]) {
+    const trim = th ? `silenceremove=start_periods=1:start_threshold=${th}:start_silence=0.004` : 'anull';
+    const chain = th ? `${trim},areverse,${trim},areverse` : trim;
+    ff(['-i', raw, '-af', `${chain},aresample=${SR}`, '-ac', stereo ? '2' : '1', '-c:a', 'pcm_f32le', tmp]);
+    p = probe(tmp);
+    if (p.duration >= 0.08) break;
+  }
   if (p.duration < 0.08) throw new Error('sound is empty after trimming');
-  if (levels(tmp).max < -45) throw new Error('sound is silent');
+  if (levels(tmp).max < -60) throw new Error('sound is silent');
   const target = SFX_LUFS[bus] ?? -20;
   const m = lufs(tmp);
   let gain;
