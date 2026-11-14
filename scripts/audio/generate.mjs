@@ -245,7 +245,10 @@ function masterMusic(m, layers, outBase, work) {
   mixTo(layers.flatMap((l) => l.files), full);
   const est = estimateTempo(decodeMono(full), 11025, m.bpm);
   let factor = m.bpm / est.bpm; // >1 speeds up
-  const fit = Math.abs(1 - factor) > 0.004 && Math.abs(1 - factor) < 0.15;
+  // The model holds the requested tempo to ~0.1 % in practice, so only small drifts are corrected; a large
+  // "correction" is far more likely a beat-detection alias (e.g. x7/8 on glitchy material) than real drift.
+  const dev = Math.abs(1 - factor);
+  const fit = dev > 0.004 && dev < 0.05, tempoSuspect = dev >= 0.05;
   if (!fit) factor = 1;
   const tempo = fit ? [`atempo=${factor.toFixed(5)}`] : [];
   // phase of the beat grid after correction
@@ -276,7 +279,7 @@ function masterMusic(m, layers, outBase, work) {
     ff(['-i', w, '-af', `volume=${gain.toFixed(2)}dB,alimiter=limit=0.94:attack=2:release=40:level=false`, '-ar', String(SR), '-ac', '2', '-c:a', 'libmp3lame', '-b:a', '128k', join(OUT_MUSIC, names[i])]);
   });
   const lens = names.map((n) => probe(join(OUT_MUSIC, n)));
-  return { files: names, bars, loopSec: +(len / SR).toFixed(2), estBpm: +est.bpm.toFixed(2), tempoFactor: +factor.toFixed(4), gain: +gain.toFixed(1), loud: measured == null ? null : +measured.toFixed(1), decoded: lens.map((l) => +l.duration.toFixed(3)) };
+  return { files: names, bars, loopSec: +(len / SR).toFixed(2), estBpm: +est.bpm.toFixed(2), tempoFactor: +factor.toFixed(4), tempoSuspect, gain: +gain.toFixed(1), loud: measured == null ? null : +measured.toFixed(1), decoded: lens.map((l) => +l.duration.toFixed(3)) };
 }
 
 async function genMusic(m, caps) {

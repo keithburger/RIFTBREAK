@@ -75,7 +75,7 @@ on a GitHub runner using the repo secret `ELEVENLABS_API_KEY` (never printed, ne
   to start if `/v1/music` is missing; if stem separation is missing they ship full-mix loops.
 - **Mastering** (ffmpeg): SFX are trimmed, loudness-matched per bus (LUFS table in `generate.mjs`),
   limited, 2 ms/≤30 ms fades, mono 96 kbps (stereo for boss/upgrade/world). Music: tempo estimated
-  from the take and time-fitted to the catalog BPM (≤ ±14 %), beat-aligned, cut to a whole number of bars
+  from the take and time-fitted to the catalog BPM when it drifts 0.4–5 % (larger estimates are treated as beat-detection errors and flagged `tempoSuspect` in the run report), beat-aligned, cut to a whole number of bars
   (≤ 44 s), the continuation folded over the loop start (seamless wrap), one gain for all layers
   (−17 LUFS at full intensity), 128 kbps stereo. MP3 carries the LAME gapless header; Chromium decodes
   the loop to the exact designed sample count (verified).
