@@ -106,7 +106,7 @@ describe('sound catalogue', () => {
   });
   it('sounds actually emitted by full simulated runs and every boss are all covered', () => {
     const heard = new Set<string>();
-    class Rec extends NullFx { override sfx(name: string): void { heard.add(name); } }
+    class Rec extends NullFx { override sfx(name?: string): void { if (name) heard.add(name); } }
     const w = new World({ content: C, seed: 99, classId: 'vanguard', modeId: 'standard', fx: new Rec() });
     runHeadless(w, new Bot('smart', 9), 150);
     for (const id of C.bosses.keys()) {
