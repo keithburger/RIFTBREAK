@@ -1,0 +1,1051 @@
+{
+  "startedAt": "2026-11-14T22:22:56.172Z",
+  "group": "sfx",
+  "dry": false,
+  "items": [
+    {
+      "id": "slash",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": -9.4,
+          "loud": -11.6,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -8.7,
+          "loud": -12.3,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "whip",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": -8.3,
+          "loud": -12.7,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -7.3,
+          "loud": -13.8,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "rend",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.6,
+          "gain": -9,
+          "loud": -12,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "strike",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.6,
+          "gain": -5.4,
+          "loud": -15.6,
+          "attempt": 0
+        },
+        {
+          "dur": 0.33,
+          "gain": 0.1,
+          "loud": null,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "zap",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": -10.8,
+          "loud": -10.3,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -6.3,
+          "loud": -14.7,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "beam",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1,
+          "gain": -0.4,
+          "loud": -20.6,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "ray",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.6,
+          "gain": -3,
+          "loud": -18,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "lob",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.45,
+          "gain": -7.3,
+          "loud": -13.7,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "flame",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.8,
+          "gain": -12.5,
+          "loud": -8.5,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "nova",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1.2,
+          "gain": -2.6,
+          "loud": -18.4,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "quake",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1.2,
+          "gain": 8.5,
+          "loud": -29.5,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "well",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1.48,
+          "gain": -8.9,
+          "loud": -12.1,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "wind",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.65,
+          "gain": -7.2,
+          "loud": -13.8,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "wave",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1.05,
+          "gain": -13.2,
+          "loud": -7.8,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "curse",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.93,
+          "gain": -9.5,
+          "loud": -11.5,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "react",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.6,
+          "gain": -6.8,
+          "loud": -14.3,
+          "attempt": 0
+        },
+        {
+          "dur": 0.6,
+          "gain": 1.6,
+          "loud": -22.6,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "boom",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.39,
+          "gain": 1.2,
+          "loud": null,
+          "attempt": 0
+        },
+        {
+          "dur": 0.88,
+          "gain": -2.8,
+          "loud": -18.2,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "bigboom",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 2,
+          "gain": -3.4,
+          "loud": -17.6,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "shot_fire",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.38,
+          "gain": -3,
+          "loud": null,
+          "attempt": 0
+        },
+        {
+          "dur": 0.35,
+          "gain": -3,
+          "loud": null,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "shot_frost",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.21,
+          "gain": 12,
+          "loud": null,
+          "attempt": 0
+        },
+        {
+          "dur": 0.23,
+          "gain": 4.8,
+          "loud": null,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "shot_shock",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": -7.8,
+          "loud": -13.3,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -8.4,
+          "loud": -12.6,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "shot_toxin",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": -7.9,
+          "loud": -13.1,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -10.7,
+          "loud": -10.3,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "shot_water",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": -7.2,
+          "loud": -13.8,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -5.6,
+          "loud": -15.4,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "shot_wind",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": -9.4,
+          "loud": -11.6,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -8.7,
+          "loud": -12.3,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "shot_earth",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": -3.3,
+          "loud": -17.8,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -9.4,
+          "loud": -11.6,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "shot_arcane",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": -14.4,
+          "loud": -6.5,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -9.2,
+          "loud": -11.8,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "shot_light",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": -11.8,
+          "loud": -9.2,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -8.8,
+          "loud": -12.3,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "shot_void",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.39,
+          "gain": -3,
+          "loud": null,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -6.4,
+          "loud": -14.6,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "kill",
+      "status": "generated",
+      "takes": 3,
+      "info": [
+        {
+          "dur": 0.24,
+          "gain": 9.9,
+          "loud": null,
+          "attempt": 0
+        },
+        {
+          "dur": 0.22,
+          "gain": 12.6,
+          "loud": null,
+          "attempt": 0
+        },
+        {
+          "dur": 0.16,
+          "gain": 10,
+          "loud": null,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "elite_die",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1.2,
+          "gain": -10.3,
+          "loud": -12.7,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "eshot",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.28,
+          "gain": -3,
+          "loud": null,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -9.8,
+          "loud": -13.2,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "mortar",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.35,
+          "gain": -2.2,
+          "loud": null,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "charge",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.9,
+          "gain": -14.6,
+          "loud": -8.4,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "beep",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.3,
+          "gain": -3,
+          "loud": null,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "reveal",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.8,
+          "gain": -6.1,
+          "loud": -16.9,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "blink",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.3,
+          "gain": 1.8,
+          "loud": null,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "block",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.6,
+          "gain": -4.6,
+          "loud": -18.4,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "elite",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1.48,
+          "gain": -17,
+          "loud": -6,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "hurt",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.6,
+          "gain": -10,
+          "loud": -7,
+          "attempt": 0
+        },
+        {
+          "dur": 0.6,
+          "gain": -7,
+          "loud": -10,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "dash",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.32,
+          "gain": -3,
+          "loud": null,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -3.4,
+          "loud": -13.6,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "heal",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.61,
+          "gain": -9.2,
+          "loud": -7.8,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "heartbeat",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.47,
+          "gain": 3.1,
+          "loud": -20.1,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "revive",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1.51,
+          "gain": -4.5,
+          "loud": -12.5,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "defeat",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 3,
+          "gain": -1.5,
+          "loud": -15.5,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "victory",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1.92,
+          "gain": -10.2,
+          "loud": -6.8,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "drop",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.18,
+          "gain": 0.1,
+          "loud": null,
+          "attempt": 1
+        }
+      ],
+      "cost": [
+        {
+          "character-cost": "6"
+        }
+      ]
+    },
+    {
+      "id": "magnet",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1,
+          "gain": -13,
+          "loud": -11,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "chest",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1.14,
+          "gain": -5.9,
+          "loud": -18.1,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "relic",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 2,
+          "gain": 8.3,
+          "loud": -24.3,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "levelup",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1.48,
+          "gain": -5.6,
+          "loud": -10.4,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "evolve",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 2.48,
+          "gain": -7,
+          "loud": -9,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "select",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": -4.9,
+          "loud": -17.1,
+          "attempt": 0
+        },
+        {
+          "dur": 0.36,
+          "gain": 4.5,
+          "loud": null,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "shard",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": 6.6,
+          "loud": -30.6,
+          "attempt": 1
+        },
+        {
+          "dur": 0.48,
+          "gain": -5.6,
+          "loud": -18.4,
+          "attempt": 0
+        }
+      ],
+      "cost": [
+        {
+          "character-cost": "6"
+        }
+      ]
+    },
+    {
+      "id": "event",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 0.96,
+          "gain": -4,
+          "loud": -14,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "biome",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 2.46,
+          "gain": -5.5,
+          "loud": -12.5,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "boss_intro",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 3.48,
+          "gain": -3,
+          "loud": -10,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "boss_phase",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 2,
+          "gain": -7.3,
+          "loud": -5.7,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "boss_break",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1.76,
+          "gain": -5.4,
+          "loud": -7.6,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "boss_die",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 4,
+          "gain": 1.5,
+          "loud": -14.5,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "ray_charge",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 1.79,
+          "gain": -6.7,
+          "loud": -6.3,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "ray_fire",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 2,
+          "gain": -8.4,
+          "loud": -4.6,
+          "attempt": 0
+        }
+      ],
+      "cost": []
+    },
+    {
+      "id": "xp",
+      "status": "generated",
+      "takes": 3,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": 3.4,
+          "loud": -27.4,
+          "attempt": 0
+        },
+        {
+          "dur": 0.48,
+          "gain": -6.4,
+          "loud": -17.6,
+          "attempt": 2
+        },
+        {
+          "dur": 0.48,
+          "gain": -0.3,
+          "loud": -23.8,
+          "attempt": 0
+        }
+      ],
+      "cost": [
+        {
+          "character-cost": "6"
+        },
+        {
+          "character-cost": "6"
+        }
+      ]
+    },
+    {
+      "id": "click",
+      "status": "failed",
+      "error": "take too quiet (needs +28 dB)"
+    }
+  ],
+  "credits": {
+    "start": 958,
+    "end": 958,
+    "used": 0
+  },
+  "finishedAt": "2026-11-14T22:23:28.749Z"
+}
