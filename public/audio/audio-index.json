@@ -90,5 +90,8 @@
     "sfx/zap_1.mp3",
     "sfx/zap_2.mp3"
   ],
-  "music": []
+  "music": [
+    "music/menu_1.mp3",
+    "music/menu_2.mp3"
+  ]
 }

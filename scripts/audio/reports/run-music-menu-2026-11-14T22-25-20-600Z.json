@@ -1,0 +1,34 @@
+{
+  "startedAt": "2026-11-14T22:25:20.600Z",
+  "group": "music-menu",
+  "dry": false,
+  "items": [
+    {
+      "id": "menu",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 2 layers",
+      "files": [
+        "menu_1.mp3",
+        "menu_2.mp3"
+      ],
+      "bars": 12,
+      "loopSec": 34.29,
+      "estBpm": 83.83,
+      "tempoFactor": 1,
+      "gain": -2.1,
+      "loud": -14.9,
+      "decoded": [
+        34.286,
+        34.286
+      ]
+    }
+  ],
+  "credits": {
+    "start": 1006,
+    "end": 2907,
+    "used": 1901
+  },
+  "finishedAt": "2026-11-14T22:25:40.720Z"
+}
