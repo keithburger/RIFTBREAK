@@ -24,7 +24,7 @@ export class FxSystem implements FxSink {
   flashCol = 0xffffff;
   flashA = 0;
   settings: FxSettings = { shake: 1, flash: 1, quality: 2, dmgNumbers: true };
-  onSfx: (name: string) => void = () => {};
+  onSfx: (name: string, x?: number, y?: number) => void = () => {};
   onBanner: (title: string, sub: string, color: number) => void = () => {};
   /** Only effects inside this rect are spawned (set each frame from the camera). */
   view = { x0: -1e9, y0: -1e9, x1: 1e9, y1: 1e9 };
@@ -63,7 +63,7 @@ export class FxSystem implements FxSink {
   }
   shake(amount: number): void { this.shakeAmt = Math.min(22, Math.max(this.shakeAmt, amount * this.settings.shake)); }
   flash(color: number, amount: number): void { const a = amount * this.settings.flash; if (a > this.flashA) { this.flashA = a; this.flashCol = color; } }
-  sfx(name: string): void { this.onSfx(name); }
+  sfx(name: string, x?: number, y?: number): void { this.onSfx(name, x, y); }
   banner(title: string, sub: string, color: number): void { this.onBanner(title, sub, color); }
 
   update(dt: number): void {

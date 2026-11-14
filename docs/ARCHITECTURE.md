@@ -21,7 +21,7 @@ no file ≥ 700 lines).
 | `sim/` | the whole game as a deterministic, headless simulation | see below |
 | `content/` | definitions and scripts; assembled + validated by `registry.ts` | one file per content type, `bosses/*` |
 | `render/` | procedural atlas, renderer backends, effects, scene | `atlas.ts`, `shapes.ts`, `renderer.ts`, `effects.ts`, `scene.ts` |
-| `audio/` | synthesized SFX + generative music | `audio.ts` |
+| `audio/` | sample + synth SFX with fallback, voice pool, adaptive music (see `AUDIO.md`) | `audio.ts`, `manifest.ts`, `music.ts`, `samples.ts`, `synth.ts` |
 | `input/` | keyboard (rebindable), touch joystick, gamepad → `InputState` | `input.ts` |
 | `save/` | versioned save, migrations, settings | `save.ts` |
 | `ui/` | DOM menus, HUD, overlays via `UIHost` | `ui.ts`, `styles.css` |

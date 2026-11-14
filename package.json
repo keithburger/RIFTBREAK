@@ -12,6 +12,7 @@
     "test:fast": "vitest run --exclude tests/sim.fullrun.test.ts",
     "validate": "tsx scripts/validate-content.ts",
     "manifest": "tsx scripts/build-manifest.ts",
+    "audio:index": "node scripts/build-audio-index.cjs",
     "balance": "tsx scripts/balance.ts",
     "bench": "tsx scripts/bench.ts",
     "e2e": "node scripts/e2e.cjs",
