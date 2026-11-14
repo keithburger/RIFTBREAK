@@ -91,9 +91,10 @@ npm run dev                                 # play at the printed URL; add ?dev 
 ```
 
 ### Audio generation (state)
-Pipeline complete and tested against a mock API (`scripts/audio/`, `.github/workflows/generate-audio.yml`);
-live probe confirmed `/v1/sound-generation`, `/v1/music` (music_v1/v2/v2_5) and six-stem separation.
-**No real assets yet**: the `ELEVENLABS_API_KEY` secret currently holds a key *ID* (not an `sk_…` secret), so
-every request is rejected (no credits spent). Once fixed, run *Generate audio*: pilot `only=slash,kill,hurt,boss_intro`,
-then `sfx`, `music-menu`, `music-biomes`, `music-bosses`; finally `npm test`, `npm run build`, `npm run e2e`.
-
+Complete: 89 SFX takes (all 63 event ids) and 14 music tracks (menu, 4 biomes, 8 bosses, generic boss; 3 intensity
+layers each, 2 for `boss` and `tempest_conductor`) generated with ElevenLabs (`eleven_text_to_sound_v2`, `music_v2_5` +
+six-stem separation) by `.github/workflows/generate-audio.yml`; 129 files, 26 MB, no duplicates, music mixes within
+0.1 LU of -17.4 LUFS. Verified: `npm test` (316), `npm run build`, `npm run e2e` (64/64), and in headless Chromium
+all 89 SFX decode, menu/biome/boss music play from stems, 0 HTTP or page errors. Not verifiable here: how it *sounds*
+(prompts need a listening pass; re-roll one sound with `only=<id>` + `force`). `null_expanse`: beat detection was
+unreliable (flagged `tempoSuspect`), tempo left at the model's natural value.

@@ -9,7 +9,7 @@ read-only state (listener position, music intensity, low-health danger). Audio n
 Every sound has a **synthesized recipe** (`synth.ts`) that is always available. A **sample** from
 `public/audio/` replaces it only once it has been indexed, fetched and decoded. A missing file, a 404,
 a failed decode or a not-yet-loaded sample all play the recipe, so the game is never silent by accident
-and works with zero asset files.
+and works with zero asset files (the shipped game now has generated samples for every id; the recipes remain the fallback).
 
 ## Adding or replacing audio (no code changes)
 

@@ -59,6 +59,18 @@ export class MusicDirector {
     if (ready) this.keep(found!.id);
   }
 
+  /**
+   * The sample index may arrive after the first request (the menu music is requested at unlock, before
+   * `audio-index.json` has been fetched). Re-check: if the current generative music now has a sampled
+   * track, load it and hand over at the next bar line.
+   */
+  reselect(): void {
+    const req = this.req, c = this.cur;
+    if (!req || !c?.gen) return;
+    const found = this.find(req.tracks);
+    if (found) void this.upgradeWhenLoaded(req, found.id, found.files);
+  }
+
   setIntensity(i: number): void {
     const c = this.cur;
     if (!c) return;
