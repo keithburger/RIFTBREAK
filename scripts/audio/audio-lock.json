@@ -513,6 +513,85 @@
         "null_expanse_3.mp3"
       ],
       "at": "2026-11-14T22:32:57.238Z"
+    },
+    "boss": {
+      "hash": "d7538afeb4641b18",
+      "files": [
+        "boss_1.mp3",
+        "boss_2.mp3"
+      ],
+      "at": "2026-11-14T22:34:31.119Z"
+    },
+    "mycelial_overmind": {
+      "hash": "26a71e63fdec468c",
+      "files": [
+        "mycelial_overmind_1.mp3",
+        "mycelial_overmind_2.mp3",
+        "mycelial_overmind_3.mp3"
+      ],
+      "at": "2026-11-14T22:34:49.129Z"
+    },
+    "tempest_conductor": {
+      "hash": "5d9bf7aa113967ce",
+      "files": [
+        "tempest_conductor_1.mp3",
+        "tempest_conductor_2.mp3"
+      ],
+      "at": "2026-11-14T22:35:06.089Z"
+    },
+    "arachnoid_siege_engine": {
+      "hash": "504a69786aca62d4",
+      "files": [
+        "arachnoid_siege_engine_1.mp3",
+        "arachnoid_siege_engine_2.mp3",
+        "arachnoid_siege_engine_3.mp3"
+      ],
+      "at": "2026-11-14T22:35:23.813Z"
+    },
+    "cinder_colossus": {
+      "hash": "7a60ab42a21a505f",
+      "files": [
+        "cinder_colossus_1.mp3",
+        "cinder_colossus_2.mp3",
+        "cinder_colossus_3.mp3"
+      ],
+      "at": "2026-11-14T22:35:40.292Z"
+    },
+    "tidal_leviathan": {
+      "hash": "87b0e24df19f9ac6",
+      "files": [
+        "tidal_leviathan_1.mp3",
+        "tidal_leviathan_2.mp3",
+        "tidal_leviathan_3.mp3"
+      ],
+      "at": "2026-11-14T22:35:59.250Z"
+    },
+    "prism_seraph": {
+      "hash": "6cacc9f3a14117f8",
+      "files": [
+        "prism_seraph_1.mp3",
+        "prism_seraph_2.mp3",
+        "prism_seraph_3.mp3"
+      ],
+      "at": "2026-11-14T22:36:15.301Z"
+    },
+    "hollow_monarch": {
+      "hash": "069ec30cfb78e9b1",
+      "files": [
+        "hollow_monarch_1.mp3",
+        "hollow_monarch_2.mp3",
+        "hollow_monarch_3.mp3"
+      ],
+      "at": "2026-11-14T22:36:32.972Z"
+    },
+    "rift_sovereign": {
+      "hash": "c4d18023fa7ed56e",
+      "files": [
+        "rift_sovereign_1.mp3",
+        "rift_sovereign_2.mp3",
+        "rift_sovereign_3.mp3"
+      ],
+      "at": "2026-11-14T22:36:55.196Z"
     }
   }
 }

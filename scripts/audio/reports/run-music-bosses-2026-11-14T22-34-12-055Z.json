@@ -1,0 +1,234 @@
+{
+  "startedAt": "2026-11-14T22:34:12.055Z",
+  "group": "music-bosses",
+  "dry": false,
+  "items": [
+    {
+      "id": "boss",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 2 layers",
+      "stemReport": "bass.mp3:-52dB drums.mp3:-5dB guitar.mp3:-56dB other.mp3:-4dB piano.mp3:-15dB vocals.mp3:-90dB | groups 1=4f@-3.8dB 2=1f@-5dB 3=1f@-51.8dB",
+      "files": [
+        "boss_1.mp3",
+        "boss_2.mp3"
+      ],
+      "bars": 20,
+      "loopSec": 38.71,
+      "estBpm": 124.56,
+      "tempoFactor": 0.9955,
+      "tempoSuspect": false,
+      "gain": -2.1,
+      "loud": -14.9,
+      "decoded": [
+        38.71,
+        38.71
+      ]
+    },
+    {
+      "id": "mycelial_overmind",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 3 layers",
+      "stemReport": "bass.mp3:-3dB drums.mp3:-2dB guitar.mp3:-66dB other.mp3:-8dB piano.mp3:-90dB vocals.mp3:-84dB | groups 1=4f@-7.7dB 2=1f@-2.2dB 3=1f@-3.1dB",
+      "files": [
+        "mycelial_overmind_1.mp3",
+        "mycelial_overmind_2.mp3",
+        "mycelial_overmind_3.mp3"
+      ],
+      "bars": 16,
+      "loopSec": 38.4,
+      "estBpm": 99.9,
+      "tempoFactor": 1,
+      "tempoSuspect": false,
+      "gain": -3.7,
+      "loud": -13.3,
+      "decoded": [
+        38.4,
+        38.4,
+        38.4
+      ]
+    },
+    {
+      "id": "tempest_conductor",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 2 layers",
+      "stemReport": "bass.mp3:-81dB drums.mp3:-1dB guitar.mp3:-90dB other.mp3:-3dB piano.mp3:-90dB vocals.mp3:-84dB | groups 1=4f@-3.3dB 2=1f@-1.3dB 3=1f@-80.8dB",
+      "files": [
+        "tempest_conductor_1.mp3",
+        "tempest_conductor_2.mp3"
+      ],
+      "bars": 24,
+      "loopSec": 43.64,
+      "estBpm": 132,
+      "tempoFactor": 1,
+      "tempoSuspect": false,
+      "gain": -3.2,
+      "loud": -13.8,
+      "decoded": [
+        43.636,
+        43.636
+      ]
+    },
+    {
+      "id": "arachnoid_siege_engine",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 3 layers",
+      "stemReport": "bass.mp3:-11dB drums.mp3:-1dB guitar.mp3:-39dB other.mp3:-5dB piano.mp3:-90dB vocals.mp3:-90dB | groups 1=4f@-4.6dB 2=1f@-0.9dB 3=1f@-11.4dB",
+      "files": [
+        "arachnoid_siege_engine_1.mp3",
+        "arachnoid_siege_engine_2.mp3",
+        "arachnoid_siege_engine_3.mp3"
+      ],
+      "bars": 20,
+      "loopSec": 40.68,
+      "estBpm": 117.82,
+      "tempoFactor": 1,
+      "tempoSuspect": false,
+      "gain": -4.7,
+      "loud": -12.3,
+      "decoded": [
+        40.678,
+        40.678,
+        40.678
+      ]
+    },
+    {
+      "id": "cinder_colossus",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 3 layers",
+      "stemReport": "bass.mp3:-21dB drums.mp3:-1dB guitar.mp3:-90dB other.mp3:-3dB piano.mp3:-90dB vocals.mp3:-91dB | groups 1=4f@-3.4dB 2=1f@-1.1dB 3=1f@-20.9dB",
+      "files": [
+        "cinder_colossus_1.mp3",
+        "cinder_colossus_2.mp3",
+        "cinder_colossus_3.mp3"
+      ],
+      "bars": 16,
+      "loopSec": 35.56,
+      "estBpm": 108.27,
+      "tempoFactor": 1,
+      "tempoSuspect": false,
+      "gain": -3.2,
+      "loud": -13.8,
+      "decoded": [
+        35.556,
+        35.556,
+        35.556
+      ]
+    },
+    {
+      "id": "tidal_leviathan",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 3 layers",
+      "stemReport": "bass.mp3:-8dB drums.mp3:-3dB guitar.mp3:-90dB other.mp3:-13dB piano.mp3:-91dB vocals.mp3:-90dB | groups 1=4f@-12.8dB 2=1f@-2.9dB 3=1f@-8.1dB",
+      "files": [
+        "tidal_leviathan_1.mp3",
+        "tidal_leviathan_2.mp3",
+        "tidal_leviathan_3.mp3"
+      ],
+      "bars": 16,
+      "loopSec": 42.67,
+      "estBpm": 90.05,
+      "tempoFactor": 1,
+      "tempoSuspect": false,
+      "gain": 0.3,
+      "loud": -17.3,
+      "decoded": [
+        42.667,
+        42.667,
+        42.667
+      ]
+    },
+    {
+      "id": "prism_seraph",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 3 layers",
+      "stemReport": "bass.mp3:-9dB drums.mp3:-1dB guitar.mp3:-90dB other.mp3:-5dB piano.mp3:-90dB vocals.mp3:-90dB | groups 1=4f@-4.8dB 2=1f@-1.1dB 3=1f@-9dB",
+      "files": [
+        "prism_seraph_1.mp3",
+        "prism_seraph_2.mp3",
+        "prism_seraph_3.mp3"
+      ],
+      "bars": 20,
+      "loopSec": 37.5,
+      "estBpm": 127.81,
+      "tempoFactor": 1,
+      "tempoSuspect": false,
+      "gain": -5.2,
+      "loud": -11.8,
+      "decoded": [
+        37.5,
+        37.5,
+        37.5
+      ]
+    },
+    {
+      "id": "hollow_monarch",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 3 layers",
+      "stemReport": "bass.mp3:-4dB drums.mp3:-0dB guitar.mp3:-90dB other.mp3:-6dB piano.mp3:-90dB vocals.mp3:-90dB | groups 1=4f@-6.2dB 2=1f@-0.4dB 3=1f@-3.5dB",
+      "files": [
+        "hollow_monarch_1.mp3",
+        "hollow_monarch_2.mp3",
+        "hollow_monarch_3.mp3"
+      ],
+      "bars": 20,
+      "loopSec": 43.64,
+      "estBpm": 109.95,
+      "tempoFactor": 1,
+      "tempoSuspect": false,
+      "gain": -5.3,
+      "loud": -11.7,
+      "decoded": [
+        43.636,
+        43.636,
+        43.636
+      ]
+    },
+    {
+      "id": "rift_sovereign",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 3 layers",
+      "stemReport": "bass.mp3:-10dB drums.mp3:-4dB guitar.mp3:-90dB other.mp3:-4dB piano.mp3:-91dB vocals.mp3:-91dB | groups 1=4f@-4.2dB 2=1f@-4.3dB 3=1f@-9.5dB",
+      "files": [
+        "rift_sovereign_1.mp3",
+        "rift_sovereign_2.mp3",
+        "rift_sovereign_3.mp3"
+      ],
+      "bars": 24,
+      "loopSec": 41.14,
+      "estBpm": 140,
+      "tempoFactor": 1,
+      "tempoSuspect": false,
+      "gain": -1.8,
+      "loud": -15.2,
+      "decoded": [
+        41.143,
+        41.143,
+        41.143
+      ]
+    }
+  ],
+  "credits": {
+    "start": 12877,
+    "end": 28961,
+    "used": 16084
+  },
+  "finishedAt": "2026-11-14T22:36:56.438Z"
+}
