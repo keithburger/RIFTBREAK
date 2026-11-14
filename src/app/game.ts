@@ -1,5 +1,5 @@
 /** Application lifecycle: owns the loop and wires simulation, rendering, audio, input, UI and save. */
-import { AudioSys } from '../audio/audio';
+import { AudioSys, type MusicRequest } from '../audio/audio';
 import { content } from '../content/registry';
 import { Input } from '../input/input';
 import { buildAtlas, type Atlas } from '../render/atlas';
@@ -61,7 +61,7 @@ export class Game implements UIHost {
     this.draw = new Draw(this.renderer);
     this.input = new Input(this.save.data.settings.keys, this.canvas);
     this.ui = new UI(this.uiRoot, this);
-    this.fx.onSfx = (n) => { if (this.state !== 'menu') this.audio.play(n); };
+    this.fx.onSfx = (n, x, y) => { if (this.state !== 'menu') this.audio.play(n, x, y); };
     this.fx.onBanner = (t, s, c) => { if (this.state !== 'menu') this.ui.banner(t, s, c); };
     this.input.onPause = () => this.pauseToggle();
     this.input.onKey = (code) => { if (this.rebindCb) { const cb = this.rebindCb; this.rebindCb = null; cb(code); } };
@@ -103,6 +103,33 @@ export class Game implements UIHost {
   }
 
   sfx(name: string): void { this.audio.play(name); }
+
+  /** Music request for the world's current situation (read-only view of the sim). */
+  private musicFor(w: World, key: string, bossId: string): MusicRequest {
+    const boss = !!w.boss;
+    return {
+      key, boss,
+      tracks: boss ? [bossId, 'boss'] : [w.biome.id],
+      gen: w.biome.music,
+      intensity: this.intensityOf(w),
+    };
+  }
+
+  /** 0 calm · 1 combat · 2 peak, from crowd size and boss phase — cheap, read-only. */
+  private intensityOf(w: World): number {
+    const bc = w.boss?.boss;
+    if (bc) return bc.phase >= 1 ? 2 : 1;
+    const n = w.enemies.length;
+    return n > 160 ? 2 : n > 35 ? 1 : 0;
+  }
+
+  /** Per-quarter-second adaptive audio state: listener, intensity, low-health danger. */
+  private audioState(w: World): void {
+    this.audio.setListener(w.player.x, w.player.y);
+    this.audio.setIntensity(this.intensityOf(w));
+    const hpf = w.player.hp / w.player.stats.maxHp;
+    this.audio.setDanger(hpf < 0.35 && w.state === 'play' ? (0.35 - hpf) / 0.35 : 0);
+  }
   dash(): void { this.input.pressDash(); }
   rebind(_action: string, done: (code: string) => void): void { this.rebindCb = done; }
 
@@ -124,7 +151,8 @@ export class Game implements UIHost {
     this.attract.pendingLevels = 9;
     this.bot.resolve(this.attract);
     this.renderer.setBackground(0);
-    this.audio.setMusic({ root: 45, scale: [0, 3, 5, 7, 10], tempo: 84 }, 0);
+    this.audio.setDanger(0);
+    this.audio.setMusic({ key: 'menu', tracks: ['menu'], gen: { root: 45, scale: [0, 3, 5, 7, 10], tempo: 84 }, intensity: 0 });
     this.musicKey = 'menu';
     this.ui.showMenu();
   }
@@ -202,6 +230,7 @@ export class Game implements UIHost {
     st.kills += w.stats.kills;
     this.save.data.shards += shards;
     this.save.save();
+    this.audio.setDanger(0);
     this.audio.setMusic(null);
     this.ui.showEnd({ won, mode: `${w.player.cls.name} · ${w.mode.name}`, time: w.time, level: w.player.level, kills: w.stats.kills, bosses: w.stats.bosses.length, shards, reactions: w.stats.reactions, weapons: this.ui.weaponRows(w.player.weapons), unlocked });
   }
@@ -242,8 +271,10 @@ export class Game implements UIHost {
     this.renderMs += (t2 - t1 - this.renderMs) * 0.05;
     if (this.state === 'run' && w) {
       if (this.frame % 4 === 0) this.ui.updateHud(w);
-      const key = w.biome.id + (w.boss ? 'B' : '');
-      if (key !== this.musicKey) { this.musicKey = key; this.renderer.setBackground(w.biomeIdx); this.audio.setMusic(w.biome.music, w.boss ? 1 : 0); }
+      const bossId = w.boss?.boss?.def.id ?? '';
+      const key = w.biome.id + (w.boss ? ':' + bossId : '');
+      if (key !== this.musicKey) { this.musicKey = key; this.renderer.setBackground(w.biomeIdx); this.audio.setMusic(this.musicFor(w, key, bossId)); }
+      if (this.frame % 15 === 0) this.audioState(w);
       if (this.showPerf && this.frame % 20 === 0) this.ui.setPerf(`${(1000 / this.ema).toFixed(0)} fps  ${this.ema.toFixed(1)} ms (sim ${this.simMs.toFixed(1)} draw ${this.renderMs.toFixed(1)})  enemies ${w.enemies.length}  sprites ${this.renderer.spriteCount}  q${this.fx.settings.quality}  ${this.renderer.kind}`);
     }
     this.ui.flash(this.fx.flashCol, this.fx.flashA);

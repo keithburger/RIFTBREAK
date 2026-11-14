@@ -12,6 +12,8 @@ export function installDev(game: Game): void {
   game.showPerf = true;
   const api = {
     game,
+    /** Audio diagnostics: voices, drops, steals, which sounds fired, music state. */
+    audio: () => game.audio.stats(),
     get world() { return game.world; },
     /** Start a run with a fixed seed for reproduction. */
     start(classId = 'vanguard', modeId = 'standard', seed = 12345) { game.seedOverride = seed; game.startRun(classId, modeId); },

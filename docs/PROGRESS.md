@@ -21,6 +21,12 @@ State snapshot (not a diary). Update at milestones.
 
 `content-manifest.json`: 251 items, 251 verified, 0 failing.
 
+## Audio
+Engine rebuilt (`docs/AUDIO.md`): sample bank with synth fallback, voice pool/priority stealing, spatial pan,
+music ducking, low-health danger, bar-quantized crossfading adaptive music (stems or generative).
+**No sample assets are committed yet** — everything currently plays the synthesized fallback. Drop files in
+`public/audio/` and run `npm run audio:index`.
+
 ## Last verification
 - `npm run typecheck` ✓ · `npm run validate` ✓ · `npm test` 267/267 ✓ · `npm run build` ✓
 - `npm run e2e` 54/54 ✓ (WebGL + Canvas fallback + touch portrait/landscape), no runtime errors
