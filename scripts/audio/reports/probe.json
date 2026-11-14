@@ -1,0 +1,224 @@
+{
+  "at": "2026-11-14T21:59:18.980Z",
+  "api": "api.elevenlabs.io",
+  "subscription": null,
+  "paths": [
+    "/v1/music",
+    "/v1/music/detailed",
+    "/v1/music/detailed/stream",
+    "/v1/music/finetunes",
+    "/v1/music/finetunes/{finetune_id}",
+    "/v1/music/plan",
+    "/v1/music/stem-separation",
+    "/v1/music/stream",
+    "/v1/music/upload",
+    "/v1/music/video-to-music",
+    "/v1/sound-generation"
+  ],
+  "endpoints": {
+    "/v1/sound-generation": {
+      "contentTypes": [
+        "application/json"
+      ],
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": [
+          "string"
+        ],
+        "loop": [
+          "boolean"
+        ],
+        "duration_seconds": [
+          "number|null"
+        ],
+        "prompt_influence": [
+          "number|null"
+        ],
+        "model_id": [
+          "string",
+          [
+            "eleven_text_to_sound_v2",
+            "eleven_text_to_sound_v3"
+          ]
+        ]
+      },
+      "params": [
+        "query:output_format",
+        "query:enable_logging",
+        "header:xi-api-key"
+      ]
+    },
+    "/v1/music": {
+      "contentTypes": [
+        "application/json"
+      ],
+      "required": [],
+      "properties": {
+        "prompt": [
+          "string|null"
+        ],
+        "generation_mode": [
+          "string|null"
+        ],
+        "music_prompt": [
+          "object|null"
+        ],
+        "lyrics_text": [
+          "string|null"
+        ],
+        "composition_plan": [
+          "null"
+        ],
+        "music_length_ms": [
+          "integer|null"
+        ],
+        "model_id": [
+          "string",
+          [
+            "music_v1",
+            "music_v2",
+            "music_v2_5"
+          ]
+        ],
+        "seed": [
+          "integer|null"
+        ],
+        "force_instrumental": [
+          "boolean"
+        ],
+        "finetune_id": [
+          "string|null"
+        ],
+        "finetune_strength": [
+          "number",
+          2
+        ],
+        "use_phonetic_names": [
+          "boolean"
+        ],
+        "respect_sections_durations": [
+          "boolean"
+        ],
+        "store_for_inpainting": [
+          "boolean"
+        ],
+        "sign_with_c2pa": [
+          "boolean"
+        ]
+      },
+      "params": [
+        "query:output_format",
+        "query:enable_logging",
+        "header:xi-api-key"
+      ]
+    },
+    "/v1/music/stem-separation": {
+      "contentTypes": [
+        "multipart/form-data"
+      ],
+      "required": [
+        "file"
+      ],
+      "properties": {
+        "file": [
+          "string"
+        ],
+        "stem_variation_id": [
+          "string",
+          [
+            "two_stems_v1",
+            "six_stems_v1"
+          ]
+        ],
+        "sign_with_c2pa": [
+          "boolean"
+        ]
+      },
+      "params": [
+        "query:output_format",
+        "query:enable_logging",
+        "header:xi-api-key"
+      ]
+    },
+    "/v1/music/compose": null,
+    "/v1/music/detailed": {
+      "contentTypes": [
+        "application/json"
+      ],
+      "required": [],
+      "properties": {
+        "prompt": [
+          "string|null"
+        ],
+        "generation_mode": [
+          "string|null"
+        ],
+        "music_prompt": [
+          "object|null"
+        ],
+        "lyrics_text": [
+          "string|null"
+        ],
+        "composition_plan": [
+          "null"
+        ],
+        "music_length_ms": [
+          "integer|null"
+        ],
+        "model_id": [
+          "string",
+          [
+            "music_v1",
+            "music_v2",
+            "music_v2_5"
+          ]
+        ],
+        "seed": [
+          "integer|null"
+        ],
+        "force_instrumental": [
+          "boolean"
+        ],
+        "finetune_id": [
+          "string|null"
+        ],
+        "finetune_strength": [
+          "number",
+          2
+        ],
+        "use_phonetic_names": [
+          "boolean"
+        ],
+        "respect_sections_durations": [
+          "boolean"
+        ],
+        "store_for_inpainting": [
+          "boolean"
+        ],
+        "with_timestamps": [
+          "boolean"
+        ],
+        "with_waveform_visual": [
+          "boolean"
+        ],
+        "sign_with_c2pa": [
+          "boolean"
+        ],
+        "model_style_prefix": [
+          "string",
+          [
+            "music",
+            "sfx"
+          ]
+        ]
+      },
+      "params": [
+        "query:output_format",
+        "query:enable_logging",
+        "header:xi-api-key"
+      ]
+    }
+  }
+}
