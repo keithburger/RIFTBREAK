@@ -79,6 +79,12 @@ export class Input {
     this.onJoy(null);
   }
 
+  /** One-line joystick state for the ?dev overlay: lets a phone report what the game actually receives. */
+  debug(): string {
+    const j = this.joy;
+    return `joy ${j.id >= 0 ? 'ON id' + j.id : 'off'} mag${j.mag.toFixed(2)} in(${this.state.mx.toFixed(2)},${this.state.my.toFixed(2)}) ${this.enabled ? 'enabled' : 'DISABLED'} touch:${this.touchSeen ? 'y' : 'n'}`;
+  }
+
   pressDash(): void { if (this.enabled) this.dashLatch = true; }
 
   /** Clear all held state. Called whenever an overlay opens so nothing "sticks". */

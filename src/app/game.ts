@@ -275,7 +275,7 @@ export class Game implements UIHost {
       const key = w.biome.id + (w.boss ? ':' + bossId : '');
       if (key !== this.musicKey) { this.musicKey = key; this.renderer.setBackground(w.biomeIdx); this.audio.setMusic(this.musicFor(w, key, bossId)); }
       if (this.frame % 15 === 0) this.audioState(w);
-      if (this.showPerf && this.frame % 20 === 0) this.ui.setPerf(`${(1000 / this.ema).toFixed(0)} fps  ${this.ema.toFixed(1)} ms (sim ${this.simMs.toFixed(1)} draw ${this.renderMs.toFixed(1)})  enemies ${w.enemies.length}  sprites ${this.renderer.spriteCount}  q${this.fx.settings.quality}  ${this.renderer.kind}`);
+      if (this.showPerf && this.frame % 20 === 0) this.ui.setPerf(`${(1000 / this.ema).toFixed(0)} fps  ${this.ema.toFixed(1)} ms (sim ${this.simMs.toFixed(1)} draw ${this.renderMs.toFixed(1)})  enemies ${w.enemies.length}  sprites ${this.renderer.spriteCount}  q${this.fx.settings.quality}  ${this.renderer.kind}  ${this.input.debug()}`);
     }
     this.ui.flash(this.fx.flashCol, this.fx.flashA);
     // adaptive quality: shed decorative effects first, never simulation

@@ -1,0 +1,33 @@
+{
+  "startedAt": "2026-11-14T22:00:59.355Z",
+  "group": "sfx",
+  "dry": false,
+  "items": [
+    {
+      "id": "kill",
+      "status": "failed",
+      "error": "POST /v1/sound-generation -> HTTP 400: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"invalid_api_key\",\"message\":\"API key ID used as API key - only valid API keys can be used. API keys start with 'sk_' and are shown when the key is created or rotated.\",\"status\":\"api_key_id_used_as_api_key\",\"reques"
+    },
+    {
+      "id": "slash",
+      "status": "failed",
+      "error": "POST /v1/sound-generation -> HTTP 400: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"invalid_api_key\",\"message\":\"API key ID used as API key - only valid API keys can be used. API keys start with 'sk_' and are shown when the key is created or rotated.\",\"status\":\"api_key_id_used_as_api_key\",\"reques"
+    },
+    {
+      "id": "hurt",
+      "status": "failed",
+      "error": "POST /v1/sound-generation -> HTTP 400: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"invalid_api_key\",\"message\":\"API key ID used as API key - only valid API keys can be used. API keys start with 'sk_' and are shown when the key is created or rotated.\",\"status\":\"api_key_id_used_as_api_key\",\"reques"
+    },
+    {
+      "id": "boss_intro",
+      "status": "failed",
+      "error": "POST /v1/sound-generation -> HTTP 400: {\"detail\":{\"type\":\"authentication_error\",\"code\":\"invalid_api_key\",\"message\":\"API key ID used as API key - only valid API keys can be used. API keys start with 'sk_' and are shown when the key is created or rotated.\",\"status\":\"api_key_id_used_as_api_key\",\"reques"
+    }
+  ],
+  "credits": {
+    "start": null,
+    "end": null,
+    "used": null
+  },
+  "finishedAt": "2026-11-14T22:00:59.903Z"
+}

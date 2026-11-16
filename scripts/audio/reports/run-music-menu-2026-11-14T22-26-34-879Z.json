@@ -1,0 +1,35 @@
+{
+  "startedAt": "2026-11-14T22:26:34.879Z",
+  "group": "music-menu",
+  "dry": false,
+  "items": [
+    {
+      "id": "menu",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": null,
+      "stems": "6 stems -> 2 layers",
+      "stemReport": "bass.mp3:-13dB drums.mp3:-5dB guitar.mp3:-84dB other.mp3:-5dB piano.mp3:-90dB vocals.mp3:-90dB | groups 1=2f@-4.2dB 2=1f@-5.1dB 3=3f@-84.3dB",
+      "files": [
+        "menu_1.mp3",
+        "menu_2.mp3"
+      ],
+      "bars": 12,
+      "loopSec": 34.29,
+      "estBpm": 83.83,
+      "tempoFactor": 1,
+      "gain": -2.1,
+      "loud": -14.9,
+      "decoded": [
+        34.286,
+        34.286
+      ]
+    }
+  ],
+  "credits": {
+    "start": 2907,
+    "end": 2907,
+    "used": 0
+  },
+  "finishedAt": "2026-11-14T22:26:42.095Z"
+}

@@ -1,0 +1,90 @@
+{
+  "startedAt": "2026-11-14T22:28:56.226Z",
+  "group": "music-biomes",
+  "dry": false,
+  "items": [
+    {
+      "id": "verdant_fracture",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 3 layers",
+      "stemReport": "bass.mp3:-9dB drums.mp3:-3dB guitar.mp3:-90dB other.mp3:-5dB piano.mp3:-91dB vocals.mp3:-90dB | groups 1=4f@-5.3dB 2=1f@-3.1dB 3=1f@-8.8dB",
+      "files": [
+        "verdant_fracture_1.mp3",
+        "verdant_fracture_2.mp3",
+        "verdant_fracture_3.mp3"
+      ],
+      "bars": 16,
+      "loopSec": 40,
+      "estBpm": 96,
+      "tempoFactor": 1,
+      "gain": -1.7,
+      "loud": -15.3,
+      "decoded": [
+        40,
+        40,
+        40
+      ]
+    },
+    {
+      "id": "ironvault_foundry",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 3 layers",
+      "stemReport": "bass.mp3:-3dB drums.mp3:0dB guitar.mp3:-54dB other.mp3:-4dB piano.mp3:-90dB vocals.mp3:-84dB | groups 1=4f@-3.5dB 2=1f@0dB 3=1f@-2.8dB",
+      "files": [
+        "ironvault_foundry_1.mp3",
+        "ironvault_foundry_2.mp3",
+        "ironvault_foundry_3.mp3"
+      ],
+      "bars": 20,
+      "loopSec": 42.86,
+      "estBpm": 112.06,
+      "tempoFactor": 1,
+      "gain": -3.3,
+      "loud": -13.7,
+      "decoded": [
+        42.857,
+        42.857,
+        42.857
+      ]
+    },
+    {
+      "id": "drowned_archive",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": {},
+      "stems": "6 stems -> 3 layers",
+      "stemReport": "bass.mp3:-13dB drums.mp3:-3dB guitar.mp3:-81dB other.mp3:-3dB piano.mp3:-3dB vocals.mp3:-90dB | groups 1=4f@-2.1dB 2=1f@-2.6dB 3=1f@-12.8dB",
+      "files": [
+        "drowned_archive_1.mp3",
+        "drowned_archive_2.mp3",
+        "drowned_archive_3.mp3"
+      ],
+      "bars": 16,
+      "loopSec": 36.92,
+      "estBpm": 104,
+      "tempoFactor": 1,
+      "gain": -3,
+      "loud": -14,
+      "decoded": [
+        36.923,
+        36.923,
+        36.923
+      ]
+    },
+    {
+      "id": "null_expanse",
+      "status": "failed",
+      "error": "take too short after tempo fit: 42.1 s < 44.0 s"
+    }
+  ],
+  "credits": {
+    "start": 4798,
+    "end": 8988,
+    "used": 4190
+  },
+  "finishedAt": "2026-11-14T22:30:12.594Z"
+}

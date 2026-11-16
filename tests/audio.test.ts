@@ -399,6 +399,18 @@ describe('adaptive music', () => {
     expect(a.stats().music).toBe('stems');
     expect(a.stats().samplesDecoded).toBe(1);
   });
+  it('music requested before the sample index arrives (the menu) still upgrades to its stems', async () => {
+    // Regression: the menu track is requested at unlock, before audio-index.json is fetched; nothing re-checked.
+    const fetcher = (): Promise<unknown> => Promise.resolve({ ok: true, json: () => Promise.resolve({ sfx: [], music: ['music/menu.mp3'] }), arrayBuffer: () => Promise.resolve(new ArrayBuffer(8)) });
+    const { a, ctx } = mk(fetcher as never);
+    a.setMusic(req('menu')); // the index has not been read yet, so no sampled track is known
+    expect(a.stats().music).toBe('gen');
+    for (let i = 0; i < 30; i++) await Promise.resolve();
+    await new Promise((r) => setTimeout(r, 10));
+    pump(a, ctx, 0.5);
+    expect(a.stats().music).toBe('stems');
+    expect(a.stats().musicKey).toBe('menu');
+  });
   it('setMusic(null) fades out and disposes; setMusic before unlock is applied on unlock', () => {
     const { a, ctx } = mk();
     a.setMusic(req('verdant'));

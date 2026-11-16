@@ -5,3 +5,7 @@ dist
 test-results
 screenshots
 test-results.json
+audio-raw
+# Local secrets written by `elevenlabs onboard`
+/.env.local
+release

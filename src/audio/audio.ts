@@ -278,6 +278,7 @@ export class AudioSys {
   private onIndex(): void {
     const names = this.bank.sfxNames().sort((a, b) => (metaOf(b)?.prio ?? 1) - (metaOf(a)?.prio ?? 1));
     for (const n of names) this.bank.preload(this.bank.variants(n) ?? []);
+    this.music.reselect(); // music requested before the index arrived (the menu) can now use its stems
   }
 
   private visibility(): void {

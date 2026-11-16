@@ -1,0 +1,113 @@
+{
+  "startedAt": "2026-11-14T22:17:53.719Z",
+  "group": "sfx",
+  "dry": false,
+  "items": [
+    {
+      "id": "hurt",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.6,
+          "gain": -10,
+          "loud": -7
+        },
+        {
+          "dur": 0.6,
+          "gain": -7,
+          "loud": -10
+        }
+      ],
+      "cost": [
+        {
+          "character-cost": "7"
+        },
+        {
+          "character-cost": "7"
+        }
+      ]
+    },
+    {
+      "id": "slash",
+      "status": "generated",
+      "takes": 2,
+      "info": [
+        {
+          "dur": 0.48,
+          "gain": -9.4,
+          "loud": -11.6
+        },
+        {
+          "dur": 0.48,
+          "gain": -8.7,
+          "loud": -12.3
+        }
+      ],
+      "cost": [
+        {
+          "character-cost": "6"
+        },
+        {
+          "character-cost": "6"
+        }
+      ]
+    },
+    {
+      "id": "boss_intro",
+      "status": "generated",
+      "takes": 1,
+      "info": [
+        {
+          "dur": 3.48,
+          "gain": -3,
+          "loud": -10
+        }
+      ],
+      "cost": [
+        {
+          "character-cost": "38"
+        }
+      ]
+    },
+    {
+      "id": "kill",
+      "status": "generated",
+      "takes": 3,
+      "info": [
+        {
+          "dur": 0.24,
+          "gain": 9.9,
+          "loud": null
+        },
+        {
+          "dur": 0.22,
+          "gain": 12.6,
+          "loud": null
+        },
+        {
+          "dur": 0.16,
+          "gain": 10,
+          "loud": null
+        }
+      ],
+      "cost": [
+        {
+          "character-cost": "6"
+        },
+        {
+          "character-cost": "6"
+        },
+        {
+          "character-cost": "6"
+        }
+      ]
+    }
+  ],
+  "credits": {
+    "start": 0,
+    "end": 0,
+    "used": 0
+  },
+  "finishedAt": "2026-11-14T22:18:03.646Z"
+}

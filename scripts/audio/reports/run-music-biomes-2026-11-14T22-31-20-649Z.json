@@ -1,0 +1,37 @@
+{
+  "startedAt": "2026-11-14T22:31:20.649Z",
+  "group": "music-biomes",
+  "dry": false,
+  "items": [
+    {
+      "id": "null_expanse",
+      "status": "generated",
+      "model": "music_v2_5",
+      "cost": null,
+      "stems": "6 stems -> 3 layers",
+      "stemReport": "bass.mp3:-7dB drums.mp3:-3dB guitar.mp3:-84dB other.mp3:-3dB piano.mp3:-90dB vocals.mp3:-90dB | groups 1=4f@-2.8dB 2=1f@-2.6dB 3=1f@-7.3dB",
+      "files": [
+        "null_expanse_1.mp3",
+        "null_expanse_2.mp3",
+        "null_expanse_3.mp3"
+      ],
+      "bars": 16,
+      "loopSec": 32,
+      "estBpm": 105,
+      "tempoFactor": 1.1429,
+      "gain": -4.1,
+      "loud": -12.9,
+      "decoded": [
+        32,
+        32,
+        32
+      ]
+    }
+  ],
+  "credits": {
+    "start": 12877,
+    "end": 12877,
+    "used": 0
+  },
+  "finishedAt": "2026-11-14T22:31:29.525Z"
+}

@@ -89,3 +89,12 @@ npm run verify                              # typecheck, validate, tests, manife
 (npm run preview > /dev/null 2>&1 &) ; sleep 2 ; npm run e2e
 npm run dev                                 # play at the printed URL; add ?dev for tools
 ```
+
+### Audio generation (state)
+Complete: 89 SFX takes (all 63 event ids) and 14 music tracks (menu, 4 biomes, 8 bosses, generic boss; 3 intensity
+layers each, 2 for `boss` and `tempest_conductor`) generated with ElevenLabs (`eleven_text_to_sound_v2`, `music_v2_5` +
+six-stem separation) by `.github/workflows/generate-audio.yml`; 129 files, 26 MB, no duplicates, music mixes within
+0.1 LU of -17.4 LUFS. Verified: `npm test` (316), `npm run build`, `npm run e2e` (64/64), and in headless Chromium
+all 89 SFX decode, menu/biome/boss music play from stems, 0 HTTP or page errors. Not verifiable here: how it *sounds*
+(prompts need a listening pass; re-roll one sound with `only=<id>` + `force`). `null_expanse`: beat detection was
+unreliable (flagged `tempoSuspect`), tempo left at the model's natural value.
